@@ -1,1133 +1,1311 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rebelión Sabores Salvajes — Envigado</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C97A;
-      --gold-dim: #8A6E2F;
-      --dark: #0D0B08;
-      --dark2: #141209;
-      --dark3: #1C1912;
-      --dark4: #252118;
-      --text: #F0EBE0;
-      --text-muted: #9A9080;
-      --ember: #D45A20;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--dark);
-      color: var(--text);
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.2rem 4rem;
-      background: linear-gradient(to bottom, rgba(13,11,8,0.95) 0%, transparent 100%);
-      backdrop-filter: blur(4px);
-    }
-
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.12em;
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover { color: var(--gold); }
-
-    .nav-reserva {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dark);
-      background: var(--gold);
-      padding: 0.55rem 1.4rem;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    .nav-reserva:hover { background: var(--gold-light); }
-
-    /* ── HERO ── */
-    #inicio {
-      position: relative;
-      height: 100vh;
-      min-height: 680px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 60% at 50% 70%, rgba(201,168,76,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 80% 80% at 50% 100%, rgba(212,90,32,0.12) 0%, transparent 60%),
-        var(--dark2);
-      z-index: 0;
-    }
-
-    /* Flame/ember particles */
-    .ember {
-      position: absolute;
-      bottom: 0;
-      width: 2px;
-      height: 2px;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: 0;
-      animation: rise var(--dur, 4s) var(--delay, 0s) infinite ease-out;
-      left: var(--x, 50%);
-    }
-
-    @keyframes rise {
-      0%   { transform: translateY(0) scale(1);   opacity: 0.8; }
-      60%  { opacity: 0.4; }
-      100% { transform: translateY(-80vh) scale(0); opacity: 0; }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 0 1rem;
-    }
-
-    .hero-eyebrow {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.2rem;
-      opacity: 0;
-      animation: fadeUp 1s 0.4s forwards;
-    }
-
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4.5rem, 12vw, 10rem);
-      line-height: 0.9;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      margin-bottom: 0.2rem;
-      opacity: 0;
-      animation: fadeUp 1s 0.6s forwards;
-    }
-
-    .hero-title span {
-      display: block;
-      color: var(--gold);
-    }
-
-    .hero-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      color: var(--text-muted);
-      margin: 1.2rem 0 2.5rem;
-      opacity: 0;
-      animation: fadeUp 1s 0.8s forwards;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-decoration: none;
-      border: 1px solid rgba(201,168,76,0.4);
-      padding: 0.9rem 2.2rem;
-      transition: border-color 0.3s, background 0.3s;
-      opacity: 0;
-      animation: fadeUp 1s 1s forwards;
-    }
-
-    .hero-cta:hover {
-      border-color: var(--gold);
-      background: rgba(201,168,76,0.07);
-    }
-
-    .hero-cta svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      opacity: 0;
-      animation: fadeIn 1s 1.5s forwards;
-    }
-
-    .hero-scroll span {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--gold-dim), transparent);
-      animation: scrollPulse 2s infinite;
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      margin: 0 auto 3.5rem;
-      max-width: 280px;
-    }
-
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold-dim));
-    }
-
-    .divider-line.right {
-      background: linear-gradient(to left, transparent, var(--gold-dim));
-    }
-
-    .divider-icon {
-      color: var(--gold);
-      font-size: 1.1rem;
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      padding: 7rem 2rem;
-    }
-
-    .section-label {
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 300;
-      text-align: center;
-      color: var(--text);
-      line-height: 1.15;
-      margin-bottom: 1rem;
-    }
-
-    .section-title em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .section-desc {
-      text-align: center;
-      color: var(--text-muted);
-      max-width: 540px;
-      margin: 0 auto 4rem;
-      font-size: 0.95rem;
-      line-height: 1.8;
-    }
-
-    /* ── NOSOTROS ── */
-    #nosotros {
-      background: var(--dark2);
-    }
-
-    .nosotros-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .nosotros-text h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      line-height: 1.2;
-      margin-bottom: 2rem;
-    }
-
-    .nosotros-text h2 em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .nosotros-text p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.2rem;
-      line-height: 1.9;
-    }
-
-    .nosotros-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-
-    .stat-box {
-      border-top: 1px solid var(--gold-dim);
-      padding-top: 1rem;
-    }
-
-    .stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .nosotros-visual {
-      position: relative;
-    }
-
-    .nosotros-img-frame {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background: var(--dark3);
-      border: 1px solid rgba(201,168,76,0.15);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nosotros-img-frame::before {
-      content: '';
-      position: absolute;
-      inset: 12px;
-      border: 1px solid rgba(201,168,76,0.1);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .img-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .img-placeholder svg {
-      width: 48px;
-      height: 48px;
-      stroke: var(--gold-dim);
-      fill: none;
-      opacity: 0.5;
-    }
-
-    .corner-deco {
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      border-color: var(--gold-dim);
-      border-style: solid;
-      opacity: 0.5;
-    }
-
-    .corner-deco.tl { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
-    .corner-deco.tr { top: 6px; right: 6px; border-width: 1px 1px 0 0; }
-    .corner-deco.bl { bottom: 6px; left: 6px; border-width: 0 0 1px 1px; }
-    .corner-deco.br { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
-
-    /* ── CARTA ── */
-    #carta {
-      background: var(--dark);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .carta-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 3.5rem;
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-    }
-
-    .carta-tab {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 0.8rem 2rem;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color 0.3s, border-color 0.3s;
-      background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-    }
-
-    .carta-tab.active {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
-    }
-
-    .carta-tab:hover:not(.active) { color: var(--text); }
-
-    .carta-panel { display: none; }
-    .carta-panel.active { display: block; }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5px;
-      background: rgba(201,168,76,0.1);
-    }
-
-    .menu-item {
-      background: var(--dark);
-      padding: 1.8rem 2rem;
-      transition: background 0.3s;
-    }
-
-    .menu-item:hover { background: var(--dark3); }
-
-    .menu-item-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-    }
-
-    .menu-item-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 0.8rem;
-    }
-
-    .menu-item-price {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.1em;
-      color: var(--gold);
-    }
-
-    .menu-note {
-      text-align: center;
-      margin-top: 2.5rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-style: italic;
-    }
-
-    /* ── RESERVAS ── */
-    #reservas {
-      background: var(--dark3);
-      text-align: center;
-    }
-
-    .reservas-inner {
-      max-width: 660px;
-      margin: 0 auto;
-    }
-
-    .reservas-card {
-      background: var(--dark4);
-      border: 1px solid rgba(201,168,76,0.2);
-      padding: 3.5rem;
-      position: relative;
-    }
-
-    .reservas-card::before {
-      content: '';
-      position: absolute;
-      top: 8px; left: 8px; right: 8px; bottom: 8px;
-      border: 1px solid rgba(201,168,76,0.06);
-      pointer-events: none;
-    }
-
-    .reservas-icon {
-      width: 56px;
-      height: 56px;
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.8rem;
-    }
-
-    .reservas-icon svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--gold);
-    }
-
-    .reservas-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 300;
-      margin-bottom: 0.8rem;
-    }
-
-    .reservas-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
-      line-height: 1.8;
-    }
-
-    .wa-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.9rem;
-      background: #25D366;
-      color: #fff;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 1rem 2.5rem;
-      transition: filter 0.3s;
-    }
-
-    .wa-btn:hover { filter: brightness(1.1); }
-
-    .wa-btn svg { width: 20px; height: 20px; fill: #fff; }
-
-    .horarios {
-      margin-top: 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: rgba(201,168,76,0.1);
-      text-align: left;
-    }
-
-    .horario-item {
-      background: var(--dark4);
-      padding: 1rem 1.2rem;
-    }
-
-    .horario-dia {
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.2rem;
-    }
-
-    .horario-hora {
-      font-size: 0.88rem;
-      color: var(--text);
-    }
-
-    /* ── UBICACIÓN ── */
-    #ubicacion {
-      background: var(--dark2);
-    }
-
-    .ubicacion-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .ubicacion-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .ubicacion-info {
-      padding-right: 2rem;
-    }
-
-    .info-row {
-      display: flex;
-      gap: 1.2rem;
-      padding: 1.5rem 0;
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-      align-items: flex-start;
-    }
-
-    .info-row:last-child { border-bottom: none; }
-
-    .info-icon {
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(201,168,76,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .info-icon svg {
-      width: 16px;
-      height: 16px;
-      stroke: var(--gold);
-      fill: none;
-    }
-
-    .info-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 0.3rem;
-    }
-
-    .info-value {
-      font-size: 0.92rem;
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    .info-value a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    .map-frame {
-      background: var(--dark3);
-      border: 1px solid rgba(201,168,76,0.15);
-      overflow: hidden;
-      height: 380px;
-    }
-
-    .map-frame iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      filter: grayscale(1) invert(0.85) sepia(0.3) hue-rotate(180deg) brightness(0.7);
-    }
-
-    /* ── CONTACTO ── */
-    #contacto {
-      background: var(--dark);
-      text-align: center;
-    }
-
-    .social-grid {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .social-link {
-      width: 48px;
-      height: 48px;
-      border: 1px solid rgba(201,168,76,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: border-color 0.3s, color 0.3s;
-      font-size: 1.1rem;
-    }
-
-    .social-link:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    .social-link svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .contact-tagline {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 3rem;
-      line-height: 1.4;
-    }
-
-    .contact-tagline strong {
-      color: var(--gold);
-      font-weight: 400;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--dark2);
-      border-top: 1px solid rgba(201,168,76,0.1);
-      padding: 2rem 4rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.1em;
-      color: var(--gold-dim);
-      text-decoration: none;
-    }
-
-    .footer-text {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      letter-spacing: 0.08em;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-
-      .nosotros-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .nosotros-visual { order: -1; }
-      .nosotros-img-frame { aspect-ratio: 16/9; }
-
-      .ubicacion-grid { grid-template-columns: 1fr; }
-      .ubicacion-info { padding-right: 0; }
-
-      footer {
-        flex-direction: column;
-        text-align: center;
-        padding: 1.5rem;
-      }
-
-      .reservas-card { padding: 2rem 1.5rem; }
-
-      .horarios { grid-template-columns: 1fr; }
-
-      section { padding: 5rem 1.5rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lazy Company – Automatización Inteligente con IA</title>
+<style>
+  /* Fallback system fonts — displayed instantly, replaced when Google Fonts loads */
+  :root {
+    --font-serif: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', serif;
+    --font-sans: 'Jost', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+</style>
+<!-- Load Google Fonts async so they don't block rendering -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap"></noscript>
+<style>
+  :root {
+    --cream: #F5F0EA;
+    --nude: #E8DACE;
+    --taupe: #C4A98A;
+    --warm-brown: #8B6F52;
+    --dark: #2C2420;
+    --mid: #6B5A4E;
+    --light-text: #A0897A;
+    --white: #FDFAF7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(44,36,32,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: 22px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-logo span { color: var(--taupe); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(253,250,247,0.6);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--taupe); }
+
+  .nav-cta {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--taupe) !important;
+    border: 1px solid rgba(196,169,138,0.4);
+    padding: 10px 22px;
+    text-decoration: none;
+    transition: all 0.3s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--taupe) !important;
+    color: var(--dark) !important;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-bg-orb-1 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(196,169,138,0.10) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-bg-orb-2 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(196,169,138,0.08) 0%, transparent 70%);
+    top: 20%; left: 15%;
+  }
+
+  .hero-bg-orb-3 {
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(196,169,138,0.06) 0%, transparent 70%);
+    bottom: 25%; right: 15%;
+  }
+
+  .hero-tag {
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-logo {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(52px, 10vw, 100px);
+    color: var(--white);
+    letter-spacing: -1px;
+    line-height: 1;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .hero-logo span {
+    color: var(--taupe);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-weight: 200;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--nude);
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.6s;
+  }
+
+  .hero-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--taupe), transparent);
+    margin: 50px auto 0;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.8s;
+  }
+
+  .hero-tagline {
+    max-width: 500px;
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(18px, 3vw, 24px);
+    color: rgba(253,250,247,0.55);
+    line-height: 1.7;
+    margin-top: 50px;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1s;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(196,169,138,0.5);
+  }
+
+  .scroll-dot {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(196,169,138,0.5), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--nude);
+    padding: 36px 60px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 300;
+    color: var(--dark);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--light-text);
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* ── INTRO ── */
+  .intro {
+    padding: 110px 40px;
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 30px;
+    display: block;
+  }
+
+  .intro h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1.35;
+    color: var(--dark);
+    margin-bottom: 30px;
+  }
+
+  .intro p {
+    font-size: 15px;
+    line-height: 1.95;
+    color: var(--mid);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--taupe);
+    margin: 50px auto;
+    opacity: 0.5;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    background: var(--white);
+    padding: 110px 40px;
+  }
+
+  .services-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .services-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .services-header h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(30px, 5vw, 50px);
+    color: var(--dark);
+  }
+
+  .services-header p {
+    color: var(--light-text);
+    font-size: 14px;
+    margin-top: 14px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+    background: var(--nude);
+  }
+
+  .service-card {
+    background: var(--white);
+    padding: 48px 38px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--taupe);
+    transition: width 0.4s ease;
+  }
+
+  .service-card:hover { background: var(--cream); }
+  .service-card:hover::after { width: 100%; }
+
+  .service-icon {
+    font-size: 24px;
+    margin-bottom: 22px;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--dark);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .service-card p {
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--light-text);
+  }
+
+  .service-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--taupe);
+    border: 1px solid rgba(196,169,138,0.4);
+    padding: 5px 12px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 110px 40px;
+    background: var(--dark);
+    color: var(--white);
+  }
+
+  .how-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .how-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .how-header h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(30px, 5vw, 48px);
+    color: var(--white);
+  }
+
+  .how-header p {
+    color: rgba(253,250,247,0.45);
+    font-size: 14px;
+    margin-top: 14px;
+  }
+
+  .how-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .how-step {
+    background: var(--dark);
+    padding: 44px 36px;
+    position: relative;
+  }
+
+  .how-step-num {
+    font-family: var(--font-serif);
+    font-size: 56px;
+    font-weight: 300;
+    color: rgba(196,169,138,0.2);
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .how-step h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .how-step p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── PACKAGES ── */
+  .packages {
+    padding: 110px 40px;
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  .packages-header {
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .packages-header h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(30px, 5vw, 50px);
+    color: var(--dark);
+  }
+
+  .packages-header p {
+    color: var(--light-text);
+    font-size: 14px;
+    margin-top: 14px;
+    line-height: 1.7;
+  }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 24px;
+  }
+
+  .package-card {
+    border: 1px solid var(--nude);
+    padding: 50px 38px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    background: var(--white);
+  }
+
+  .package-card:hover {
+    border-color: var(--taupe);
+    transform: translateY(-6px);
+  }
+
+  .package-card.featured {
+    background: var(--dark);
+    border-color: var(--dark);
+  }
+
+  .package-badge {
+    position: absolute;
+    top: -12px;
+    left: 38px;
+    background: var(--taupe);
+    color: var(--white);
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+  }
+
+  .package-name {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .package-card.featured .package-name { color: var(--white); }
+
+  .package-for {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-bottom: 30px;
+  }
+
+  .package-divider {
+    height: 1px;
+    background: var(--nude);
+    margin-bottom: 30px;
+  }
+
+  .package-card.featured .package-divider { background: rgba(255,255,255,0.1); }
+
+  .package-includes {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .package-includes li {
+    font-size: 13px;
+    color: var(--mid);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .package-card.featured .package-includes li { color: rgba(253,250,247,0.65); }
+
+  .package-includes li::before {
+    content: '—';
+    color: var(--taupe);
+    flex-shrink: 0;
+  }
+
+  .package-cta {
+    display: block;
+    margin-top: 38px;
+    padding: 15px 28px;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--taupe);
+    color: var(--taupe);
+    transition: all 0.3s;
+  }
+
+  .package-cta:hover {
+    background: var(--taupe);
+    color: var(--white);
+  }
+
+  .package-card.featured .package-cta {
+    border-color: var(--white);
+    color: var(--white);
+  }
+
+  .package-card.featured .package-cta:hover {
+    background: var(--white);
+    color: var(--dark);
+  }
+
+  /* ── ADD-ONS ── */
+  .addons {
+    background: var(--nude);
+    padding: 90px 40px;
+  }
+
+  .addons-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .addons h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(26px, 4vw, 42px);
+    margin-bottom: 14px;
+    color: var(--dark);
+  }
+
+  .addons-sub {
+    color: var(--light-text);
+    font-size: 13px;
+    margin-bottom: 50px;
+  }
+
+  .addons-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px;
+    background: rgba(139,111,82,0.15);
+    text-align: left;
+    margin-top: 40px;
+  }
+
+  .addon-item {
+    background: var(--nude);
+    padding: 28px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.3s;
+  }
+
+  .addon-item:hover { background: var(--cream); }
+
+  .addon-name {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .addon-cta-btn {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--taupe);
+    border: 1px solid rgba(196,169,138,0.5);
+    padding: 7px 14px;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .addon-cta-btn:hover {
+    background: var(--taupe);
+    color: var(--white);
+  }
+
+  /* ── WHY ── */
+  .why {
+    padding: 110px 40px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .why-header {
+    text-align: center;
+    margin-bottom: 75px;
+  }
+
+  .why-header h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(28px, 5vw, 46px);
+    color: var(--dark);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 55px 65px;
+  }
+
+  .why-number {
+    font-family: var(--font-serif);
+    font-size: 46px;
+    color: var(--nude);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 18px;
+  }
+
+  .why-item h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 21px;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .why-item p {
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--light-text);
+  }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    background: var(--dark);
+    padding: 120px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,169,138,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .cta-section .section-label {
+    color: var(--taupe);
+    margin-bottom: 30px;
+  }
+
+  .cta-section h2 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-size: clamp(32px, 6vw, 54px);
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 22px;
+  }
+
+  .cta-section h2 em {
+    color: var(--taupe);
+    font-style: italic;
+  }
+
+  .cta-section p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: rgba(253,250,247,0.5);
+    margin-bottom: 50px;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: transparent;
+    border: 1px solid var(--taupe);
+    color: var(--taupe);
+    text-decoration: none;
+    padding: 18px 40px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wa-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--taupe);
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+  }
+
+  .wa-btn:hover::before { transform: translateX(0); }
+
+  .wa-btn:hover { color: var(--dark); }
+
+  .wa-btn span, .wa-btn svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  .wa-btn .wa-note {
+    display: block;
+    margin-top: 16px;
+    font-size: 11px;
+    color: rgba(253,250,247,0.3);
+    letter-spacing: 2px;
+  }
+
+  .cta-sub {
+    margin-top: 20px;
+    font-size: 11px;
+    color: rgba(253,250,247,0.3) !important;
+    letter-spacing: 1px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1E1613;
+    padding: 80px 40px 50px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-serif);
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .footer-logo span {
+    color: var(--taupe);
+    font-style: italic;
+  }
+
+  .footer-tagline {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-top: 6px;
+    display: block;
+  }
+
+  .footer-line {
+    width: 40px;
+    height: 1px;
+    background: var(--taupe);
+    margin: 36px auto;
+    opacity: 0.4;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    list-style: none;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .footer-nav a {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-nav a:hover { color: var(--taupe); }
+
+  .footer-bottom {
+    font-size: 11px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 60px 24px; }
+    .stats-bar { gap: 40px; padding: 36px 24px; }
+    .intro, .services, .packages, .addons, .why, .how { padding: 80px 24px; }
+    .cta-section { padding: 90px 24px; }
+    .message-box { padding: 40px 28px; }
+    .packages-grid { grid-template-columns: 1fr; }
+    footer { padding: 60px 24px 40px; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav>
-  <a href="#inicio" class="nav-logo">Rebelión</a>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Lazy<span>Company</span></a>
   <ul class="nav-links">
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#carta">Carta</a></li>
-    <li><a href="#reservas">Reservas</a></li>
-    <li><a href="#ubicacion">Ubicación</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20automatizaci%C3%B3n%20con%20IA" class="nav-cta" target="_blank">Hablar con nosotros</a></li>
   </ul>
-  <a href="https://wa.me/573186377529?text=Hola!%20Quisiera%20hacer%20una%20reserva." target="_blank" class="nav-reserva">Reservar</a>
 </nav>
 
-<!-- ── HERO ── -->
-<section id="inicio">
-  <div class="hero-bg"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-orb hero-bg-orb-1"></div>
+  <div class="hero-bg-orb hero-bg-orb-2"></div>
+  <div class="hero-bg-orb hero-bg-orb-3"></div>
 
-  <!-- Ember particles -->
-  <div class="ember" style="--x:15%;--dur:5s;--delay:0s"></div>
-  <div class="ember" style="--x:22%;--dur:6s;--delay:0.7s;background:#D45A20"></div>
-  <div class="ember" style="--x:35%;--dur:4.5s;--delay:1.2s"></div>
-  <div class="ember" style="--x:50%;--dur:7s;--delay:0.3s"></div>
-  <div class="ember" style="--x:62%;--dur:5.5s;--delay:1.8s;background:#D45A20"></div>
-  <div class="ember" style="--x:75%;--dur:4s;--delay:0.9s"></div>
-  <div class="ember" style="--x:85%;--dur:6.5s;--delay:0.2s"></div>
-  <div class="ember" style="--x:28%;--dur:5s;--delay:2.1s"></div>
-  <div class="ember" style="--x:68%;--dur:4.8s;--delay:1.5s;background:#C9A84C"></div>
-
-  <div class="hero-content">
-    <p class="hero-eyebrow">Transversal de la Montaña · Envigado</p>
-    <h1 class="hero-title">
-      Rebelión<span>Sabores Salvajes</span>
-    </h1>
-    <p class="hero-subtitle">Restaurante experiencial campestre · Carnes al carbón · Cocina y bar de autor</p>
-    <a href="#carta" class="hero-cta">
-      <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-      Ver la carta
-    </a>
-  </div>
+  <p class="hero-tag">Automatización con IA · Colombia</p>
+  <h1 class="hero-logo">Lazy<span>Company</span></h1>
+  <p class="hero-sub">Trabaja menos. Vende más. Vive mejor.</p>
+  <div class="hero-line"></div>
+  <p class="hero-tagline">Tú enfócate en lo que mejor haces.<br>Nosotros automatizamos el resto.</p>
 
   <div class="hero-scroll">
     <span>Descubrir</span>
-    <div class="scroll-line"></div>
+    <div class="scroll-dot"></div>
   </div>
 </section>
 
-<!-- ── NOSOTROS ── -->
-<section id="nosotros">
-  <div class="nosotros-grid">
-    <div class="nosotros-text">
-      <p style="font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Nuestra historia</p>
-      <h2>Nuestra libertad<br>está en el <em>monte</em></h2>
-      <p>En lo alto de la montaña, las brasas, la vista y el sabor se unen en una rebelión contra lo cotidiano. Vive la magia de cada atardecer con una vista única de Medellín.</p>
-      <p>Somos especialistas en carnes al carbón con una cocina y bar de autor que desafían lo convencional. Cada plato es una declaración, cada visita una experiencia que no olvidarás.</p>
-      <div class="nosotros-stats">
-        <div class="stat-box">
-          <div class="stat-num">66K</div>
-          <div class="stat-label">Seguidores Instagram</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">4.6★</div>
-          <div class="stat-label">Calificación promedio</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Carnes al carbón</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">360°</div>
-          <div class="stat-label">Vista panorámica</div>
-        </div>
-      </div>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item fade-in">
+    <span class="stat-number">24/7</span>
+    <span class="stat-label">Atención continua</span>
+  </div>
+  <div class="stat-item fade-in fade-in-delay-1">
+    <span class="stat-number">−80%</span>
+    <span class="stat-label">Tiempo en tareas manuales</span>
+  </div>
+  <div class="stat-item fade-in fade-in-delay-2">
+    <span class="stat-number">+3×</span>
+    <span class="stat-label">Velocidad de respuesta</span>
+  </div>
+  <div class="stat-item fade-in fade-in-delay-3">
+    <span class="stat-number">48h</span>
+    <span class="stat-label">Implementación inicial</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <span class="section-label fade-in">Nuestra propuesta</span>
+  <h2 class="fade-in">¿Y si tu negocio<br>trabajara solo mientras tú descansas?</h2>
+  <div class="divider"></div>
+  <p class="fade-in">Implementamos sistemas de Inteligencia Artificial que atienden a tus clientes, agendan citas, envían recordatorios, facturan y generan reportes — todo de forma automática, sin que tengas que intervenir. Porque un negocio eficiente es el que funciona incluso cuando tú no estás.</p>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="services-inner">
+    <div class="services-header fade-in">
+      <span class="section-label">Qué hacemos</span>
+      <h2>Servicios disponibles</h2>
+      <p>Cada solución es diseñada a medida para tu tipo de negocio, tu industria y tus canales de comunicación.</p>
     </div>
-    <div class="nosotros-visual">
-      <div class="nosotros-img-frame">
-        <div class="corner-deco tl"></div>
-        <div class="corner-deco tr"></div>
-        <div class="corner-deco bl"></div>
-        <div class="corner-deco br"></div>
-        <div class="img-placeholder">
-          <svg viewBox="0 0 24 24" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span>Foto del restaurante</span>
-        </div>
+    <div class="services-grid">
+
+      <div class="service-card fade-in">
+        <span class="service-icon">💬</span>
+        <h3>Atención al Cliente Automática</h3>
+        <p>Respuestas inteligentes en WhatsApp, Instagram, Facebook y tu página web. Tu negocio disponible 24/7 sin contratar personal adicional.</p>
+        <span class="service-tag">WhatsApp · Instagram · Web</span>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-1">
+        <span class="service-icon">📅</span>
+        <h3>Agenda & Citas Inteligentes</h3>
+        <p>El cliente elige su servicio y horario directamente en el chat. Si cancela, el espacio se libera automáticamente. Cero llamadas perdidas.</p>
+        <span class="service-tag">Calendly · Google Calendar</span>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-2">
+        <span class="service-icon">🔔</span>
+        <h3>Recordatorios & Seguimiento</h3>
+        <p>Recordatorio automático de citas, seguimiento a cotizaciones y reactivación de clientes inactivos. Ventas que no se pierden.</p>
+        <span class="service-tag">Retención · Conversión</span>
+      </div>
+
+      <div class="service-card fade-in">
+        <span class="service-icon">🛒</span>
+        <h3>Catálogo & Ventas por Chat</h3>
+        <p>Tu catálogo interactivo en WhatsApp con precios, fotos y link de pago. El cliente ve, elige y paga sin salir de la conversación.</p>
+        <span class="service-tag">E-commerce · WhatsApp</span>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-1">
+        <span class="service-icon">⭐</span>
+        <h3>Reputación & Reseñas</h3>
+        <p>Después de cada compra o cita, el sistema solicita automáticamente una reseña en Google. Tu negocio sube posición sin esfuerzo.</p>
+        <span class="service-tag">Google Business · SEO</span>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-2">
+        <span class="service-icon">📊</span>
+        <h3>Reportes Automáticos</h3>
+        <p>Cada semana recibes en tu WhatsApp un resumen de mensajes, ventas y clientes nuevos. Sabe cómo va tu negocio sin pedirlo.</p>
+        <span class="service-tag">Analytics · Dashboards</span>
+      </div>
+
+      <div class="service-card fade-in">
+        <span class="service-icon">🧾</span>
+        <h3>Facturación & Contabilidad</h3>
+        <p>Factura automática al confirmar un pago, registro de ingresos y gastos, alertas de cobros pendientes. Sin papeleo manual. Compatible con DIAN.</p>
+        <span class="service-tag">DIAN · Facturación electrónica</span>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-1">
+        <span class="service-icon">👥</span>
+        <h3>Gestión de Empleados</h3>
+        <p>Turnos, asistencia, recordatorio de tareas del día por WhatsApp. Tu equipo siempre organizado sin supervisión constante.</p>
+        <span class="service-tag">RRHH · Automatización interna</span>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-2">
+        <span class="service-icon">📣</span>
+        <h3>Marketing Automático</h3>
+        <p>Campañas de promociones, felicitaciones de cumpleaños con descuentos y mensajes de reactivación para clientes inactivos. Tu marca siempre presente.</p>
+        <span class="service-tag">CRM · Campañas masivas</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como-funciona">
+  <div class="how-inner">
+    <div class="how-header fade-in">
+      <span class="section-label" style="color:var(--taupe)">El proceso</span>
+      <h2>Cómo lo implementamos</h2>
+      <p>De la reunión inicial a tu sistema funcionando en menos de una semana.</p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step fade-in">
+        <div class="how-step-num">01</div>
+        <h4>Diagnóstico gratuito</h4>
+        <p>Analizamos tu negocio, tus canales y qué tareas consumen más tiempo. Sin costo ni compromiso.</p>
+      </div>
+      <div class="how-step fade-in fade-in-delay-1">
+        <div class="how-step-num">02</div>
+        <h4>Propuesta a medida</h4>
+        <p>Diseñamos un sistema específico para tu industria y te presentamos qué automatizaremos primero.</p>
+      </div>
+      <div class="how-step fade-in fade-in-delay-2">
+        <div class="how-step-num">03</div>
+        <h4>Implementación en 48h</h4>
+        <p>Configuramos todo: integraciones, flujos, respuestas y pruebas. Tú no tienes que hacer nada técnico.</p>
+      </div>
+      <div class="how-step fade-in fade-in-delay-3">
+        <div class="how-step-num">04</div>
+        <h4>Acompañamiento continuo</h4>
+        <p>Monitoreamos el sistema, lo ajustamos según los resultados y lo escalamos cuando tú estés listo.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── CARTA ── -->
-<section id="carta" style="max-width:none;padding:7rem 2rem;">
-  <p class="section-label">Gastronomía</p>
-  <h2 class="section-title">La <em>Carta</em></h2>
-  <p class="section-desc">Ingredientes de primera, brasas vivas, técnica de autor. Todo tiene un propósito en este menú.</p>
+<!-- PACKAGES -->
+<section class="packages" id="planes">
+  <div class="packages-header fade-in">
+    <span class="section-label">Inversión</span>
+    <h2>Elige tu plan</h2>
+    <p>Implementación incluida · Sin contratos forzosos · Soporte en español<br>Solicita cotización y te respondemos en menos de 24 horas.</p>
+  </div>
+  <div class="packages-grid">
 
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="carta-tabs">
-      <button class="carta-tab active" onclick="showTab('entradas', this)">Entradas</button>
-      <button class="carta-tab" onclick="showTab('fuertes', this)">Platos fuertes</button>
-      <button class="carta-tab" onclick="showTab('postres', this)">Postres</button>
-      <button class="carta-tab" onclick="showTab('bebidas', this)">Bebidas</button>
+    <div class="package-card fade-in">
+      <p class="package-name">Starter</p>
+      <p class="package-for">Negocios pequeños</p>
+      <div class="package-divider"></div>
+      <ul class="package-includes">
+        <li>Atención automática WhatsApp</li>
+        <li>Respuestas en Instagram DM</li>
+        <li>Respuestas a preguntas frecuentes</li>
+        <li>Configuración inicial incluida</li>
+        <li>Soporte mensual básico</li>
+      </ul>
+      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20el%20plan%20Starter" class="package-cta" target="_blank">Cotizar plan</a>
     </div>
 
-    <!-- ENTRADAS -->
-    <div id="tab-entradas" class="carta-panel active">
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-name">Queso Parrillado</div>
-          <div class="menu-item-desc">Queso papialpa asado sobre cama de mézclum orgánico, tomates secos, brotes orgánicos y reducción de maracuyá.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Elotes Desgranados</div>
-          <div class="menu-item-desc">Mazorca dulce desgranada, crema agria, queso mozzarella y cilantro, acompañado de tocino crocante.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Carpaccio</div>
-          <div class="menu-item-desc">Corte fino de res marinado, rúgula, alcaparras y reducción balsámica. Uno de los favoritos de nuestros comensales.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Mix de Empanadas y Pastelitos</div>
-          <div class="menu-item-desc">Empanadas y pastelitos artesanales acompañados de guacamole y salsa mayo chipotle.</div>
-        </div>
-      </div>
+    <div class="package-card featured fade-in fade-in-delay-1">
+      <span class="package-badge">Más popular</span>
+      <p class="package-name">Pro</p>
+      <p class="package-for">Centros estéticos · Boutiques · Restaurantes</p>
+      <div class="package-divider"></div>
+      <ul class="package-includes">
+        <li>Todo lo del plan Starter</li>
+        <li>Sistema de agenda y citas</li>
+        <li>Recordatorios automáticos</li>
+        <li>Solicitud de reseñas Google</li>
+        <li>Reporte semanal automático</li>
+        <li>Catálogo interactivo por chat</li>
+        <li>Soporte prioritario</li>
+      </ul>
+      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20el%20plan%20Pro" class="package-cta" target="_blank">Cotizar plan</a>
     </div>
 
-    <!-- PLATOS FUERTES -->
-    <div id="tab-fuertes" class="carta-panel">
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-name">La Chata</div>
-          <div class="menu-item-desc">Corte grueso y jugoso del lomo ancho de la res, asado a las brasas al término deseado. Especialidad de la casa.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Churrasco</div>
-          <div class="menu-item-desc">Corte medio de la chata asado a las brasas al término deseado, acompañado de guarnición a elección.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Chuletón de Cerdo</div>
-          <div class="menu-item-desc">Corte situado justo encima de la costilla del cerdo, asado a las brasas con sazón de autor.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Quesadilla de la Montaña</div>
-          <div class="menu-item-desc">Tortillas de maíz y cilantro, queso mozzarella, pechuga de pollo desmechado, brotes orgánicos, salsa Jack Daniel's, queso costeño, tajín y pico de gallo.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Hamburguesa Jack Daniel's</div>
-          <div class="menu-item-desc">Carne Angus Black a las brasas, pan brioche, tocineta ahumada, queso mozzarella empanizado, tomate confitado, cebolla caramelizada, mézclum orgánico y papas a elección.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Entrecot / T-Bone / Rib Eye</div>
-          <div class="menu-item-desc">Cortes importados premium asados a las brasas al término deseado. Consulta disponibilidad con tu mesero.</div>
-        </div>
-      </div>
+    <div class="package-card fade-in fade-in-delay-2">
+      <p class="package-name">Full</p>
+      <p class="package-for">Empresas en crecimiento</p>
+      <div class="package-divider"></div>
+      <ul class="package-includes">
+        <li>Todo lo del plan Pro</li>
+        <li>Facturación automática DIAN</li>
+        <li>Registro contable de ingresos</li>
+        <li>Gestión de empleados por WhatsApp</li>
+        <li>Campañas de marketing automático</li>
+        <li>Seguimiento de cotizaciones</li>
+        <li>Soporte dedicado ilimitado</li>
+      </ul>
+      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20el%20plan%20Full" class="package-cta" target="_blank">Cotizar plan</a>
     </div>
 
-    <!-- POSTRES -->
-    <div id="tab-postres" class="carta-panel">
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-name">Volcán de Red Velvet</div>
-          <div class="menu-item-desc">Volcán de red velvet relleno de ganache de avellana, acompañado de suave helado de vainilla.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Postre de Chocolate</div>
-          <div class="menu-item-desc">Preparación de chocolate de autor, con texturas y acabados que sorprenden en cada cucharada.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BEBIDAS -->
-    <div id="tab-bebidas" class="carta-panel">
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-name">Cóctel Rebelión</div>
-          <div class="menu-item-desc">El trago de la casa. Sabores únicos y equilibrados que capturan el espíritu del lugar.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Soda Saborizada</div>
-          <div class="menu-item-desc">Sodas artesanales con sabores de temporada, refrescantes y de autor.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Vinos</div>
-          <div class="menu-item-desc">Selección de vinos tintos, blancos y rosados. Pídele a tu mesero la carta de vinos del día.</div>
-        </div>
-        <div class="menu-item">
-          <div class="menu-item-name">Vino Caliente</div>
-          <div class="menu-item-desc">Ideal para las noches frescas en la montaña. Especiado y reconfortante.</div>
-        </div>
-      </div>
-    </div>
-
-    <p class="menu-note">Los precios y la disponibilidad de los platos pueden variar. Consulta nuestra carta actualizada con el equipo del restaurante.</p>
   </div>
 </section>
 
-<!-- ── RESERVAS ── -->
-<section id="reservas">
-  <p class="section-label">Haz tu reserva</p>
-  <h2 class="section-title">Una mesa <em>en el monte</em></h2>
-  <p class="section-desc">Escríbenos directamente por WhatsApp y con gusto te confirmamos disponibilidad.</p>
-
-  <div class="reservas-inner">
-    <div class="reservas-card">
-      <div class="reservas-icon">
-        <!-- WhatsApp icon -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+<!-- ADD-ONS -->
+<section class="addons">
+  <div class="addons-inner">
+    <span class="section-label fade-in" style="color:var(--warm-brown)">Servicios adicionales</span>
+    <h2 class="fade-in">¿Necesitas algo específico?</h2>
+    <p class="addons-sub fade-in">Agrega módulos individuales a cualquier plan según las necesidades de tu negocio.</p>
+    <div class="addons-list fade-in">
+      <div class="addon-item">
+        <span class="addon-name">Chatbot para página web</span>
+        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20chatbot%20web" class="addon-cta-btn" target="_blank">Cotizar</a>
       </div>
-      <h3>Reserva tu experiencia</h3>
-      <p>Solo atención a la mesa. Para grupos o eventos especiales, escríbenos con anticipación y hacemos que tu visita sea perfecta.</p>
-      <a href="https://wa.me/573186377529?text=Hola!%20Quisiera%20hacer%20una%20reserva%20en%20Rebelión%20Sabores%20Salvajes." target="_blank" class="wa-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        Reservar por WhatsApp · 318 637 75 29
+      <div class="addon-item">
+        <span class="addon-name">Campaña de cumpleaños automatizada</span>
+        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20campa%C3%B1a%20de%20cumplea%C3%B1os" class="addon-cta-btn" target="_blank">Cotizar</a>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Ventas por catálogo WhatsApp</span>
+        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20cat%C3%A1logo%20WhatsApp" class="addon-cta-btn" target="_blank">Cotizar</a>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Mensajes masivos promocionales</span>
+        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20mensajes%20masivos" class="addon-cta-btn" target="_blank">Cotizar</a>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Control de turnos y empleados</span>
+        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20control%20de%20turnos" class="addon-cta-btn" target="_blank">Cotizar</a>
+      </div>
+      <div class="addon-item">
+        <span class="addon-name">Integración con sistema contable</span>
+        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20integraci%C3%B3n%20contable" class="addon-cta-btn" target="_blank">Cotizar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="beneficios">
+  <div class="why-header fade-in">
+    <span class="section-label">Por qué funciona</span>
+    <h2>Lo que gana tu negocio</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-item fade-in">
+      <div class="why-number">01</div>
+      <h4>Ahorro real en nómina</h4>
+      <p>Contratar una persona para atender mensajes cuesta entre $800.000 y $2.000.000 al mes. La automatización hace ese trabajo por mucho menos, todos los días, sin descansos ni errores.</p>
+    </div>
+    <div class="why-item fade-in fade-in-delay-1">
+      <div class="why-number">02</div>
+      <h4>Disponible 24/7</h4>
+      <p>Tu negocio responde a las 2am del domingo igual que un lunes a las 9am. Ningún cliente se queda sin respuesta y ninguna venta se pierde por tiempo.</p>
+    </div>
+    <div class="why-item fade-in fade-in-delay-2">
+      <div class="why-number">03</div>
+      <h4>Más ventas, menos esfuerzo</h4>
+      <p>Los seguimientos automáticos y el catálogo por chat convierten conversaciones en ventas que antes simplemente se perdían en la bandeja de entrada.</p>
+    </div>
+    <div class="why-item fade-in fade-in-delay-3">
+      <div class="why-number">04</div>
+      <h4>Tú libre para crecer</h4>
+      <p>Cuando la operación corre sola, puedes dedicar tu energía a lo que realmente importa: mejorar tu producto, atender mejor a tus clientes y escalar tu negocio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <span class="section-label fade-in">Siguiente paso</span>
+    <h2 class="fade-in">¿Listo para que tu<br>negocio trabaje <em>solo</em>?</h2>
+    <p class="fade-in">Escríbenos por WhatsApp y en menos de 24 horas te contamos exactamente cómo la automatización aplicaría en tu negocio. Sin compromiso.</p>
+    <div class="fade-in">
+      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20automatizar%20mi%20negocio%20con%20IA" class="wa-btn" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.86L.057 23.999l6.304-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.369l-.36-.214-3.737.98.998-3.648-.235-.374A9.818 9.818 0 1112 21.818z"/>
+        </svg>
+        <span>Escribir por WhatsApp</span>
       </a>
-
-      <div class="horarios">
-        <div class="horario-item">
-          <div class="horario-dia">Lunes – Jueves</div>
-          <div class="horario-hora">12:00 m – 11:00 pm</div>
-        </div>
-        <div class="horario-item">
-          <div class="horario-dia">Viernes – Sábado</div>
-          <div class="horario-hora">12:00 m – 12:00 am</div>
-        </div>
-        <div class="horario-item">
-          <div class="horario-dia">Domingos y Festivos</div>
-          <div class="horario-hora">12:00 m – 10:00 pm</div>
-        </div>
-        <div class="horario-item">
-          <div class="horario-dia">Solo atención</div>
-          <div class="horario-hora">A la mesa</div>
-        </div>
-      </div>
     </div>
+    <p class="cta-sub fade-in">Respuesta garantizada en menos de 24 horas · Diagnóstico inicial gratuito</p>
   </div>
 </section>
 
-<!-- ── UBICACIÓN ── -->
-<section id="ubicacion">
-  <div class="ubicacion-inner">
-    <p class="section-label" style="text-align:left;">Cómo llegar</p>
-    <h2 class="section-title" style="text-align:left;margin-bottom:3rem;">Encuéntranos en la <em>montaña</em></h2>
-
-    <div class="ubicacion-grid">
-      <div class="ubicacion-info">
-        <div class="info-row">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-          </div>
-          <div>
-            <div class="info-label">Dirección</div>
-            <div class="info-value">Cra. 19 # 36C Sur – 203<br>Transversal de la Montaña<br>Envigado, Antioquia</div>
-          </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
-          </div>
-          <div>
-            <div class="info-label">Teléfono / WhatsApp</div>
-            <div class="info-value"><a href="https://wa.me/573186377529" target="_blank">318 637 75 29</a></div>
-          </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5"/></svg>
-          </div>
-          <div>
-            <div class="info-label">Horarios</div>
-            <div class="info-value">Lun – Jue: 12pm – 11pm<br>Vie – Sáb: 12pm – 12am<br>Dom y Festivos: 12pm – 10pm</div>
-          </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">
-            <svg viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/></svg>
-          </div>
-          <div>
-            <div class="info-label">Cómo llegar</div>
-            <div class="info-value"><a href="https://maps.google.com/?q=Rebelion+Sabores+Salvajes+Envigado" target="_blank">Ver en Google Maps →</a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="map-frame">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.7!2d-75.5896!3d6.1490!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDknMTEuMSJOIDc1wrAzNSc0OS4zIlc!5e0!3m2!1ses!2sco!4v1"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Ubicación Rebelión Sabores Salvajes">
-        </iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CONTACTO ── -->
-<section id="contacto">
-  <p class="section-label">Síguenos</p>
-  <p class="contact-tagline">Si buscas un escape,<br><strong>esta rebelión es tuya.</strong></p>
-
-  <div class="social-grid">
-    <a href="https://www.instagram.com/rebelionsaboressalvajes/" target="_blank" class="social-link" title="Instagram">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-    </a>
-    <a href="https://www.facebook.com/rebelionsaboressalvajes/" target="_blank" class="social-link" title="Facebook">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    </a>
-    <a href="https://wa.me/573186377529" target="_blank" class="social-link" title="WhatsApp">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-    </a>
-  </div>
-
-  <a href="https://wa.me/573186377529?text=Hola!%20Quisiera%20hacer%20una%20reserva%20en%20Rebelión%20Sabores%20Salvajes." target="_blank" class="nav-reserva" style="font-size:0.8rem;padding:0.8rem 2rem;">
-    Hacer una reserva
-  </a>
-</section>
-
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
-  <a href="#inicio" class="footer-logo">Rebelión · Sabores Salvajes</a>
-  <p class="footer-text">Cra. 19 #36C Sur 203, Tv. de la Montaña · Envigado, Antioquia · Colombia</p>
-  <p class="footer-text">© 2025 Rebelión Sabores Salvajes</p>
+  <span class="footer-logo">Lazy<span>Company</span></span>
+  <span class="footer-tagline">Automatización Inteligente · Colombia</span>
+  <div class="footer-line"></div>
+  <ul class="footer-nav">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="https://wa.me/573001234567" target="_blank">Contacto</a></li>
+  </ul>
+  <p class="footer-bottom">© 2025 Lazy Company · Trabaja menos. Vende más. Vive mejor.</p>
 </footer>
 
 <script>
-  function showTab(tabId, btn) {
-    document.querySelectorAll('.carta-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.carta-tab').forEach(t => t.classList.remove('active'));
-    document.getElementById('tab-' + tabId).classList.add('active');
-    btn.classList.add('active');
+  // Make all fade-in elements visible by default first (fallback)
+  // This ensures content shows even if JS/observer fails (file:// protocol, etc.)
+  function showAll() {
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.classList.add('visible');
+    });
   }
+
+  // Try IntersectionObserver for nice scroll animations
+  if ('IntersectionObserver' in window) {
+    try {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.05 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      // Fallback: if after 1.5s the first non-hero fade-in is still invisible, show all
+      setTimeout(() => {
+        const els = document.querySelectorAll('.fade-in');
+        let anyVisible = false;
+        els.forEach(el => { if (el.classList.contains('visible')) anyVisible = true; });
+        if (!anyVisible) showAll();
+      }, 1500);
+
+    } catch(e) {
+      showAll();
+    }
+  } else {
+    showAll();
+  }
+
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
 </script>
 </body>
 </html>
