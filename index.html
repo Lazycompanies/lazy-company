@@ -23,8 +23,8 @@
     --taupe: #C4A98A;
     --warm-brown: #8B6F52;
     --dark: #2C2420;
-    --mid: #6B5A4E;
-    --light-text: #A0897A;
+    --mid: #2E1C14;
+    --light-text: #5C4033;
     --white: #FDFAF7;
   }
 
@@ -75,7 +75,7 @@
   }
 
   .nav-links a {
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: rgba(253,250,247,0.6);
@@ -146,7 +146,7 @@
   }
 
   .hero-tag {
-    font-weight: 200;
+    font-weight: 300;
     font-size: 11px;
     letter-spacing: 6px;
     text-transform: uppercase;
@@ -173,7 +173,7 @@
   }
 
   .hero-sub {
-    font-weight: 200;
+    font-weight: 300;
     font-size: 13px;
     letter-spacing: 4px;
     text-transform: uppercase;
@@ -195,11 +195,12 @@
   .hero-tagline {
     max-width: 500px;
     font-family: var(--font-serif);
-    font-weight: 300;
+    font-weight: 400;
     font-size: clamp(18px, 3vw, 24px);
     color: rgba(253,250,247,0.55);
     line-height: 1.7;
     margin-top: 50px;
+    font-weight: 400;
     font-style: italic;
     opacity: 0;
     animation: fadeUp 0.9s ease forwards 1s;
@@ -277,7 +278,7 @@
   }
 
   .section-label {
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 5px;
     text-transform: uppercase;
     color: var(--taupe);
@@ -295,11 +296,12 @@
   }
 
   .intro p {
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1.95;
     color: var(--mid);
     max-width: 600px;
     margin: 0 auto;
+    font-weight: 400;
   }
 
   .divider {
@@ -335,7 +337,7 @@
 
   .services-header p {
     color: var(--light-text);
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 14px;
     max-width: 500px;
     margin-left: auto;
@@ -387,20 +389,23 @@
   }
 
   .service-card p {
-    font-size: 13px;
-    line-height: 1.85;
-    color: var(--light-text);
+    font-size: 16.5px;
+    line-height: 1.9;
+    color: var(--mid);
+    font-weight: 400;
   }
 
   .service-tag {
     display: inline-block;
     margin-top: 20px;
-    font-size: 9px;
-    letter-spacing: 3px;
+    font-size: 11px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--taupe);
-    border: 1px solid rgba(196,169,138,0.4);
-    padding: 5px 12px;
+    color: var(--warm-brown);
+    background: rgba(196,169,138,0.12);
+    border: 1px solid rgba(139,111,82,0.35);
+    padding: 6px 14px;
+    font-weight: 500;
   }
 
   /* ── HOW IT WORKS ── */
@@ -464,150 +469,10 @@
   }
 
   .how-step p {
-    font-size: 13px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.45);
-  }
-
-  /* ── PACKAGES ── */
-  .packages {
-    padding: 110px 40px;
-    max-width: 1060px;
-    margin: 0 auto;
-  }
-
-  .packages-header {
-    text-align: center;
-    margin-bottom: 70px;
-  }
-
-  .packages-header h2 {
-    font-family: var(--font-serif);
-    font-weight: 300;
-    font-size: clamp(30px, 5vw, 50px);
-    color: var(--dark);
-  }
-
-  .packages-header p {
-    color: var(--light-text);
-    font-size: 14px;
-    margin-top: 14px;
-    line-height: 1.7;
-  }
-
-  .packages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 24px;
-  }
-
-  .package-card {
-    border: 1px solid var(--nude);
-    padding: 50px 38px;
-    position: relative;
-    transition: border-color 0.3s, transform 0.3s;
-    background: var(--white);
-  }
-
-  .package-card:hover {
-    border-color: var(--taupe);
-    transform: translateY(-6px);
-  }
-
-  .package-card.featured {
-    background: var(--dark);
-    border-color: var(--dark);
-  }
-
-  .package-badge {
-    position: absolute;
-    top: -12px;
-    left: 38px;
-    background: var(--taupe);
-    color: var(--white);
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-  }
-
-  .package-name {
-    font-family: var(--font-serif);
+    font-size: 16.5px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.82);
     font-weight: 400;
-    font-size: 28px;
-    color: var(--dark);
-    margin-bottom: 6px;
-  }
-
-  .package-card.featured .package-name { color: var(--white); }
-
-  .package-for {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--taupe);
-    margin-bottom: 30px;
-  }
-
-  .package-divider {
-    height: 1px;
-    background: var(--nude);
-    margin-bottom: 30px;
-  }
-
-  .package-card.featured .package-divider { background: rgba(255,255,255,0.1); }
-
-  .package-includes {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
-  }
-
-  .package-includes li {
-    font-size: 13px;
-    color: var(--mid);
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    line-height: 1.5;
-  }
-
-  .package-card.featured .package-includes li { color: rgba(253,250,247,0.65); }
-
-  .package-includes li::before {
-    content: '—';
-    color: var(--taupe);
-    flex-shrink: 0;
-  }
-
-  .package-cta {
-    display: block;
-    margin-top: 38px;
-    padding: 15px 28px;
-    text-align: center;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--taupe);
-    color: var(--taupe);
-    transition: all 0.3s;
-  }
-
-  .package-cta:hover {
-    background: var(--taupe);
-    color: var(--white);
-  }
-
-  .package-card.featured .package-cta {
-    border-color: var(--white);
-    color: var(--white);
-  }
-
-  .package-card.featured .package-cta:hover {
-    background: var(--white);
-    color: var(--dark);
   }
 
   /* ── ADD-ONS ── */
@@ -658,7 +523,7 @@
   .addon-item:hover { background: var(--cream); }
 
   .addon-name {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--mid);
     line-height: 1.5;
   }
@@ -724,9 +589,10 @@
   }
 
   .why-item p {
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.85;
-    color: var(--light-text);
+    color: var(--mid);
+    font-weight: 400;
   }
 
   /* ── CTA SECTION ── */
@@ -775,7 +641,7 @@
   }
 
   .cta-section p {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.9;
     color: rgba(253,250,247,0.5);
     margin-bottom: 50px;
@@ -930,6 +796,395 @@
     .packages-grid { grid-template-columns: 1fr; }
     footer { padding: 60px 24px 40px; }
   }
+
+  /* ── SERVICES PRICING ── */
+  .packages {
+    padding: 110px 40px;
+    background: var(--cream);
+  }
+
+  .packages-inner-wrap {
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  .services-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .services-pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 580px) {
+    .services-pricing-grid { grid-template-columns: 1fr; }
+  }
+
+  .pricing-card {
+    background: var(--white);
+    border: 1px solid var(--nude);
+    padding: 36px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .pricing-card:hover {
+    border-color: var(--taupe);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(44,36,32,0.08);
+  }
+
+  .pricing-top { margin-bottom: 24px; }
+
+  .pricing-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .pricing-desc {
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: var(--mid);
+    font-weight: 400;
+  }
+
+  .pricing-bottom {
+    border-top: 1px solid var(--nude);
+    padding-top: 22px;
+  }
+
+  .pricing-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: var(--dark);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .pricing-period {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: var(--light-text);
+    font-weight: 400;
+  }
+
+  .pricing-sub {
+    font-size: 12.5px;
+    color: var(--taupe);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  .pricing-cta {
+    display: block;
+    margin-top: 22px;
+    padding: 13px 0;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--taupe);
+    color: var(--taupe);
+    text-align: center;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+
+  .pricing-cta:hover {
+    background: var(--taupe);
+    color: var(--white);
+  }
+
+  .custom-plan {
+    background: var(--dark);
+    padding: 55px 50px;
+    margin-top: 0;
+  }
+
+  .custom-plan-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+
+  .custom-plan-text { flex: 1; min-width: 280px; }
+
+  .custom-plan-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 30px;
+    color: var(--white);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .custom-plan-text p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(253,250,247,0.55);
+    margin-bottom: 12px;
+  }
+
+  .custom-discount {
+    font-size: 13px !important;
+    color: var(--taupe) !important;
+    border: 1px solid rgba(196,169,138,0.3);
+    padding: 10px 16px;
+    display: inline-block;
+    margin-top: 4px;
+  }
+
+  .custom-discount strong { color: var(--taupe); }
+
+
+  /* ── CONTACT FORM ── */
+  .custom-plan {
+    background: var(--dark);
+    padding: 70px 50px;
+    margin-top: 0;
+  }
+
+  .custom-plan-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: wrap;
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  .custom-plan-text {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .custom-plan-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--white);
+    margin-bottom: 18px;
+    line-height: 1.3;
+  }
+
+  .custom-plan-text h3 em {
+    color: var(--taupe);
+    font-style: italic;
+  }
+
+  .custom-plan-text p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: rgba(253,250,247,0.55);
+  }
+
+  .custom-form-wrap {
+    flex: 1;
+    min-width: 300px;
+    max-width: 460px;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(196,169,138,0.25);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 14px 18px;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+    width: 100%;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: rgba(255,255,255,0.3);
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: var(--taupe);
+  }
+
+  .contact-form button {
+    background: transparent;
+    border: 1px solid var(--taupe);
+    color: var(--taupe);
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+
+  .contact-form button:hover {
+    background: var(--taupe);
+    color: var(--dark);
+  }
+
+  .contact-form button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .form-note {
+    font-size: 12px !important;
+    color: rgba(255,255,255,0.3) !important;
+    text-align: center;
+    margin: 0 !important;
+    letter-spacing: 0.5px;
+  }
+
+  .form-note.success {
+    color: #7EC8A0 !important;
+  }
+
+  .form-note.error {
+    color: #E07070 !important;
+  }
+
+  @media (max-width: 768px) {
+    .custom-plan { padding: 60px 24px; }
+    .custom-form-wrap { max-width: 100%; }
+  }
+
+
+  /* ── POR QUÉ ELEGIRNOS ── */
+  .why-us {
+    background: var(--dark);
+    padding: 110px 40px;
+  }
+
+  .why-us-inner {
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  .why-us-header {
+    text-align: center;
+    margin-bottom: 80px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .why-us-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 5vw, 54px);
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 24px;
+  }
+
+  .why-us-header h2 em {
+    color: var(--taupe);
+    font-style: italic;
+  }
+
+  .why-us-header p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(253,250,247,0.5);
+    font-weight: 400;
+  }
+
+  .why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,0.04);
+    margin-bottom: 2px;
+  }
+
+  @media (max-width: 900px) {
+    .why-us-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 580px) {
+    .why-us-grid { grid-template-columns: 1fr; }
+  }
+
+  .why-us-card {
+    background: var(--dark);
+    padding: 44px 36px;
+    transition: background 0.3s;
+  }
+
+  .why-us-card:hover {
+    background: #352820;
+  }
+
+  .why-us-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: rgba(196,169,138,0.18);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .why-us-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--white);
+    margin-bottom: 14px;
+    line-height: 1.35;
+  }
+
+  .why-us-card p {
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: rgba(253,250,247,0.5);
+    font-weight: 400;
+  }
+
+  .why-us-bottom {
+    text-align: center;
+    padding: 70px 20px 0;
+  }
+
+  .why-us-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3vw, 30px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--taupe);
+    line-height: 1.6;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .why-us { padding: 80px 24px; }
+  }
+
 </style>
 </head>
 <body>
@@ -942,7 +1197,7 @@
     <li><a href="#como-funciona">Cómo funciona</a></li>
     <li><a href="#planes">Planes</a></li>
     <li><a href="#beneficios">Beneficios</a></li>
-    <li><a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20automatizaci%C3%B3n%20con%20IA" class="nav-cta" target="_blank">Hablar con nosotros</a></li>
+    <li><a href="https://wa.me/573015877677?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20automatizaci%C3%B3n%20con%20IA" class="nav-cta" target="_blank">Hablar con nosotros</a></li>
   </ul>
 </nav>
 
@@ -1003,66 +1258,39 @@
     <div class="services-grid">
 
       <div class="service-card fade-in">
-        <span class="service-icon">💬</span>
         <h3>Atención al Cliente Automática</h3>
-        <p>Respuestas inteligentes en WhatsApp, Instagram, Facebook y tu página web. Tu negocio disponible 24/7 sin contratar personal adicional.</p>
+        <p>Respuestas inteligentes en WhatsApp, Instagram y tu página web, disponibles las 24 horas. Nunca más una venta perdida por no responder a tiempo.</p>
         <span class="service-tag">WhatsApp · Instagram · Web</span>
       </div>
 
       <div class="service-card fade-in fade-in-delay-1">
-        <span class="service-icon">📅</span>
+        <h3>Embudo de Ventas con IA</h3>
+        <p>La IA detecta qué quiere el cliente, le muestra opciones personalizadas, le envía el link de pago y hace seguimiento si no completó la compra. De conversación a venta cerrada.</p>
+        <span class="service-tag">Conversión · WhatsApp · Ventas</span>
+      </div>
+
+      <div class="service-card fade-in fade-in-delay-2">
         <h3>Agenda & Citas Inteligentes</h3>
-        <p>El cliente elige su servicio y horario directamente en el chat. Si cancela, el espacio se libera automáticamente. Cero llamadas perdidas.</p>
+        <p>El cliente elige su servicio y horario directamente en el chat. Los recordatorios salen solos y los espacios cancelados se liberan automáticamente. Cero llamadas, cero ausencias.</p>
         <span class="service-tag">Calendly · Google Calendar</span>
       </div>
 
-      <div class="service-card fade-in fade-in-delay-2">
-        <span class="service-icon">🔔</span>
-        <h3>Recordatorios & Seguimiento</h3>
-        <p>Recordatorio automático de citas, seguimiento a cotizaciones y reactivación de clientes inactivos. Ventas que no se pierden.</p>
-        <span class="service-tag">Retención · Conversión</span>
-      </div>
-
       <div class="service-card fade-in">
-        <span class="service-icon">🛒</span>
-        <h3>Catálogo & Ventas por Chat</h3>
-        <p>Tu catálogo interactivo en WhatsApp con precios, fotos y link de pago. El cliente ve, elige y paga sin salir de la conversación.</p>
-        <span class="service-tag">E-commerce · WhatsApp</span>
+        <h3>Seguimiento & Reactivación</h3>
+        <p>Seguimiento automático a cotizaciones sin respuesta y mensajes de reactivación para clientes que no han vuelto. Las ventas que antes se perdían, ahora se cierran solas.</p>
+        <span class="service-tag">Retención · CRM · Conversión</span>
       </div>
 
       <div class="service-card fade-in fade-in-delay-1">
-        <span class="service-icon">⭐</span>
-        <h3>Reputación & Reseñas</h3>
-        <p>Después de cada compra o cita, el sistema solicita automáticamente una reseña en Google. Tu negocio sube posición sin esfuerzo.</p>
-        <span class="service-tag">Google Business · SEO</span>
+        <h3>Página Web con IA Integrada</h3>
+        <p>Sitio web profesional con chatbot de IA incorporado que atiende, califica y convierte visitantes en clientes desde el primer segundo. Tu vendedor digital disponible 24/7.</p>
+        <span class="service-tag">Web · Chatbot · Conversión</span>
       </div>
 
       <div class="service-card fade-in fade-in-delay-2">
-        <span class="service-icon">📊</span>
-        <h3>Reportes Automáticos</h3>
-        <p>Cada semana recibes en tu WhatsApp un resumen de mensajes, ventas y clientes nuevos. Sabe cómo va tu negocio sin pedirlo.</p>
-        <span class="service-tag">Analytics · Dashboards</span>
-      </div>
-
-      <div class="service-card fade-in">
-        <span class="service-icon">🧾</span>
-        <h3>Facturación & Contabilidad</h3>
-        <p>Factura automática al confirmar un pago, registro de ingresos y gastos, alertas de cobros pendientes. Sin papeleo manual. Compatible con DIAN.</p>
-        <span class="service-tag">DIAN · Facturación electrónica</span>
-      </div>
-
-      <div class="service-card fade-in fade-in-delay-1">
-        <span class="service-icon">👥</span>
-        <h3>Gestión de Empleados</h3>
-        <p>Turnos, asistencia, recordatorio de tareas del día por WhatsApp. Tu equipo siempre organizado sin supervisión constante.</p>
-        <span class="service-tag">RRHH · Automatización interna</span>
-      </div>
-
-      <div class="service-card fade-in fade-in-delay-2">
-        <span class="service-icon">📣</span>
-        <h3>Marketing Automático</h3>
-        <p>Campañas de promociones, felicitaciones de cumpleaños con descuentos y mensajes de reactivación para clientes inactivos. Tu marca siempre presente.</p>
-        <span class="service-tag">CRM · Campañas masivas</span>
+        <h3>Campañas Masivas Inteligentes</h3>
+        <p>Mensajes segmentados por tipo de cliente, historial de compra o fecha especial. Promociones, cumpleaños y lanzamientos que llegan en el momento exacto y generan ventas inmediatas.</p>
+        <span class="service-tag">WhatsApp · Segmentación · Ventas</span>
       </div>
 
     </div>
@@ -1104,97 +1332,95 @@
 
 <!-- PACKAGES -->
 <section class="packages" id="planes">
-  <div class="packages-header fade-in">
-    <span class="section-label">Inversión</span>
-    <h2>Elige tu plan</h2>
-    <p>Implementación incluida · Sin contratos forzosos · Soporte en español<br>Solicita cotización y te respondemos en menos de 24 horas.</p>
+  <div class="packages-header fade-in" style="text-align:center;margin-bottom:60px;padding:0 40px;">
+    <span class="section-label" style="display:block;text-align:center;margin-bottom:20px;">Inversión</span>
+    <h2 style="font-family:'Cormorant Garamond',Palatino,serif;font-weight:300;font-size:clamp(36px,5vw,56px);color:var(--dark);letter-spacing:-0.5px;line-height:1.2;">Servicios & Precios</h2>
+    <p style="font-family:'Jost',sans-serif;font-size:16px;color:var(--mid);line-height:1.8;max-width:560px;margin:16px auto 0;font-weight:400;text-align:center;">Cada servicio se contrata de forma independiente · Implementación incluida<br>Combina 3 o más y obtén un <strong style="color:var(--dark);">20% de descuento</strong></p>
   </div>
-  <div class="packages-grid">
+  <div class="packages-inner-wrap">
+  <div class="services-pricing-grid">
 
-    <div class="package-card fade-in">
-      <p class="package-name">Starter</p>
-      <p class="package-for">Negocios pequeños</p>
-      <div class="package-divider"></div>
-      <ul class="package-includes">
-        <li>Atención automática WhatsApp</li>
-        <li>Respuestas en Instagram DM</li>
-        <li>Respuestas a preguntas frecuentes</li>
-        <li>Configuración inicial incluida</li>
-        <li>Soporte mensual básico</li>
-      </ul>
-      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20el%20plan%20Starter" class="package-cta" target="_blank">Cotizar plan</a>
+    <div class="pricing-card fade-in">
+      <div class="pricing-top">
+        <p class="pricing-name">Atención al Cliente Automática</p>
+        <p class="pricing-desc">Mientras tu competencia pierde clientes por no responder, tu negocio contesta al instante — a las 2am, el domingo, en festivo. Un agente de IA entrenado con tu información responde preguntas, resuelve dudas y guía al cliente hasta la compra. Sin contratar nadie. Sin descansos.</p>
+      </div>
+      <div class="pricing-bottom">
+        <div class="pricing-price">$400.000<span class="pricing-period">/mes</span></div>
+        <a href="https://wa.me/573015877677?text=Hola%2C%20quiero%20cotizar%20Atenci%C3%B3n%20al%20Cliente%20Autom%C3%A1tica" class="pricing-cta" target="_blank">Cotizar este servicio</a>
+      </div>
     </div>
 
-    <div class="package-card featured fade-in fade-in-delay-1">
-      <span class="package-badge">Más popular</span>
-      <p class="package-name">Pro</p>
-      <p class="package-for">Centros estéticos · Boutiques · Restaurantes</p>
-      <div class="package-divider"></div>
-      <ul class="package-includes">
-        <li>Todo lo del plan Starter</li>
-        <li>Sistema de agenda y citas</li>
-        <li>Recordatorios automáticos</li>
-        <li>Solicitud de reseñas Google</li>
-        <li>Reporte semanal automático</li>
-        <li>Catálogo interactivo por chat</li>
-        <li>Soporte prioritario</li>
-      </ul>
-      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20el%20plan%20Pro" class="package-cta" target="_blank">Cotizar plan</a>
+    <div class="pricing-card fade-in fade-in-delay-1">
+      <div class="pricing-top">
+        <p class="pricing-name">Embudo de Ventas con IA</p>
+        <p class="pricing-desc">No todos los que escriben quieren comprar — pero la IA sabe distinguirlos. Califica al prospecto, le muestra exactamente lo que necesita, le envía el link de pago y si no compró, hace seguimiento solo. Tu tasa de cierre sube sin que muevas un dedo. De conversación a dinero en cuenta.</p>
+      </div>
+      <div class="pricing-bottom">
+        <div class="pricing-price">$500.000<span class="pricing-period">/mes</span></div>
+        <a href="https://wa.me/573015877677?text=Hola%2C%20quiero%20cotizar%20Embudo%20de%20Ventas%20con%20IA" class="pricing-cta" target="_blank">Cotizar este servicio</a>
+      </div>
     </div>
 
-    <div class="package-card fade-in fade-in-delay-2">
-      <p class="package-name">Full</p>
-      <p class="package-for">Empresas en crecimiento</p>
-      <div class="package-divider"></div>
-      <ul class="package-includes">
-        <li>Todo lo del plan Pro</li>
-        <li>Facturación automática DIAN</li>
-        <li>Registro contable de ingresos</li>
-        <li>Gestión de empleados por WhatsApp</li>
-        <li>Campañas de marketing automático</li>
-        <li>Seguimiento de cotizaciones</li>
-        <li>Soporte dedicado ilimitado</li>
-      </ul>
-      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20cotizar%20el%20plan%20Full" class="package-cta" target="_blank">Cotizar plan</a>
+    <div class="pricing-card fade-in fade-in-delay-2">
+      <div class="pricing-top">
+        <p class="pricing-name">Agenda & Citas Inteligentes</p>
+        <p class="pricing-desc">Cada llamada para agendar una cita es tiempo que pierdes. Con este sistema el cliente elige su servicio, su horario y confirma solo — desde el chat, a cualquier hora. Si cancela, el espacio se libera automáticamente y otro cliente puede tomarlo. Tu agenda siempre llena, tú sin atender el teléfono.</p>
+      </div>
+      <div class="pricing-bottom">
+        <div class="pricing-price">$350.000<span class="pricing-period">/mes</span></div>
+        <a href="https://wa.me/573015877677?text=Hola%2C%20quiero%20cotizar%20Agenda%20y%20Citas%20Inteligentes" class="pricing-cta" target="_blank">Cotizar este servicio</a>
+      </div>
+    </div>
+
+    <div class="pricing-card fade-in">
+      <div class="pricing-top">
+        <p class="pricing-name">Marketing & Contenido con IA</p>
+        <p class="pricing-desc">Una marca que no aparece todos los días, no existe. La IA planifica tu contenido mensual, crea copies para redes, analiza a tu competencia, trabaja tu posicionamiento SEO, diseña campañas de email y te entrega el calendario listo para publicar. Tu marca activa, consistente y creciendo — sin agencia, sin community manager.</p>
+      </div>
+      <div class="pricing-bottom">
+        <div class="pricing-price">$450.000<span class="pricing-period">/mes</span></div>
+        <a href="https://wa.me/573015877677?text=Hola%2C%20quiero%20cotizar%20Marketing%20con%20IA" class="pricing-cta" target="_blank">Cotizar este servicio</a>
+      </div>
+    </div>
+
+    <div class="pricing-card fade-in fade-in-delay-1">
+      <div class="pricing-top">
+        <p class="pricing-name">Página Web con IA Integrada</p>
+        <p class="pricing-desc">Tu página web no debería ser solo un catálogo bonito — debería vender mientras duermes. Diseñamos tu sitio profesional con un agente de IA incorporado que recibe al visitante, responde sus preguntas, lo califica y lo convierte en cliente antes de que llegue a la competencia. Una inversión que trabaja sola desde el día uno.</p>
+      </div>
+      <div class="pricing-bottom">
+        <div class="pricing-price">$800.000<span class="pricing-period"> único</span></div>
+        <div class="pricing-sub">+ $150.000 / mes mantenimiento</div>
+        <a href="https://wa.me/573015877677?text=Hola%2C%20quiero%20cotizar%20P%C3%A1gina%20Web%20con%20IA" class="pricing-cta" target="_blank">Cotizar este servicio</a>
+      </div>
     </div>
 
   </div>
+</div><!-- end packages-inner-wrap -->
+  <!-- Plan Personalizado -->
+  <div class="custom-plan fade-in">
+    <div class="custom-plan-inner">
+      <div class="custom-plan-text">
+        <span class="section-label" style="display:block;margin-bottom:16px;color:var(--taupe);">¿Tienes algo en mente?</span>
+        <h3>Automatizamos cualquier proceso<br><em>que te esté quitando tiempo.</em></h3>
+        <p>Cuéntanos qué hace tu negocio, qué tareas repites todos los días y qué te gustaría que ocurriera solo. Nosotros te decimos exactamente cómo la IA lo resuelve — sin tecnicismos, sin compromisos.</p>
+      </div>
+      <div class="custom-form-wrap">
+        <form class="contact-form" onsubmit="sendEmail(event)">
+          <input type="text" id="cf-name" placeholder="Nombre de tu negocio" required />
+          <input type="email" id="cf-email" placeholder="Tu correo electrónico" required />
+          <textarea id="cf-msg" placeholder="Cuéntanos qué proceso quieres automatizar..." rows="4" required></textarea>
+          <button type="submit" id="cf-btn">Enviar mensaje</button>
+          <p class="form-note" id="cf-note">Te respondemos en menos de 24 horas.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </section>
 
-<!-- ADD-ONS -->
-<section class="addons">
-  <div class="addons-inner">
-    <span class="section-label fade-in" style="color:var(--warm-brown)">Servicios adicionales</span>
-    <h2 class="fade-in">¿Necesitas algo específico?</h2>
-    <p class="addons-sub fade-in">Agrega módulos individuales a cualquier plan según las necesidades de tu negocio.</p>
-    <div class="addons-list fade-in">
-      <div class="addon-item">
-        <span class="addon-name">Chatbot para página web</span>
-        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20chatbot%20web" class="addon-cta-btn" target="_blank">Cotizar</a>
-      </div>
-      <div class="addon-item">
-        <span class="addon-name">Campaña de cumpleaños automatizada</span>
-        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20campa%C3%B1a%20de%20cumplea%C3%B1os" class="addon-cta-btn" target="_blank">Cotizar</a>
-      </div>
-      <div class="addon-item">
-        <span class="addon-name">Ventas por catálogo WhatsApp</span>
-        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20cat%C3%A1logo%20WhatsApp" class="addon-cta-btn" target="_blank">Cotizar</a>
-      </div>
-      <div class="addon-item">
-        <span class="addon-name">Mensajes masivos promocionales</span>
-        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20mensajes%20masivos" class="addon-cta-btn" target="_blank">Cotizar</a>
-      </div>
-      <div class="addon-item">
-        <span class="addon-name">Control de turnos y empleados</span>
-        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20control%20de%20turnos" class="addon-cta-btn" target="_blank">Cotizar</a>
-      </div>
-      <div class="addon-item">
-        <span class="addon-name">Integración con sistema contable</span>
-        <a href="https://wa.me/573001234567?text=Quiero%20cotizar%20integraci%C3%B3n%20contable" class="addon-cta-btn" target="_blank">Cotizar</a>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- WHY -->
 <section class="why" id="beneficios">
@@ -1226,6 +1452,64 @@
   </div>
 </section>
 
+
+<!-- POR QUÉ ELEGIRNOS -->
+<section class="why-us">
+  <div class="why-us-inner">
+
+    <div class="why-us-header fade-in">
+      <span class="section-label">Por qué elegirnos</span>
+      <h2>Sí, podrías hacerlo tú solo.<br><em>Pero no lo harás.</em></h2>
+      <p>ChatGPT existe desde hace años. La mayoría de negocios siguen respondiendo mensajes a mano, perdiendo ventas y quemando horas en tareas que una IA haría en segundos. El problema nunca fue el acceso a la tecnología — fue saber exactamente qué configurar, cómo conectarlo todo y hacerlo funcionar sin que se rompa a los tres días.</p>
+    </div>
+
+    <div class="why-us-grid">
+
+      <div class="why-us-card fade-in">
+        <div class="why-us-num">01</div>
+        <h4>No vendemos software. Entregamos resultados.</h4>
+        <p>No te damos una herramienta y te dejamos solo. Diseñamos, configuramos, probamos e implementamos todo por ti. Cuando termina nuestro trabajo, tu sistema ya está funcionando y generando resultados — no aprendiendo a hacerlo.</p>
+      </div>
+
+      <div class="why-us-card fade-in fade-in-delay-1">
+        <div class="why-us-num">02</div>
+        <h4>Sistemas que se sostienen solos en el tiempo.</h4>
+        <p>Cualquiera puede armar un chatbot que funcione una semana. Lo difícil es construir un sistema que aprenda, se adapte y siga funcionando cuando tu negocio crece, cambia de precio o lanza un producto nuevo. Eso es lo que hacemos.</p>
+      </div>
+
+      <div class="why-us-card fade-in fade-in-delay-2">
+        <div class="why-us-num">03</div>
+        <h4>Hacerlo tú solo cuesta más de lo que crees.</h4>
+        <p>Entre aprender las herramientas, conectar las integraciones, escribir los flujos, probar los errores y mantenerlo actualizado — inviertes semanas de trabajo para obtener algo que nosotros entregamos en 48 horas. Tu tiempo vale más que eso. Úsalo en lo que genera dinero.</p>
+      </div>
+
+      <div class="why-us-card fade-in">
+        <div class="why-us-num">04</div>
+        <h4>Implementación en 48 horas. En serio.</h4>
+        <p>No hay procesos largos, ni reuniones interminables, ni meses de espera. En dos días tu sistema está activo, probado y respondiendo clientes. Porque sabemos exactamente qué hacer — ya lo hemos construido antes.</p>
+      </div>
+
+      <div class="why-us-card fade-in fade-in-delay-1">
+        <div class="why-us-num">05</div>
+        <h4>Soporte real, en español, cuando lo necesitas.</h4>
+        <p>No hay tickets de soporte ni respuestas automáticas cuando algo falla. Hay una persona real que conoce tu sistema, que te responde por WhatsApp y que lo resuelve. Así de simple.</p>
+      </div>
+
+      <div class="why-us-card fade-in fade-in-delay-2">
+        <div class="why-us-num">06</div>
+        <h4>La IA evoluciona. Nosotros te mantenemos al día.</h4>
+        <p>Cada mes aparecen nuevas herramientas, nuevas integraciones y nuevas formas de automatizar. Nuestros clientes no necesitan seguir ese ritmo — nosotros lo hacemos por ellos y actualizamos los sistemas cuando hay algo mejor disponible.</p>
+      </div>
+
+    </div>
+
+    <div class="why-us-bottom fade-in">
+      <p class="why-us-quote">"La pregunta no es si tu negocio necesita automatización.<br>Es cuánto tiempo más vas a seguir sin tenerla."</p>
+    </div>
+
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-inner">
@@ -1233,7 +1517,7 @@
     <h2 class="fade-in">¿Listo para que tu<br>negocio trabaje <em>solo</em>?</h2>
     <p class="fade-in">Escríbenos por WhatsApp y en menos de 24 horas te contamos exactamente cómo la automatización aplicaría en tu negocio. Sin compromiso.</p>
     <div class="fade-in">
-      <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20automatizar%20mi%20negocio%20con%20IA" class="wa-btn" target="_blank">
+      <a href="https://wa.me/573015877677?text=Hola%2C%20quiero%20automatizar%20mi%20negocio%20con%20IA" class="wa-btn" target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.86L.057 23.999l6.304-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.369l-.36-.214-3.737.98.998-3.648-.235-.374A9.818 9.818 0 1112 21.818z"/>
@@ -1255,12 +1539,49 @@
     <li><a href="#como-funciona">Cómo funciona</a></li>
     <li><a href="#planes">Planes</a></li>
     <li><a href="#beneficios">Beneficios</a></li>
-    <li><a href="https://wa.me/573001234567" target="_blank">Contacto</a></li>
+    <li><a href="https://wa.me/573015877677" target="_blank">Contacto</a></li>
   </ul>
   <p class="footer-bottom">© 2025 Lazy Company · Trabaja menos. Vende más. Vive mejor.</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+  // EmailJS init - replace with your actual public key
+  emailjs.init("YOUR_PUBLIC_KEY");
+
+  function sendEmail(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cf-btn');
+    const note = document.getElementById('cf-note');
+    const name = document.getElementById('cf-name').value;
+    const email = document.getElementById('cf-email').value;
+    const msg = document.getElementById('cf-msg').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    note.className = 'form-note';
+    note.textContent = 'Enviando tu mensaje...';
+
+    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+      from_name: name,
+      from_email: email,
+      message: msg,
+      to_email: "lazycompany@gmail.com"
+    }).then(() => {
+      btn.textContent = 'Mensaje enviado ✓';
+      note.className = 'form-note success';
+      note.textContent = '¡Listo! Te respondemos en menos de 24 horas.';
+      document.getElementById('cf-name').value = '';
+      document.getElementById('cf-email').value = '';
+      document.getElementById('cf-msg').value = '';
+    }).catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensaje';
+      note.className = 'form-note error';
+      note.textContent = 'Error al enviar. Escríbenos directo por WhatsApp.';
+    });
+  }
+
   // Make all fade-in elements visible by default first (fallback)
   // This ensures content shows even if JS/observer fails (file:// protocol, etc.)
   function showAll() {
