@@ -1547,7 +1547,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   // EmailJS init - replace with your actual public key
-  emailjs.init("YOUR_PUBLIC_KEY");
+  emailjs.init("bcVBMxWKlmp-lRh0O");
 
   function sendEmail(e) {
     e.preventDefault();
@@ -1562,11 +1562,11 @@
     note.className = 'form-note';
     note.textContent = 'Enviando tu mensaje...';
 
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+    emailjs.send("service_vxn1o9i", "template_idvyahw", {
       from_name: name,
       from_email: email,
       message: msg,
-      to_email: "lazycompany@gmail.com"
+      to_email: "lazycompanies@gmail.com"
     }).then(() => {
       btn.textContent = 'Mensaje enviado ✓';
       note.className = 'form-note success';
