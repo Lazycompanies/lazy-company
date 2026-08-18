@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Laboratorio | Lo que hemos construido · Lazy Company</title>
+<meta name="description" content="Sistemas reales que hemos construido para negocios reales — clínicas, restaurantes, inmobiliarias y salones que ya trabajan solos.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://lazycompanies.com/laboratorio.html">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lazycompanies.com/laboratorio.html">
+<meta property="og:title" content="Laboratorio | Lazy Company">
+<meta property="og:description" content="Sistemas reales que hemos construido para negocios reales.">
+<meta property="og:image" content="https://lazycompanies.com/og-image.png">
+<meta property="og:locale" content="es_CO">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F8F2E8; --nude:#E3CDAE; --taupe:#B89A78; --taupe-deep:#8B6F52;
+    --ink:#3A2E22; --ink-mid:#6B5B47; --white:#FFFDFA;
+    --font-serif:'Cormorant Garamond',serif; --font-sans:'Jost',sans-serif; --font-mono:'Space Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream); color:var(--ink); font-family:var(--font-sans); font-weight:300; overflow-x:hidden;}
+  a{text-decoration:none; color:inherit;}
+
+  nav{position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:22px 50px; background:rgba(248,242,232,0.85); backdrop-filter:blur(10px);}
+  .logo{font-family:var(--font-serif); font-size:27px; color:var(--ink);}
+  .logo em{font-style:italic; color:var(--taupe-deep);}
+  .nav-links{display:flex; gap:28px; align-items:center; list-style:none;}
+  .nav-links a{font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--ink-mid);}
+  .nav-links a.active{color:var(--taupe-deep);}
+  #lang-toggle{border:1px solid rgba(139,111,82,0.35); width:32px; height:32px; border-radius:50%; font-family:var(--font-mono); font-size:10px; color:var(--taupe-deep); background:none; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+
+  .nav-hamburger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index:101;}
+  .nav-hamburger span{display:block; width:22px; height:1px; background:var(--ink); transition:.3s;}
+  .nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+  .nav-hamburger.open span:nth-child(2){opacity:0;}
+  .nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+  .mobile-menu{display:none; position:fixed; inset:0; z-index:99; background:rgba(28,20,14,0.97); flex-direction:column; align-items:center; justify-content:center; gap:34px; opacity:0; transition:opacity .3s;}
+  .mobile-menu.open{display:flex; opacity:1;}
+  .mobile-menu a{font-size:13px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,253,250,0.85);}
+  .mobile-menu a:hover{color:var(--nude);}
+  .mobile-menu .m-cta{border:1px solid rgba(227,205,174,0.4); padding:14px 34px; color:var(--nude) !important;}
+  @media (max-width:820px){.nav-links{display:none;} .nav-hamburger{display:flex;}}
+
+  .fade-in{opacity:0; transform:translateY(22px); transition:opacity .45s cubic-bezier(.16,.84,.44,1), transform .45s cubic-bezier(.16,.84,.44,1);}
+  .fade-in.visible{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){.fade-in{opacity:1; transform:none; transition:none;}}
+  .grid > .fade-in:nth-child(1){transition-delay:0s;}
+  .grid > .fade-in:nth-child(2){transition-delay:.08s;}
+  .grid > .fade-in:nth-child(3){transition-delay:.16s;}
+  .grid > .fade-in:nth-child(4){transition-delay:.24s;}
+
+  .lab-hero{position:relative; height:100vh; overflow:hidden;}
+  #net{position:absolute; inset:0; display:block;}
+  .lab-hero-content{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; pointer-events:none;}
+  .eyebrow{font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--taupe-deep); margin-bottom:28px;}
+  .lab-hero h1{font-family:var(--font-serif); font-weight:400; font-size:clamp(40px,7.5vw,88px); line-height:1.02; color:var(--ink);}
+  .lab-hero h1 em{font-style:italic; color:var(--taupe-deep);}
+  .lab-hero p{color:var(--ink-mid); max-width:44ch; margin:26px auto 0; font-size:15px; line-height:1.6;}
+  .scroll-hint{position:absolute; bottom:36px; left:50%; transform:translateX(-50%); font-family:var(--font-mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-mid); display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .scroll-hint .line{width:1px; height:36px; background:linear-gradient(to bottom, var(--taupe-deep), transparent); animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+  .lab-statement{max-width:820px; margin:0 auto; padding:120px 32px; text-align:center; position:relative; background:rgba(139,111,82,0.035); box-shadow:0 0 0 100vmax rgba(139,111,82,0.035); clip-path:inset(0 -100vmax);}
+  .lab-statement .label{font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--taupe-deep); display:block; margin-bottom:26px;}
+  .lab-statement h2{font-family:var(--font-serif); font-weight:400; font-size:clamp(24px,4vw,38px); line-height:1.45; color:var(--ink);}
+  .lab-statement h2 em{font-style:italic; color:var(--taupe-deep);}
+
+  .cases{max-width:1100px; margin:0 auto; padding:0 32px 150px;}
+  .cases-head{margin-bottom:56px;}
+  .cases-head span{font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--taupe-deep);}
+  .cases-head h2{font-family:var(--font-serif); font-size:clamp(26px,4vw,38px); color:var(--ink); margin-top:16px;}
+  .cases-head h2 em{font-style:italic; color:var(--taupe-deep);}
+
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:48px 40px; perspective:1400px;}
+  @media (max-width:720px){.grid{grid-template-columns:1fr;}}
+  .card{position:relative; transform-style:preserve-3d; transition:transform .5s cubic-bezier(.2,.9,.3,1);}
+  .frame{position:relative; border-radius:4px; overflow:hidden; aspect-ratio:4/3; background:rgba(139,111,82,0.08);}
+  .frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.4s ease;}
+  .frame img.active{opacity:1;}
+  .reflection{position:relative; height:64px; overflow:hidden; border-radius:0 0 4px 4px;}
+  .reflection img{position:absolute; left:0; top:-100%; width:100%; height:100%; object-fit:cover; transform:scaleY(-1); opacity:0; transition:opacity 1.4s ease;}
+  .reflection img.active{opacity:1;}
+  .reflection::after{content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(248,242,232,0.2) 0%, var(--cream) 90%);}
+  .meta{padding:18px 2px 0;}
+  .meta .name{font-family:var(--font-serif); font-size:19px; color:var(--ink); margin-bottom:6px;}
+  .meta .desc{font-size:13px; color:var(--ink-mid); line-height:1.5;}
+  .meta .tag{display:inline-block; margin-top:12px; font-family:var(--font-mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--taupe-deep); border:1px solid rgba(139,111,82,0.25); padding:5px 11px; border-radius:100px;}
+
+  .lab-cta{text-align:center; padding:0 24px 140px;}
+  .lab-cta h2{font-family:var(--font-serif); font-size:clamp(28px,4.6vw,46px); color:var(--ink); margin-bottom:28px;}
+  .lab-cta h2 em{font-style:italic; color:var(--taupe-deep);}
+  .lab-btn{display:inline-flex; align-items:center; gap:10px; background:var(--taupe-deep); color:var(--white); font-size:11px; letter-spacing:2.5px; text-transform:uppercase; padding:17px 38px; transition:.3s;}
+  .lab-btn:hover{background:var(--ink);}
+
+  footer{text-align:center; padding:50px 24px; border-top:1px solid rgba(139,111,82,0.15);}
+  .footer-links{display:flex; gap:28px; justify-content:center; margin:18px 0; flex-wrap:wrap;}
+  .footer-links a{font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-mid);}
+  .footer-bottom{font-size:11.5px; color:var(--ink-mid); opacity:.7;}
+
+  #chat-widget{position:fixed; bottom:24px; right:24px; z-index:200; font-family:var(--font-sans);}
+  #chat-toggle{width:56px; height:56px; border-radius:50%; background:var(--taupe-deep); border:none; color:var(--white); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px -8px rgba(58,46,34,0.5); transition:.25s;}
+  #chat-toggle:hover{background:var(--ink);}
+  #chat-toggle svg{width:24px; height:24px; fill:currentColor;}
+  #chat-box{position:fixed; bottom:92px; right:24px; width:340px; max-width:calc(100vw - 32px); height:440px; max-height:calc(100vh - 140px); background:var(--white); border-radius:14px; box-shadow:0 24px 60px -16px rgba(58,46,34,0.4); display:none; flex-direction:column; overflow:hidden; border:1px solid rgba(139,111,82,0.15);}
+  #chat-box.open{display:flex;}
+  #chat-header{background:var(--taupe-deep); color:var(--white); padding:16px 18px; display:flex; align-items:center; gap:12px;}
+  .chat-avatar{width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; font-family:var(--font-serif); font-size:15px;}
+  .chat-header-info{flex-grow:1; display:flex; flex-direction:column;}
+  .chat-name{font-size:13px; font-weight:500;}
+  .chat-status{font-size:10.5px; opacity:.85; display:flex; align-items:center; gap:6px;}
+  .status-dot{width:6px; height:6px; border-radius:50%; background:#8FAE8A;}
+  #chat-close{background:none; border:none; color:var(--white); font-size:20px; cursor:pointer; line-height:1;}
+  #chat-messages{flex-grow:1; overflow-y:auto; padding:16px 18px; display:flex; flex-direction:column; gap:12px;}
+  .msg{max-width:80%; padding:10px 14px; border-radius:12px; font-size:13.5px; line-height:1.5;}
+  .msg.sofia{background:var(--cream); color:var(--ink); align-self:flex-start; border-bottom-left-radius:2px;}
+  .msg.user{background:var(--taupe-deep); color:var(--white); align-self:flex-end; border-bottom-right-radius:2px;}
+  .msg.typing{background:var(--cream); color:var(--ink-mid); align-self:flex-start; font-style:italic;}
+  #chat-input-area{display:flex; gap:8px; padding:12px; border-top:1px solid rgba(139,111,82,0.15);}
+  #chat-input{flex-grow:1; border:1px solid rgba(139,111,82,0.25); border-radius:10px; padding:9px 12px; font-family:var(--font-sans); font-size:13px; resize:none; max-height:80px; outline:none; background:var(--cream);}
+  #chat-send{background:var(--taupe-deep); border:none; border-radius:10px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;}
+  #chat-send svg{width:16px; height:16px; fill:var(--white);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">Lazy<em>Company</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
+    <li><a href="servicios.html" data-es="Servicios" data-en="Services">Servicios</a></li>
+    <li><a href="nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a></li>
+    <li><a class="active" href="laboratorio.html" data-es="Laboratorio" data-en="Lab">Laboratorio</a></li>
+    <li><button id="lang-toggle" aria-label="Change language">EN</button></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" data-es="Inicio" data-en="Home">Inicio</a>
+  <a href="servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+  <a href="nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+  <a href="laboratorio.html" data-es="Laboratorio" data-en="Lab">Laboratorio</a>
+  <a class="m-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a>
+</div>
+
+<section class="lab-hero">
+  <canvas id="net"></canvas>
+  <div class="lab-hero-content">
+    <span class="eyebrow" data-es="Laboratorio · Lazy Company" data-en="Lab · Lazy Company">Laboratorio · Lazy Company</span>
+    <h1 data-es="Esto es lo que <em>hemos construido</em>." data-en="This is what <em>we've built</em>.">Esto es lo que <em>hemos construido</em>.</h1>
+    <p data-es="Sistemas reales, para negocios reales — mueve el cursor sobre la red para ver cómo se conectan." data-en="Real systems, for real businesses — move your cursor over the network to see how they connect.">Sistemas reales, para negocios reales — mueve el cursor sobre la red para ver cómo se conectan.</p>
+  </div>
+  <div class="scroll-hint"><span data-es="Scroll" data-en="Scroll">Scroll</span><div class="line"></div></div>
+</section>
+
+<div class="lab-statement">
+  <span class="label" data-es="Cómo pensamos" data-en="How we think">Cómo pensamos</span>
+  <h2 data-es="No armamos chatbots. Diseñamos <em>redes de decisiones</em> que conectan cada parte de tu negocio — y siguen aprendiendo." data-en="We don't build chatbots. We design <em>decision networks</em> that connect every part of your business — and keep learning.">No armamos chatbots. Diseñamos <em>redes de decisiones</em> que conectan cada parte de tu negocio — y siguen aprendiendo.</h2>
+</div>
+
+<div class="cases">
+  <div class="cases-head">
+    <span data-es="Casos reales" data-en="Real cases">Casos reales</span>
+    <h2 data-es="Negocios que ya <em>trabajan solos</em>" data-en="Businesses that already <em>run themselves</em>">Negocios que ya <em>trabajan solos</em></h2>
+  </div>
+  <div class="grid">
+    <div class="card" data-images='["https://picsum.photos/id/1074/800/600","https://picsum.photos/id/1080/800/600"]'>
+      <div class="frame"><img class="active"><img></div>
+      <div class="reflection"><img class="active"><img></div>
+      <div class="meta"><div class="name" data-es="Clínica Vitalis" data-en="Clínica Vitalis">Clínica Vitalis</div><div class="desc" data-es="Agenda y atención al paciente automatizada 24/7." data-en="Automated patient scheduling and support, 24/7.">Agenda y atención al paciente automatizada 24/7.</div><span class="tag" data-es="Salud · Medellín" data-en="Healthcare · Medellín">Salud · Medellín</span></div>
+    </div>
+    <div class="card" data-images='["https://picsum.photos/id/292/800/600","https://picsum.photos/id/225/800/600"]'>
+      <div class="frame"><img class="active"><img></div>
+      <div class="reflection"><img class="active"><img></div>
+      <div class="meta"><div class="name" data-es="Casa Norte Inmobiliaria" data-en="Casa Norte Real Estate">Casa Norte Inmobiliaria</div><div class="desc" data-es="Calificación de leads y seguimiento automático." data-en="Automated lead qualification and follow-up.">Calificación de leads y seguimiento automático.</div><span class="tag" data-es="Real Estate · Bogotá" data-en="Real Estate · Bogotá">Real Estate · Bogotá</span></div>
+    </div>
+    <div class="card" data-images='["https://picsum.photos/id/1058/800/600","https://picsum.photos/id/1059/800/600"]'>
+      <div class="frame"><img class="active"><img></div>
+      <div class="reflection"><img class="active"><img></div>
+      <div class="meta"><div class="name" data-es="Studio Bella Salón" data-en="Studio Bella Salon">Studio Bella Salón</div><div class="desc" data-es="Reservas y recordatorios sin llamadas perdidas." data-en="Bookings and reminders with zero missed calls.">Reservas y recordatorios sin llamadas perdidas.</div><span class="tag" data-es="Belleza · Medellín" data-en="Beauty · Medellín">Belleza · Medellín</span></div>
+    </div>
+    <div class="card" data-images='["https://picsum.photos/id/431/800/600","https://picsum.photos/id/429/800/600"]'>
+      <div class="frame"><img class="active"><img></div>
+      <div class="reflection"><img class="active"><img></div>
+      <div class="meta"><div class="name" data-es="Sazón Andina Restaurante" data-en="Sazón Andina Restaurant">Sazón Andina Restaurante</div><div class="desc" data-es="Reservas y pedidos automatizados por chat." data-en="Automated bookings and orders via chat.">Reservas y pedidos automatizados por chat.</div><span class="tag" data-es="Gastronomía · Medellín" data-en="Food & Beverage · Medellín">Gastronomía · Medellín</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="lab-cta">
+  <h2 data-es="¿Quieres un sistema así para <em>tu negocio</em>?" data-en="Want a system like this for <em>your business</em>?">¿Quieres un sistema así para <em>tu negocio</em>?</h2>
+  <a class="lab-btn" href="https://wa.me/573014112090?text=Hola%2C%20vi%20el%20laboratorio%20y%20quiero%20un%20sistema%20as%C3%AD" target="_blank" data-es="Escribir por WhatsApp" data-en="Message on WhatsApp">Escribir por WhatsApp</a>
+</div>
+
+<footer>
+  <div class="logo">Lazy<em>Company</em></div>
+  <div class="footer-links">
+    <a href="index.html" data-es="Inicio" data-en="Home">Inicio</a>
+    <a href="servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+    <a href="nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+    <a href="laboratorio.html" data-es="Laboratorio" data-en="Lab">Laboratorio</a>
+    <a href="https://wa.me/573014112090" target="_blank" data-es="Contacto" data-en="Contact">Contacto</a>
+  </div>
+  <p class="footer-bottom" data-es="© 2026 Lazy Company · Trabaja menos. Vende más. Vive mejor." data-en="© 2026 Lazy Company · Work less. Sell more. Live better.">© 2026 Lazy Company · Trabaja menos. Vende más. Vive mejor.</p>
+</footer>
+
+<div id="chat-widget">
+  <div id="chat-box">
+    <div id="chat-header">
+      <div class="chat-avatar">S</div>
+      <div class="chat-header-info">
+        <span class="chat-name">Sofía</span>
+        <span class="chat-status"><span class="status-dot"></span><span data-es="En línea · Lazy Company" data-en="Online · Lazy Company">En línea · Lazy Company</span></span>
+      </div>
+      <button id="chat-close" onclick="toggleChat()">×</button>
+    </div>
+    <div id="chat-messages">
+      <div class="msg sofia" data-es="¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?" data-en="Hi! I'm Sofía, Lazy Company's advisor. How can I help you today?">¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?</div>
+    </div>
+    <div id="chat-input-area">
+      <textarea id="chat-input" placeholder="Escribe tu pregunta..." rows="1"></textarea>
+      <button id="chat-send" onclick="sendMessage()"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+    </div>
+  </div>
+  <button id="chat-toggle" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
+</div>
+
+<script src="lang.js"></script>
+<script>
+  const revealSelectors = ['.lab-statement > *','.cases-head','.card','.lab-cta > *'];
+  document.querySelectorAll(revealSelectors.join(',')).forEach(el=>el.classList.add('fade-in'));
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.fade-in').forEach(el=>revealObserver.observe(el));
+
+  function toggleMobileMenu(){
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+    document.body.style.overflow = document.getElementById('mobile-menu').classList.contains('open') ? 'hidden' : '';
+  }
+  document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click', ()=>{
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }));
+
+  const canvas = document.getElementById('net');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [];
+  const mouse = {x:null, y:null, radius:150};
+  function resize(){ w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
+  window.addEventListener('resize', resize);
+  function initParticles(){
+    particles = [];
+    const count = Math.min(90, Math.floor((w*h)/16000));
+    for(let i=0;i<count;i++){
+      particles.push({ x: Math.random()*w, y: Math.random()*h, vx:(Math.random()-0.5)*0.35, vy:(Math.random()-0.5)*0.35, r: Math.random()*1.6+1, pulse: Math.random()*Math.PI*2 });
+    }
+  }
+  function animate(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#F8F2E8';
+    ctx.fillRect(0,0,w,h);
+    for(let p of particles){
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>w) p.vx*=-1;
+      if(p.y<0||p.y>h) p.vy*=-1;
+      p.pulse += 0.02;
+      if(mouse.x!==null){
+        const dx=p.x-mouse.x, dy=p.y-mouse.y, dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<mouse.radius){ const force=(mouse.radius-dist)/mouse.radius; p.x += (dx/dist)*force*1.2; p.y += (dy/dist)*force*1.2; }
+      }
+    }
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const a=particles[i], b=particles[j];
+        const dx=a.x-b.x, dy=a.y-b.y, dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<130){ ctx.strokeStyle = `rgba(139,111,82,${(1-dist/130)*0.4})`; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }
+      }
+    }
+    for(let p of particles){
+      const glow = 0.5 + Math.sin(p.pulse)*0.5;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r + glow*0.8,0,Math.PI*2);
+      ctx.fillStyle = `rgba(139,111,82,${0.55+glow*0.45})`; ctx.fill();
+    }
+    requestAnimationFrame(animate);
+  }
+  resize(); initParticles(); animate();
+  window.addEventListener('mousemove', e=>{ const r=canvas.getBoundingClientRect(); mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; });
+  window.addEventListener('mouseleave', ()=>{ mouse.x=null; mouse.y=null; });
+  window.addEventListener('touchmove', e=>{ const r=canvas.getBoundingClientRect(); mouse.x=e.touches[0].clientX-r.left; mouse.y=e.touches[0].clientY-r.top; }, {passive:true});
+
+  document.querySelectorAll('.card').forEach(card=>{
+    const imgs = JSON.parse(card.dataset.images);
+    const frameImgs = card.querySelectorAll('.frame img');
+    const reflImgs = card.querySelectorAll('.reflection img');
+    frameImgs.forEach((img,i)=>img.src = imgs[i]);
+    reflImgs.forEach((img,i)=>img.src = imgs[i]);
+    let idx = 0;
+    setInterval(()=>{
+      idx = (idx+1) % imgs.length;
+      frameImgs.forEach((img,i)=>img.classList.toggle('active', i===idx));
+      reflImgs.forEach((img,i)=>img.classList.toggle('active', i===idx));
+    }, 3200 + Math.random()*800);
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX-r.left)/r.width - 0.5;
+      const y = (e.clientY-r.top)/r.height - 0.5;
+      card.style.transform = `rotateX(${y*-7}deg) rotateY(${x*7}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', ()=>{ card.style.transform=''; });
+  });
+
+  const WORKER_URL = 'https://lazy-agent.aeromarcos.workers.dev';
+  let chatHistory = [];
+  let isChatOpen = false;
+  function toggleChat(){
+    isChatOpen = !isChatOpen;
+    document.getElementById('chat-box').classList.toggle('open', isChatOpen);
+    if(isChatOpen) document.getElementById('chat-input').focus();
+  }
+  async function sendMessage(){
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if(!text) return;
+    input.value = ''; input.style.height = 'auto';
+    appendMessage(text, 'user');
+    chatHistory.push({ role:'user', content:text });
+    const typing = appendMessage('Sofía está escribiendo...', 'typing');
+    try{
+      const res = await fetch(WORKER_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ messages: chatHistory }) });
+      const data = await res.json();
+      typing.remove();
+      const reply = data.reply || 'Hubo un error. Escríbenos al WhatsApp: +57 301 411 2090';
+      appendMessage(reply, 'sofia');
+      chatHistory.push({ role:'assistant', content:reply });
+    }catch(err){
+      typing.remove();
+      appendMessage('Hubo un error de conexión. Escríbenos al WhatsApp: +57 301 411 2090', 'sofia');
+    }
+  }
+  function appendMessage(text, type){
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg ' + type;
+    div.innerHTML = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+  document.getElementById('chat-input').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
+  });
+  document.getElementById('chat-input').addEventListener('input', function(){
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 80) + 'px';
+  });
+</script>
+
+</body>
+</html>
