@@ -7,8 +7,9 @@
       if(text !== null) el.innerHTML = text;
     });
     document.documentElement.lang = lang;
-    var btn = document.getElementById('lang-toggle');
-    if(btn) btn.textContent = lang === 'en' ? 'ES' : 'EN';
+    document.querySelectorAll('#lang-toggle, .lang-toggle-m').forEach(function(btn){
+      btn.textContent = lang === 'en' ? 'ES' : 'EN';
+    });
     try{ localStorage.setItem(STORAGE_KEY, lang); }catch(e){}
   }
 
@@ -16,13 +17,12 @@
     var saved = 'es';
     try{ saved = localStorage.getItem(STORAGE_KEY) || 'es'; }catch(e){}
     applyLang(saved);
-    var btn = document.getElementById('lang-toggle');
-    if(btn){
+    document.querySelectorAll('#lang-toggle, .lang-toggle-m').forEach(function(btn){
       btn.addEventListener('click', function(){
         var current = document.documentElement.lang === 'en' ? 'en' : 'es';
         applyLang(current === 'en' ? 'es' : 'en');
       });
-    }
+    });
   }
 
   if(document.readyState === 'loading'){

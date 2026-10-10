@@ -36,7 +36,8 @@
   .nav-links a{font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--ink-mid);}
   .nav-links a.active{color:var(--taupe-deep);}
   .nav-cta{border:1px solid rgba(139,111,82,0.35); padding:9px 20px; color:var(--taupe-deep) !important;}
-  #lang-toggle{border:1px solid rgba(139,111,82,0.35); width:32px; height:32px; border-radius:50%; font-family:var(--font-mono); font-size:10px; color:var(--taupe-deep); background:none; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  #lang-toggle,.lang-toggle-m{border:1px solid rgba(139,111,82,0.35); width:32px; height:32px; border-radius:50%; font-family:var(--font-mono); font-size:10px; color:var(--taupe-deep); background:none; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .lang-toggle-m{display:none;}
 
   .nav-hamburger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; z-index:101;}
   .nav-hamburger span{display:block; width:22px; height:1px; background:var(--ink); transition:.3s;}
@@ -48,7 +49,7 @@
   .mobile-menu a{font-size:13px; letter-spacing:3px; text-transform:uppercase; color:rgba(255,253,250,0.85);}
   .mobile-menu a:hover{color:var(--nude);}
   .mobile-menu .m-cta{border:1px solid rgba(227,205,174,0.4); padding:14px 34px; color:var(--nude) !important;}
-  @media (max-width:820px){.nav-links{display:none;} .nav-hamburger{display:flex;}}
+  @media (max-width:820px){.nav-links{display:none;} .nav-hamburger{display:flex;} .lang-toggle-m{display:flex; width:40px; height:40px; margin-left:auto; margin-right:6px;}}
 
   .fade-in{opacity:0; transform:translateY(22px); transition:opacity .45s cubic-bezier(.16,.84,.44,1), transform .45s cubic-bezier(.16,.84,.44,1);}
   .fade-in.visible{opacity:1; transform:translateY(0);}
@@ -130,6 +131,7 @@
     <li><a class="nav-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a></li>
     <li><button id="lang-toggle" aria-label="Change language">EN</button></li>
   </ul>
+  <button class="lang-toggle-m" aria-label="Change language">EN</button>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -224,7 +226,7 @@
   <button id="chat-toggle" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
 </div>
 
-<script src="lang.js"></script>
+<script src="lang.js?v=2"></script>
 <script>
   const revealSelectors = ['.manifesto > *','.section-body > *','.method > h2','.method-item','.principle > *','.cta > *'];
   document.querySelectorAll(revealSelectors.join(',')).forEach(el=>el.classList.add('fade-in'));
