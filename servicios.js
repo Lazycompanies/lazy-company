@@ -1,12 +1,28 @@
-/* Lazy Company — catalogo de soluciones (FUENTE UNICA de precios y funcionalidades).
+/* Lazy Company — catalogo de soluciones (FUENTE UNICA de precios, funcionalidades y tasa USD).
    Lo leen las paginas servicios/*.html via service-page.js. Rangos en COP.
-   Para cambiar un precio o una funcionalidad, editar solo este archivo. */
+   Para cambiar un precio o una funcionalidad, editar solo este archivo.
+
+   ⚠ VERSIONADO ANTI-CACHE: cada vez que cambien los precios o la tasa USD_COP_RATE,
+   subir el numero de version (?v=N) en TODOS los HTML que cargan este archivo, para que
+   el navegador no sirva una copia en cache con precios viejos:
+     <script src="../servicios.js?v=N"></script>
+   HTML que lo referencian hoy (buscar con: grep -rn "servicios.js?v=" .):
+     servicios/web.html, crm.html, agentes.html, conversion.html, agendamiento.html, procesos.html
+   (index.html y servicios.html no cargan este archivo.)
+   Version actual: 1 */
 (function(){
   var WA = '573014112090';
   function b(es,en){ return {es:es,en:en}; }
   // Rango: [min, max, plus]  |  Desde: [min, null, false, true]
   function R(min,max,plus){ return {min:min,max:max,plus:!!plus}; }
   function FROM(min){ return {min:min,from:true}; }
+
+  // ==== TASA DE CAMBIO (unico lugar para actualizarla) ====
+  // COP por 1 USD. TRM oficial 7-oct-2026: 3.216,01 + ~1 % de margen.
+  // Solo se usa para mostrar precios aproximados en USD cuando el sitio esta en ingles.
+  var USD_COP_RATE = 3250;
+  // Convierte COP -> USD redondeado al multiplo de $10 mas cercano
+  function toUSD(cop){ return Math.round(cop / USD_COP_RATE / 10) * 10; }
 
   var NOTE_GENERAL = b(
     'Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.',
@@ -22,16 +38,16 @@
       name: b('Web','Web'),
       priceLabel: 'investment',
       variants: [
-        { name: b('Web Starter','Web Starter'), impl: R(4000000,5500000),
+        { name: b('Web Starter','Web Starter'), impl: R(1000000,2000000),
           tag: b('Para negocios que necesitan una presencia digital profesional y sencilla.','For businesses that need a simple, professional digital presence.'),
           features: [b('Landing page o sitio pequeño','Landing page or small site'), b('Diseño responsive','Responsive design'), b('Diseño personalizado, no plantilla','Custom design, not a template'), b('WhatsApp','WhatsApp'), b('Formularios','Forms'), b('Analytics','Analytics'), b('SEO técnico básico','Basic technical SEO'), b('Publicación','Publishing')] },
-        { name: b('Web Profesional','Web Professional'), impl: R(5500000,7500000),
+        { name: b('Web Profesional','Web Professional'), impl: R(2000000,4000000),
           tag: b('Para empresas que necesitan una página web corporativa más completa.','For companies that need a more complete corporate website.'),
           features: [b('Diseño UX/UI','UX/UI design'), b('Varias secciones/páginas','Multiple sections/pages'), b('Animaciones','Animations'), b('Formularios avanzados','Advanced forms'), b('WhatsApp','WhatsApp'), b('Analytics','Analytics'), b('SEO técnico','Technical SEO'), b('CMS','CMS'), b('Integraciones básicas','Basic integrations'), b('Optimización de conversión','Conversion optimization')] },
-        { name: b('Web + Sistemas','Web + Systems'), impl: R(7500000,10000000),
+        { name: b('Web + Sistemas','Web + Systems'), impl: R(4000000,7500000),
           tag: b('Para empresas que necesitan que su web se conecte con otros sistemas.','For companies whose website needs to connect with other systems.'),
           features: [PREV, b('CRM','CRM'), b('Formularios conectados','Connected forms'), b('Automatizaciones','Automations'), b('APIs','APIs'), b('Agendamiento','Scheduling'), b('Captura y clasificación de leads','Lead capture and classification'), b('Integraciones externas','External integrations'), b('Dashboards o sistemas internos básicos','Dashboards or basic internal systems')] },
-        { name: b('Web Inteligente','Smart Web'), impl: R(10000000,12000000,true),
+        { name: b('Web Inteligente','Smart Web'), impl: R(7500000,12000000,true),
           tag: b('Para empresas que quieren convertir su web en un sistema inteligente.','For companies that want to turn their website into an intelligent system.'),
           note: b('Proyectos que superan el alcance estándar se cotizan aparte.','Projects beyond the standard scope are quoted separately.'),
           features: [b('IA','AI'), b('Agente de IA','AI agent'), b('Base de conocimiento','Knowledge base'), b('Captura y calificación de leads','Lead capture and qualification'), b('CRM','CRM'), b('Automatizaciones','Automations'), b('Agendamiento','Scheduling'), b('Pagos','Payments'), b('APIs','APIs'), b('Sistemas personalizados','Custom systems'), b('Integraciones complejas','Complex integrations')] }
@@ -76,18 +92,15 @@
           impl: R(4000000,6000000), monthly: R(1150000,1700000),
           tag: b('Hasta 5.000 conversaciones/mes','Up to 5,000 conversations/month'),
           features: [PREV, b('Múltiples flujos','Multiple flows'), b('CRM','CRM'), b('Agendamiento','Scheduling'), b('Seguimiento','Follow-up'), b('Integraciones API','API integrations'), b('Analítica','Analytics'), b('Escalamiento inteligente','Smart escalation'), b('Procesos comerciales','Sales processes')] },
-        { name: b('Agente 7.500','Agent 7,500'), chip: b('7.500 conversaciones','7,500 conversations'), vol: '7.500',
-          impl: R(5200000,7200000), monthly: R(1600000,2250000),
-          tag: b('Hasta 7.500 conversaciones/mes','Up to 7,500 conversations/month'),
-          features: [PREV, b('Mayor volumen','Higher volume'), b('Múltiples procesos','Multiple processes'), b('Integraciones avanzadas','Advanced integrations'), b('Múltiples agentes o áreas','Multiple agents or areas'), b('Analítica avanzada','Advanced analytics'), b('Automatizaciones complejas','Complex automations')] },
         { name: b('Agente 10.000','Agent 10,000'), chip: b('10.000 conversaciones','10,000 conversations'), vol: '10.000',
           impl: R(6400000,9600000,true), monthly: R(2050000,3150000,true),
           tag: b('Hasta 10.000 conversaciones/mes','Up to 10,000 conversations/month'),
+          note: b('Más de 10.000 conversaciones/mes o integraciones complejas: nivel «a medida».','Over 10,000 conversations/month or complex integrations: custom level.'),
           features: [b('Arquitectura avanzada','Advanced architecture'), b('Múltiples agentes','Multiple agents'), b('Múltiples canales','Multiple channels'), b('CRM','CRM'), b('APIs','APIs'), b('Sistemas internos','Internal systems'), b('Automatización avanzada','Advanced automation'), b('Analítica','Analytics'), b('Soporte prioritario','Priority support')] },
         { name: b('Agentes +10.000','Agents 10,000+'), chip: b('+10.000','10,000+'), custom: true,
           impl: FROM(9600000), monthly: FROM(3150000),
           tag: b('Solución a medida','Custom solution'),
-          note: b('El precio final depende del volumen, canales, integraciones, complejidad y consumo de IA.','The final price depends on volume, channels, integrations, complexity and AI usage.'),
+          note: b('Más de 10.000 conversaciones/mes o integraciones complejas. El precio final depende del volumen, canales, integraciones y consumo de IA.','Over 10,000 conversations/month or complex integrations. The final price depends on volume, channels, integrations and AI usage.'),
           features: [b('Volumen, canales e integraciones definidos contigo','Volume, channels and integrations defined with you'), b('Arquitectura y consumo de IA dimensionados a tu operación','Architecture and AI usage sized to your operation')] }
       ]
     },
@@ -150,5 +163,5 @@
     }
   };
 
-  window.LazyCatalog = {WA:WA, PREV:PREV, NOTE_RANGE:NOTE_RANGE, NOTE_GENERAL:NOTE_GENERAL, SERVICES:SERVICES};
+  window.LazyCatalog = {USD_COP_RATE:USD_COP_RATE, toUSD:toUSD, WA:WA, PREV:PREV, NOTE_RANGE:NOTE_RANGE, NOTE_GENERAL:NOTE_GENERAL, SERVICES:SERVICES};
 })();

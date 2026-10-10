@@ -8,7 +8,13 @@
   function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'es'; }
   function t(o){ return typeof o === 'string' ? o : o[lang()]; }
   function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  function money(n){ return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+  // ES: $1.000.000 COP  |  EN: $310 USD (aprox., tasa fija en servicios.js)
+  function cur(){ return lang()==='en' ? 'USD' : 'COP'; }
+  function moneyIn(n, l){
+    if(l==='en') return '$' + String(C.toUSD(n)).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+  }
+  function money(n){ return moneyIn(n, lang()); }
   function b(es,en){ return {es:es,en:en}; }
 
   var UI = {
@@ -22,7 +28,8 @@
     selected: b('Seleccionado','Selected'),
     include: b('Puede incluir','May include'),
     reference: b('Tu referencia','Your reference'),
-    exact: b('El valor exacto se define según integraciones y complejidad.','The exact value is defined by integrations and complexity.'),
+    exact: b('El valor exacto se define según integraciones y complejidad.','The exact value is defined by integrations and complexity. Prices in USD are approximate.'),
+    fx: b('','Prices shown in USD (approx., based on COP rate).'),
     cta: b('Solicitar cotización','Request a quote'),
     ctaCard: b('Quiero esta solución','I want this solution'),
     ctaCustom: b('Construir este sistema','Build this system'),
@@ -30,13 +37,14 @@
   };
 
   function rangeHTML(p){
-    if(p.from) return '<span class="p-from">'+esc(t(UI.from))+'</span> <span class="pn">'+money(p.min)+'</span>';
-    return '<span class="pn">'+money(p.min)+'</span> – <span class="pn">'+money(p.max)+(p.plus?'+':'')+'</span>';
+    if(p.from) return '<span class="p-from">'+esc(t(UI.from))+'</span><span class="pn">'+money(p.min)+'</span>';
+    return '<span class="pn">'+money(p.min)+'</span><span class="pn pn2">– '+money(p.max)+(p.plus?'+':'')+'</span>';
   }
-  function rangeText(p){
-    if(p.from) return t(UI.from)+' '+money(p.min);
-    return money(p.min)+' – '+money(p.max)+(p.plus?'+':'');
+  function rangeTextIn(p, l){
+    if(p.from) return (l==='en' ? 'From ' : 'Desde ')+moneyIn(p.min, l);
+    return moneyIn(p.min, l)+' – '+moneyIn(p.max, l)+(p.plus?'+':'');
   }
+  function rangeText(p){ return rangeTextIn(p, lang()); }
 
   if(s){
     var elChips = document.getElementById('chips');
@@ -51,21 +59,23 @@
       if(s.isAgents){
         return '<div class="price-dual">'+
           '<div class="price-box"><span class="price-label">'+esc(t(UI.implementation))+' <i>'+esc(t(UI.implSub))+'</i></span>'+
-            '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">COP</span></div></div>'+
+            '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">'+cur()+'</span></div></div>'+
           '<div class="price-box alt"><span class="price-label">'+esc(t(UI.operation))+'</span>'+
-            '<div class="price">'+rangeHTML(v.monthly)+' <span class="cop">COP '+esc(t(UI.perMonth))+'</span></div></div>'+
+            '<div class="price">'+rangeHTML(v.monthly)+' <span class="cop">'+cur()+' '+esc(t(UI.perMonth))+'</span></div></div>'+
         '</div>';
       }
       return '<div class="price-box single"><span class="price-label">'+esc(priceLabel())+'</span>'+
-        '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">COP</span></div></div>';
+        '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">'+cur()+'</span></div></div>';
     };
 
     var waLink = function(v){
       var en = lang()==='en';
       var msg = (en ? 'Hi, I’d like a quote for: ' : 'Hola, quiero cotizar: ') + t(s.name) + ' – ' + t(v.name) + '. ' + (en ? 'Reference seen: ' : 'Referencia vista: ');
+      var part = function(p, suffix){ return rangeText(p)+' '+cur()+(suffix||''); };
       msg += s.isAgents
-        ? (en ? 'implementation ' : 'implementación ') + rangeText(v.impl) + ' COP + ' + (en ? 'monthly ' : 'operación ') + rangeText(v.monthly) + ' COP' + (en ? '/month' : '/mes')
-        : rangeText(v.impl) + ' COP';
+        ? (en ? 'implementation ' : 'implementación ') + part(v.impl) + ' + ' + (en ? 'monthly ' : 'operación ') + part(v.monthly, en ? '/month' : '/mes')
+        : part(v.impl);
+      if(en) msg += ' (approx.; in COP: ' + rangeTextIn(v.impl,'es') + (s.isAgents ? ' + ' + rangeTextIn(v.monthly,'es') + '/mes' : '') + ')';
       return 'https://wa.me/'+C.WA+'?text='+encodeURIComponent(msg);
     };
 
@@ -77,15 +87,19 @@
         return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(label)+'</button>';
       }).join('');
 
+      var fx = document.getElementById('fx-note');
+      if(!fx){ fx = document.createElement('p'); fx.id = 'fx-note'; fx.className = 'fx-note'; elGrid.parentNode.insertBefore(fx, elGrid); }
+      fx.textContent = t(UI.fx); fx.hidden = lang() !== 'en';
+
       elGrid.innerHTML = s.variants.map(function(vr,i){
         var on = i===sel;
         return '<article class="var-card'+(on?' on':'')+'" data-i="'+i+'">'+
           '<div class="var-top"><h3>'+esc(t(vr.name))+'</h3>'+
             (vr.custom ? '<span class="badge">'+esc(t(UI.custom))+'</span>' : '')+
             (on ? '<span class="sel">✓ '+esc(t(UI.selected))+'</span>' : '')+'</div>'+
-          '<p class="var-tag">'+esc(t(vr.tag))+'</p>'+
-          priceBlock(vr)+
-          (vr.note ? '<p class="var-note">'+esc(t(vr.note))+'</p>' : '')+
+          '<div class="price-wrap">'+priceBlock(vr)+'</div>'+
+          '<div class="var-desc"><p class="var-tag">'+esc(t(vr.tag))+'</p>'+
+          (vr.note ? '<p class="var-note">'+esc(t(vr.note))+'</p>' : '')+'</div>'+
           '<span class="inc-label">'+esc(t(UI.include))+'</span>'+
           '<ul class="feat">'+vr.features.map(function(f){ return '<li>'+esc(f === C.PREV ? t(UI.allPrev) : t(f))+'</li>'; }).join('')+'</ul>'+
           '<a class="btn-card" href="'+waLink(vr)+'" target="_blank" rel="noopener">'+esc(t(vr.custom ? UI.ctaCustom : UI.ctaCard))+' →</a>'+
@@ -98,14 +112,26 @@
         '<p>'+esc(t(C.NOTE_GENERAL))+'</p>';
 
       var barPrice = s.isAgents
-        ? '<div class="bar-prices"><div><span>'+esc(t(UI.implementation))+'</span><b>'+rangeText(v.impl)+'</b></div>'+
-          '<div><span>'+esc(t(UI.operation))+'</span><b>'+rangeText(v.monthly)+' '+esc(t(UI.perMonth))+'</b></div></div>'
-        : '<div class="bar-prices"><div><span>'+esc(priceLabel())+'</span><b>'+rangeText(v.impl)+' COP</b></div></div>';
+        ? '<div class="bar-prices"><div><span>'+esc(t(UI.implementation))+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div>'+
+          '<div><span>'+esc(t(UI.operation))+'</span><b>'+rangeText(v.monthly)+' '+cur()+' '+esc(t(UI.perMonth))+'</b></div></div>'
+        : '<div class="bar-prices"><div><span>'+esc(priceLabel())+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div></div>';
       elBar.innerHTML = '<div class="quote-inner"><div class="bar-info"><span class="bar-ref">'+esc(t(UI.reference))+' · '+esc(t(v.name))+'</span>'+barPrice+
         '<span class="bar-exact">'+esc(t(UI.exact))+'</span></div>'+
         '<a class="btn-primary bar-cta" href="'+waLink(v)+'" target="_blank" rel="noopener">'+esc(t(UI.cta))+'</a></div>';
 
       syncBarHeight();
+      equalize();
+    };
+
+    // tarjetas del mismo alto: precio y descripcion alinean sus bloques entre columnas
+    var equalize = function(){
+      ['.price-wrap','.var-desc'].forEach(function(sel){
+        var els = [].slice.call(elGrid.querySelectorAll(sel));
+        els.forEach(function(e){ e.style.minHeight = ''; });
+        if(window.matchMedia('(max-width:700px)').matches) return;
+        var h = Math.max.apply(null, els.map(function(e){ return e.offsetHeight; }));
+        els.forEach(function(e){ e.style.minHeight = h + 'px'; });
+      });
     };
 
     var syncBarHeight = function(){
@@ -141,7 +167,9 @@
       if(e.target.closest('a')) return; // los CTA siguen su enlace
       var c = e.target.closest('.var-card'); if(c && !c.classList.contains('on')) choose(+c.getAttribute('data-i'), false);
     });
-    window.addEventListener('resize', syncBarHeight);
+    window.addEventListener('resize', function(){ syncBarHeight(); equalize(); });
+    window.addEventListener('load', equalize);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(equalize);
     new MutationObserver(render).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
 
     render();
