@@ -188,8 +188,6 @@
   .frame{position:relative; border-radius:10px; overflow:hidden; aspect-ratio:4/3; background:rgba(139,111,82,0.08);}
   .frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.6s ease;}
   .frame img.active{opacity:1;}
-  .frame-art{background:linear-gradient(135deg,#1f1610 0%,#3a2e22 100%);}
-  .frame-art svg{position:absolute; inset:0; width:100%; height:100%;}
   .reflection{position:relative; height:56px; overflow:hidden; border-radius:0 0 10px 10px; margin-top:1px;}
   .reflection img{position:absolute; left:0; top:-100%; width:100%; height:100%; object-fit:cover; transform:scaleY(-1); opacity:0; transition:opacity 1.6s ease;}
   .reflection img.active{opacity:1;}
@@ -331,18 +329,9 @@
       <div class="reflection"><img class="active" alt=""><img alt=""></div>
       <div class="card-meta"><div><h3 data-es="Web Inteligente" data-en="Smart Web">Web Inteligente</h3><p data-es="Tu sitio recibe, responde y convierte visitantes en clientes." data-en="Your site greets, responds, and converts visitors into customers.">Tu sitio recibe, responde y convierte visitantes en clientes.</p></div><span class="card-num">01</span></div>
     </a>
-    <a class="service-card" href="servicios/crm.html">
-      <div class="frame frame-art">
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="#E3CDAE" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <g opacity=".9"><rect x="46" y="58" width="86" height="184" rx="8" stroke-opacity=".5"/><rect x="157" y="58" width="86" height="184" rx="8" stroke-opacity=".5"/><rect x="268" y="58" width="86" height="184" rx="8" stroke-opacity=".5"/></g>
-          <rect x="56" y="74" width="66" height="34" rx="5"/><rect x="56" y="118" width="66" height="34" rx="5"/><rect x="56" y="162" width="66" height="34" rx="5" stroke-opacity=".55"/>
-          <rect x="167" y="74" width="66" height="34" rx="5"/><rect x="167" y="118" width="66" height="34" rx="5" stroke-opacity=".55"/>
-          <rect x="278" y="74" width="66" height="34" rx="5" fill="#B89A78" fill-opacity=".28" stroke="#B89A78"/>
-          <path d="M126 91h28m-6-5 6 5-6 5M237 91h28m-6-5 6 5-6 5" stroke="#B89A78"/>
-          <circle cx="66" cy="38" r="3" fill="#E3CDAE" stroke="none"/><circle cx="177" cy="38" r="3" fill="#E3CDAE" stroke="none" opacity=".6"/><circle cx="288" cy="38" r="3" fill="#E3CDAE" stroke="none" opacity=".35"/>
-        </svg>
-      </div>
-      <div class="reflection"></div>
+    <a class="service-card" href="servicios/crm.html" data-images='["images/crm-automatizado.webp","images/crm-automatizado.webp"]'>
+      <div class="frame"><img class="active" alt="Sistema CRM automatizado"><img alt=""></div>
+      <div class="reflection"><img class="active" alt=""><img alt=""></div>
       <div class="card-meta"><div><h3 data-es="CRM" data-en="CRM">CRM</h3><p data-es="Implementamos y conectamos tu CRM para que ningún cliente se pierda." data-en="We implement and connect your CRM so no customer slips through.">Implementamos y conectamos tu CRM para que ningún cliente se pierda.</p></div><span class="card-num">02</span></div>
     </a>
     <a class="service-card" href="servicios/agentes.html" data-images='["images/atencion-automatica.png","images/atencion-automatica.png"]'>
@@ -360,16 +349,9 @@
       <div class="reflection"><img class="active" alt=""><img alt=""></div>
       <div class="card-meta"><div><h3 data-es="Agendamiento" data-en="Scheduling">Agendamiento</h3><p data-es="Citas y recordatorios automáticos, sin llamadas perdidas." data-en="Automatic appointments and reminders, no missed calls.">Citas y recordatorios automáticos, sin llamadas perdidas.</p></div><span class="card-num">05</span></div>
     </a>
-    <a class="service-card" href="servicios/procesos.html">
-      <div class="frame frame-art">
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="#E3CDAE" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="70" cy="80" r="26"/><circle cx="70" cy="220" r="26" stroke-opacity=".6"/><circle cx="200" cy="150" r="34" stroke="#B89A78" fill="#B89A78" fill-opacity=".18"/><circle cx="330" cy="80" r="26"/><circle cx="330" cy="220" r="26" stroke-opacity=".6"/>
-          <path d="M94 92 170 138M94 208 170 162M230 138 306 92M230 162 306 208" stroke="#B89A78"/>
-          <path d="M58 80h24M58 220h24M318 80h24M318 220h24M188 150h24" stroke-opacity=".75"/>
-          <circle cx="132" cy="115" r="3" fill="#E3CDAE" stroke="none"/><circle cx="268" cy="185" r="3" fill="#E3CDAE" stroke="none"/>
-        </svg>
-      </div>
-      <div class="reflection"></div>
+    <a class="service-card" href="servicios/procesos.html" data-images='["images/procesos-internos.webp","images/procesos-internos.webp"]'>
+      <div class="frame"><img class="active" alt="Automatización de procesos internos"><img alt=""></div>
+      <div class="reflection"><img class="active" alt=""><img alt=""></div>
       <div class="card-meta"><div><h3 data-es="Procesos Internos" data-en="Internal Processes">Procesos Internos</h3><p data-es="Automatizamos las tareas que hoy consumen horas de tu equipo." data-en="We automate the tasks that today consume your team’s hours.">Automatizamos las tareas que hoy consumen horas de tu equipo.</p></div><span class="card-num">06</span></div>
     </a>
   </div>
@@ -506,8 +488,8 @@
     const imgs = JSON.parse(card.dataset.images);
     const frameImgs = card.querySelectorAll('.frame img');
     const reflImgs = card.querySelectorAll('.reflection img');
-    frameImgs.forEach((img,i)=>img.src = imgs[i]);
-    reflImgs.forEach((img,i)=>img.src = imgs[i]);
+    frameImgs.forEach((img,i)=>{ img.loading = 'lazy'; img.decoding = 'async'; img.src = imgs[i]; });
+    reflImgs.forEach((img,i)=>{ img.loading = 'lazy'; img.decoding = 'async'; img.src = imgs[i]; });
     let idx = 0;
     setInterval(()=>{
       idx = (idx+1) % imgs.length;
