@@ -40,7 +40,7 @@
 <style>
   :root{
     --cream:#F8F2E8; --nude:#E3CDAE; --taupe:#B89A78; --taupe-deep:#8B6F52;
-    --ink:#3A2E22; --ink-mid:#6B5B47; --white:#FFFDFA;
+    --ink:#3A2E22; --ink-mid:#6B5B47; --white:#FFFDFA; --taupe-aa:#76593D;
     --font-serif:'Cormorant Garamond',serif; --font-sans:'Jost',sans-serif; --font-mono:'Space Mono',monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -91,10 +91,20 @@
   .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
   @media (max-width:920px){.services-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:600px){.services-grid{grid-template-columns:1fr;}}
-  .service-card{background:rgba(255,253,250,0.55); border:1px solid rgba(139,111,82,0.14); border-radius:10px; padding:28px 24px; display:flex; flex-direction:column; transition:transform .3s, box-shadow .3s; position:relative;}
-  .service-card:hover{transform:translateY(-4px); box-shadow:0 16px 32px -18px rgba(139,111,82,0.35);}
+  .service-card{position:relative; isolation:isolate;
+    background:
+      radial-gradient(130% 62% at 18% -6%, rgba(255,255,255,.80) 0%, rgba(255,255,255,0) 58%),
+      linear-gradient(145deg, rgba(255,255,255,.58) 0%, rgba(255,250,242,.30) 48%, rgba(255,244,228,.42) 100%);
+    -webkit-backdrop-filter:blur(24px) saturate(1.6) brightness(1.04); backdrop-filter:blur(24px) saturate(1.6) brightness(1.04);
+    border:1px solid rgba(255,255,255,.55); border-radius:22px; padding:28px 24px; display:flex; flex-direction:column;
+    box-shadow:
+      inset 0 1.5px 1px rgba(255,255,255,.98), inset 1px 0 1px rgba(255,255,255,.55), inset 0 -1.5px 2px rgba(139,111,82,.22), inset 0 0 34px rgba(255,255,255,.38),
+      0 1px 2px rgba(58,46,34,.06), 0 16px 30px -14px rgba(120,90,55,.30), 0 34px 62px -32px rgba(90,65,38,.38);
+    transition:opacity .45s cubic-bezier(.16,.84,.44,1), transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;}
+  .service-card::before{content:''; position:absolute; z-index:-1; inset:0; border-radius:inherit; padding:1.5px; pointer-events:none; background:linear-gradient(140deg, rgba(255,255,255,1) 0%, rgba(255,255,255,.15) 30%, rgba(139,111,82,0) 58%, rgba(139,111,82,.38) 100%); mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite:exclude; -webkit-mask-composite:xor;}
+  .service-card:hover{transform:translateY(-6px); box-shadow:inset 0 1.5px 1px #fff, inset 1px 0 1px rgba(255,255,255,.6), inset 0 -1.5px 2px rgba(139,111,82,.26), inset 0 0 40px rgba(255,255,255,.5), 0 2px 4px rgba(58,46,34,.07), 0 24px 40px -14px rgba(120,90,55,.36), 0 44px 76px -34px rgba(90,65,38,.45);}
   .service-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;}
-  .service-num{font-family:var(--font-mono); font-size:10.5px; color:var(--taupe);}
+  .service-num{font-family:var(--font-mono); font-size:10.5px; color:var(--taupe-aa);}
   .video-badge{width:26px; height:26px; border-radius:50%; border:1px solid rgba(139,111,82,0.3); display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--taupe-deep);}
   .service-card h3{font-family:var(--font-serif); font-weight:500; font-size:19px; line-height:1.25; margin-bottom:10px;}
   .service-card p{font-size:13px; color:var(--ink-mid); line-height:1.55; margin-bottom:18px; flex-grow:1;}
@@ -136,14 +146,15 @@
   #chat-send svg{width:16px; height:16px; fill:var(--white);}
 
   /* ---- Tarjetas de servicio (enlaces a servicios/*.html) ---- */
-  a.service-card{padding:30px 26px;}
+  a.service-card{padding:32px 26px 30px;}
   a.service-card:focus-visible{outline:2px solid var(--taupe-deep); outline-offset:3px;}
   .service-top{align-items:center;}
   .svc-icon{width:34px; height:34px; fill:none; stroke:var(--taupe-deep); stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round;}
-  .service-card h3{font-size:23px;}
+  .service-card h3{font-size:23px; color:var(--ink);}
   .service-card:hover .service-cta{border-color:var(--ink);}
   .general-note{font-size:12px; color:var(--ink-mid); opacity:.8; text-align:center; max-width:640px; margin:34px auto 0; line-height:1.6;}
-  @media (max-width:600px){.group{padding:0 20px 30px;} .service-cta{padding:10px 0;}}
+  @media (max-width:600px){.group{padding:0 20px 30px;} .service-cta{padding:10px 0;} .service-card:hover{transform:none;}}
+  @media (prefers-reduced-motion:reduce){.service-card{transition:none;} .service-card:hover{transform:none;}}
 </style>
 </head>
 <body>

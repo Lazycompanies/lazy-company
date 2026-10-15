@@ -87,6 +87,7 @@
         return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(label)+'</button>';
       }).join('');
 
+      elGrid.setAttribute('data-n', s.variants.length);
       var fx = document.getElementById('fx-note');
       if(!fx){ fx = document.createElement('p'); fx.id = 'fx-note'; fx.className = 'fx-note'; elGrid.parentNode.insertBefore(fx, elGrid); }
       fx.textContent = t(UI.fx); fx.hidden = lang() !== 'en';
