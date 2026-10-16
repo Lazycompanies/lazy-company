@@ -1,6 +1,10 @@
 /* Lazy Company — catalogo de soluciones (FUENTE UNICA de precios, funcionalidades y tasa USD).
-   Lo leen las paginas servicios/*.html via service-page.js. Rangos en COP.
+   Lo leen las paginas servicios/*.html via service-page.js. Valores en COP.
    Para cambiar un precio o una funcionalidad, editar solo este archivo.
+
+   Modelo: 3 niveles identicos en los 6 servicios -> Esencial, Automatizado (Recomendado), Integrado.
+   Formas de precio:  R(min,max[,true]) rango  |  EX(n) valor fijo  |  FROM(n) "desde".
+   Por nivel: impl (pago unico), monthly (mensualidad, opcional), maint (mantenimiento opcional, solo Web).
 
    ⚠ VERSIONADO ANTI-CACHE: cada vez que cambien los precios o la tasa USD_COP_RATE,
    subir el numero de version (?v=N) en TODOS los HTML que cargan este archivo, para que
@@ -9,13 +13,14 @@
    HTML que lo referencian hoy (buscar con: grep -rn "servicios.js?v=" .):
      servicios/web.html, crm.html, agentes.html, conversion.html, agendamiento.html, procesos.html
    (index.html y servicios.html no cargan este archivo.)
-   Version actual: 1 */
+   Si tambien cambian service-page.js o service-page.css, subir su ?v= en esos mismos HTML.
+   Version actual de servicios.js: 2 */
 (function(){
   var WA = '573014112090';
   function b(es,en){ return {es:es,en:en}; }
-  // Rango: [min, max, plus]  |  Desde: [min, null, false, true]
-  function R(min,max,plus){ return {min:min,max:max,plus:!!plus}; }
-  function FROM(min){ return {min:min,from:true}; }
+  function R(min,max,plus){ return {min:min,max:max,plus:!!plus}; }   // rango
+  function EX(n){ return {min:n,exact:true}; }                         // valor fijo
+  function FROM(min){ return {min:min,from:true}; }                    // "Desde"
 
   // ==== TASA DE CAMBIO (unico lugar para actualizarla) ====
   // COP por 1 USD. TRM oficial 7-oct-2026: 3.216,01 + ~1 % de margen.
@@ -28,137 +33,115 @@
     'Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.',
     'Costs of external platforms, licenses, infrastructure or third-party services may be charged separately.');
   var NOTE_RANGE = b(
-    'Los rangos son una referencia inicial. El valor final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.',
-    'Ranges are an initial reference. The final value depends on scope, integrations, volume, complexity and required features.');
+    'Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.',
+    'Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.');
 
-  var PREV = 'PREV'; // marcador "Todo lo anterior"
+  var PREV = 'PREV'; // marcador "Todo lo del nivel anterior"
+  var T_ESE = b('Esencial','Essential'), T_AUT = b('Automatizado','Automated'), T_INT = b('Integrado','Integrated');
 
   var SERVICES = {
+
     web: {
       name: b('Web','Web'),
-      priceLabel: 'investment',
+      monthlyLabel: b('Mensualidad','Monthly fee'),
+      extraNote: b('El mantenimiento mensual es opcional y no forma parte del nivel.','Monthly maintenance is optional and is not part of the level.'),
       variants: [
-        { name: b('Web Starter','Web Starter'), impl: R(1000000,2000000),
+        { name: T_ESE, impl: R(1500000,2500000), maint: R(100000,200000),
           tag: b('Para negocios que necesitan una presencia digital profesional y sencilla.','For businesses that need a simple, professional digital presence.'),
           features: [b('Landing page o sitio pequeño','Landing page or small site'), b('Diseño responsive','Responsive design'), b('Diseño personalizado, no plantilla','Custom design, not a template'), b('WhatsApp','WhatsApp'), b('Formularios','Forms'), b('Analytics','Analytics'), b('SEO técnico básico','Basic technical SEO'), b('Publicación','Publishing')] },
-        { name: b('Web Profesional','Web Professional'), impl: R(2000000,4000000),
-          tag: b('Para empresas que necesitan una página web corporativa más completa.','For companies that need a more complete corporate website.'),
-          features: [b('Diseño UX/UI','UX/UI design'), b('Varias secciones/páginas','Multiple sections/pages'), b('Animaciones','Animations'), b('Formularios avanzados','Advanced forms'), b('WhatsApp','WhatsApp'), b('Analytics','Analytics'), b('SEO técnico','Technical SEO'), b('CMS','CMS'), b('Integraciones básicas','Basic integrations'), b('Optimización de conversión','Conversion optimization')] },
-        { name: b('Web + Sistemas','Web + Systems'), impl: R(4000000,7500000),
-          tag: b('Para empresas que necesitan que su web se conecte con otros sistemas.','For companies whose website needs to connect with other systems.'),
-          features: [PREV, b('CRM','CRM'), b('Formularios conectados','Connected forms'), b('Automatizaciones','Automations'), b('APIs','APIs'), b('Agendamiento','Scheduling'), b('Captura y clasificación de leads','Lead capture and classification'), b('Integraciones externas','External integrations'), b('Dashboards o sistemas internos básicos','Dashboards or basic internal systems')] },
-        { name: b('Web Inteligente','Smart Web'), impl: R(7500000,12000000,true),
-          tag: b('Para empresas que quieren convertir su web en un sistema inteligente.','For companies that want to turn their website into an intelligent system.'),
-          note: b('Proyectos que superan el alcance estándar se cotizan aparte.','Projects beyond the standard scope are quoted separately.'),
-          features: [b('IA','AI'), b('Agente de IA','AI agent'), b('Base de conocimiento','Knowledge base'), b('Captura y calificación de leads','Lead capture and qualification'), b('CRM','CRM'), b('Automatizaciones','Automations'), b('Agendamiento','Scheduling'), b('Pagos','Payments'), b('APIs','APIs'), b('Sistemas personalizados','Custom systems'), b('Integraciones complejas','Complex integrations')] }
+        { name: T_AUT, rec: true, impl: R(3000000,5500000), maint: R(250000,450000),
+          tag: b('Para empresas que necesitan una web completa que capture y organice sus leads.','For companies that need a complete website that captures and organizes leads.'),
+          features: [PREV, b('Diseño UX/UI','UX/UI design'), b('Varias secciones/páginas','Multiple sections/pages'), b('Animaciones','Animations'), b('CMS','CMS'), b('Formularios avanzados y conectados','Advanced, connected forms'), b('Automatizaciones','Automations'), b('Captura y clasificación de leads','Lead capture and classification'), b('Integraciones básicas','Basic integrations'), b('Optimización de conversión','Conversion optimization')] },
+        { name: T_INT, impl: FROM(6000000), maint: FROM(500000),
+          tag: b('Para empresas que quieren que su web sea un sistema inteligente y conectado.','For companies that want their website to be an intelligent, connected system.'),
+          features: [PREV, b('CRM','CRM'), b('APIs e integraciones externas','APIs and external integrations'), b('Agendamiento','Scheduling'), b('Dashboards o sistemas internos','Dashboards or internal systems'), b('Agente de IA con base de conocimiento','AI agent with knowledge base'), b('Pagos','Payments'), b('Sistemas personalizados','Custom systems'), b('Integraciones complejas','Complex integrations')] }
       ]
     },
 
     crm: {
       name: b('CRM','CRM'),
-      priceLabel: 'implementation',
+      monthlyLabel: b('Mensualidad','Monthly fee'),
       extraNote: b('El software/licencia del CRM puede cobrarse aparte.','The CRM software/license may be charged separately.'),
       variants: [
-        { name: b('CRM Base','CRM Base'), impl: R(1600000,2800000),
+        { name: T_ESE, impl: EX(1200000), monthly: R(0,200000),
           tag: b('Para empresas que necesitan organizar clientes y oportunidades.','For companies that need to organize customers and opportunities.'),
           features: [b('Configuración','Setup'), b('Pipeline','Pipeline'), b('Campos personalizados','Custom fields'), b('Usuarios','Users'), b('Contactos','Contacts'), b('Etapas comerciales','Sales stages'), b('Formularios','Forms'), b('Automatizaciones básicas','Basic automations')] },
-        { name: b('CRM Automatizado','Automated CRM'), impl: R(2800000,4800000),
+        { name: T_AUT, rec: true, impl: EX(2500000), monthly: R(250000,500000),
           tag: b('Para empresas que quieren automatizar el seguimiento comercial.','For companies that want to automate sales follow-up.'),
-          features: [PREV, b('Automatizaciones','Automations'), b('Lead routing','Lead routing'), b('Seguimiento automático','Automatic follow-up'), b('Notificaciones','Notifications'), b('WhatsApp','WhatsApp'), b('Email','Email'), b('Lead scoring','Lead scoring'), b('Dashboards','Dashboards'), b('Integraciones','Integrations')] },
-        { name: b('CRM + IA','CRM + AI'), impl: R(4800000,8000000),
-          tag: b('Para empresas que quieren incorporar IA a su operación comercial.','For companies that want to bring AI into their sales operation.'),
-          features: [PREV, b('IA para clasificación de leads','AI lead classification'), b('IA para análisis de conversaciones','AI conversation analysis'), b('IA para resúmenes','AI summaries'), b('IA para seguimiento','AI follow-up'), b('IA para generación de respuestas','AI response generation'), b('Agentes conectados al CRM','Agents connected to the CRM'), b('Automatización avanzada','Advanced automation')] },
-        { name: b('CRM a Medida / Enterprise','Custom / Enterprise CRM'), impl: R(8000000,16000000,true), custom: true,
-          tag: b('Para empresas con procesos comerciales complejos.','For companies with complex sales processes.'),
-          features: [b('Arquitectura personalizada','Custom architecture'), b('Múltiples pipelines','Multiple pipelines'), b('Múltiples equipos','Multiple teams'), b('APIs','APIs'), b('ERP','ERP'), b('Facturación','Invoicing'), b('WhatsApp','WhatsApp'), b('IA','AI'), b('Dashboards','Dashboards'), b('Automatizaciones complejas','Complex automations'), b('Sistemas internos','Internal systems')] }
+          features: [PREV, b('Lead routing','Lead routing'), b('Seguimiento automático','Automatic follow-up'), b('Notificaciones','Notifications'), b('WhatsApp','WhatsApp'), b('Email','Email'), b('Lead scoring','Lead scoring'), b('Dashboards','Dashboards'), b('Integraciones','Integrations')] },
+        { name: T_INT, impl: FROM(4500000), monthly: FROM(500000),
+          tag: b('Para empresas con procesos comerciales complejos que quieren incorporar IA.','For companies with complex sales processes that want to bring in AI.'),
+          features: [PREV, b('IA para clasificación de leads','AI lead classification'), b('IA para análisis de conversaciones y resúmenes','AI conversation analysis and summaries'), b('IA para seguimiento y generación de respuestas','AI follow-up and response generation'), b('Agentes conectados al CRM','Agents connected to the CRM'), b('Múltiples pipelines y equipos','Multiple pipelines and teams'), b('APIs, ERP y facturación','APIs, ERP and invoicing'), b('Arquitectura personalizada','Custom architecture')] }
       ]
     },
 
     agentes: {
       name: b('Agentes Automatizados','Automated Agents'),
       isAgents: true,
+      monthlyLabel: b('Operación mensual','Monthly operation'),
       extraNote: b('Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta.',
                    'Meta/WhatsApp costs, when applicable, may be charged separately according to Meta’s current rates.'),
       variants: [
-        { name: b('Agente 1.000','Agent 1,000'), chip: b('1.000 conversaciones','1,000 conversations'), vol: '1.000',
-          impl: R(2400000,3600000), monthly: R(550000,800000),
-          tag: b('Hasta 1.000 conversaciones/mes','Up to 1,000 conversations/month'),
-          features: [b('1 agente','1 agent'), b('WhatsApp o web','WhatsApp or web'), b('Base de conocimiento','Knowledge base'), b('Entrenamiento','Training'), b('Respuestas automáticas','Automatic replies'), b('Captura de leads','Lead capture'), b('Escalamiento a humano','Handoff to a human'), b('Monitoreo básico','Basic monitoring')] },
-        { name: b('Agente 2.500','Agent 2,500'), chip: b('2.500 conversaciones','2,500 conversations'), vol: '2.500',
-          impl: R(3200000,4400000), monthly: R(800000,1150000),
-          tag: b('Hasta 2.500 conversaciones/mes','Up to 2,500 conversations/month'),
-          features: [PREV, b('CRM','CRM'), b('Calificación de leads','Lead qualification'), b('Seguimiento','Follow-up'), b('Agendamiento','Scheduling'), b('Automatizaciones','Automations'), b('Integraciones básicas','Basic integrations')] },
-        { name: b('Agente 5.000','Agent 5,000'), chip: b('5.000 conversaciones','5,000 conversations'), vol: '5.000',
-          impl: R(4000000,6000000), monthly: R(1150000,1700000),
-          tag: b('Hasta 5.000 conversaciones/mes','Up to 5,000 conversations/month'),
-          features: [PREV, b('Múltiples flujos','Multiple flows'), b('CRM','CRM'), b('Agendamiento','Scheduling'), b('Seguimiento','Follow-up'), b('Integraciones API','API integrations'), b('Analítica','Analytics'), b('Escalamiento inteligente','Smart escalation'), b('Procesos comerciales','Sales processes')] },
-        { name: b('Agente 10.000','Agent 10,000'), chip: b('10.000 conversaciones','10,000 conversations'), vol: '10.000',
-          impl: R(6400000,9600000,true), monthly: R(2050000,3150000,true),
-          tag: b('Hasta 10.000 conversaciones/mes','Up to 10,000 conversations/month'),
-          note: b('Más de 10.000 conversaciones/mes o integraciones complejas: nivel «a medida».','Over 10,000 conversations/month or complex integrations: custom level.'),
-          features: [b('Arquitectura avanzada','Advanced architecture'), b('Múltiples agentes','Multiple agents'), b('Múltiples canales','Multiple channels'), b('CRM','CRM'), b('APIs','APIs'), b('Sistemas internos','Internal systems'), b('Automatización avanzada','Advanced automation'), b('Analítica','Analytics'), b('Soporte prioritario','Priority support')] },
-        { name: b('Agentes +10.000','Agents 10,000+'), chip: b('+10.000','10,000+'), custom: true,
-          impl: FROM(9600000), monthly: FROM(3150000),
-          tag: b('Solución a medida','Custom solution'),
-          note: b('Más de 10.000 conversaciones/mes o integraciones complejas. El precio final depende del volumen, canales, integraciones y consumo de IA.','Over 10,000 conversations/month or complex integrations. The final price depends on volume, channels, integrations and AI usage.'),
-          features: [b('Volumen, canales e integraciones definidos contigo','Volume, channels and integrations defined with you'), b('Arquitectura y consumo de IA dimensionados a tu operación','Architecture and AI usage sized to your operation')] }
+        { name: T_ESE, impl: EX(1200000), monthly: EX(200000),
+          tag: b('Incluye 300 conversaciones al mes.','Includes 300 conversations per month.'),
+          features: [b('300 conversaciones/mes','300 conversations/month'), b('1 canal (WhatsApp o Instagram, a elegir)','1 channel (WhatsApp or Instagram, your choice)'), b('Hasta 10 preguntas frecuentes configuradas','Up to 10 configured FAQs'), b('1 idioma','1 language'), b('Pruebas funcionales','Functional testing'), b('1 sesión de capacitación','1 training session')],
+          excl: [b('Integraciones con CRM u otros sistemas','Integrations with a CRM or other systems'), b('Captura y clasificación de prospectos','Lead capture and classification'), b('Flujos automatizados','Automated flows'), b('Canales adicionales','Additional channels'), b('Reporte mensual','Monthly report')] },
+        { name: T_AUT, rec: true, impl: EX(2800000), monthly: EX(500000),
+          tag: b('Incluye 1.000 conversaciones al mes.','Includes 1,000 conversations per month.'),
+          features: [b('1.000 conversaciones/mes','1,000 conversations/month'), b('2 canales (WhatsApp + Instagram)','2 channels (WhatsApp + Instagram)'), b('Hasta 30 preguntas/intenciones','Up to 30 questions/intents'), b('Captura y clasificación de prospectos','Lead capture and classification'), b('Hasta 3 flujos automatizados','Up to 3 automated flows'), b('1 integración sencilla (CRM u hoja de cálculo)','1 simple integration (CRM or spreadsheet)'), b('Reporte mensual básico','Basic monthly report')],
+          excl: [b('Chat web como canal','Web chat as a channel'), b('Más de 3 flujos o flujos personalizados','More than 3 flows or custom flows'), b('Más de 1 integración','More than 1 integration'), b('Reglas avanzadas de clasificación y derivación','Advanced classification and routing rules'), b('Prioridad de soporte','Priority support')] },
+        { name: T_INT, impl: FROM(4800000), monthly: FROM(800000),
+          tag: b('Incluye 3.000 conversaciones al mes.','Includes 3,000 conversations per month.'),
+          features: [b('3.000 conversaciones/mes','3,000 conversations/month'), b('Hasta 3 canales (WhatsApp + Instagram + chat web)','Up to 3 channels (WhatsApp + Instagram + web chat)'), b('Flujos personalizados (hasta 6)','Custom flows (up to 6)'), b('Hasta 3 integraciones compatibles','Up to 3 compatible integrations'), b('Reglas de clasificación y derivación','Classification and routing rules'), b('Revisión mensual y prioridad de soporte','Monthly review and priority support')],
+          excl: [b('Canales adicionales a los 3 incluidos','Channels beyond the 3 included'), b('Integraciones por encima de las 3 incluidas','Integrations beyond the 3 included'), b('Conversaciones por encima del cupo (se evalúa una ampliación del plan)','Conversations above the quota (a plan upgrade is assessed)'), b('Costos de plataformas de terceros (Meta/WhatsApp, cuando apliquen)','Third-party platform costs (Meta/WhatsApp, when applicable)')] }
       ]
     },
 
     conversion: {
       name: b('Conversión de Ventas','Sales Conversion'),
-      priceLabel: 'investment',
+      monthlyLabel: b('Mensualidad','Monthly fee'),
       variants: [
-        { name: b('Conversión Básica','Basic Conversion'), impl: R(2600000,3750000),
+        { name: T_ESE, impl: R(1200000,2000000),
           tag: b('Lo esencial para capturar y dar seguimiento a cada lead.','The essentials to capture and follow up on every lead.'),
           features: [b('Captura de leads','Lead capture'), b('CRM','CRM'), b('Pipeline','Pipeline'), b('Seguimiento','Follow-up'), b('WhatsApp','WhatsApp'), b('Email','Email'), b('Notificaciones','Notifications'), b('Automatizaciones básicas','Basic automations')] },
-        { name: b('Conversión Automatizada','Automated Conversion'), impl: R(3750000,6000000),
+        { name: T_AUT, rec: true, impl: R(2500000,4500000),
           tag: b('Un funnel que trabaja solo, de la captura al agendamiento.','A funnel that runs on its own, from capture to scheduling.'),
-          features: [PREV, b('Lead scoring','Lead scoring'), b('Seguimiento automático','Automatic follow-up'), b('Recuperación de leads','Lead recovery'), b('WhatsApp','WhatsApp'), b('Automatización del funnel','Funnel automation'), b('Agendamiento','Scheduling'), b('CRM','CRM'), b('Automatizaciones multietapa','Multi-stage automations')] },
-        { name: b('Conversión con IA','AI Conversion'), impl: R(6000000,9000000),
-          tag: b('Un agente de ventas que califica, conversa y recupera oportunidades.','A sales agent that qualifies, converses and recovers opportunities.'),
-          features: [b('Agente de ventas','Sales agent'), b('IA para calificación','AI qualification'), b('IA para conversaciones','AI conversations'), b('Seguimiento automático','Automatic follow-up'), b('Recuperación de oportunidades','Opportunity recovery'), b('CRM','CRM'), b('Agendamiento','Scheduling'), b('Pagos','Payments'), b('Personalización de conversaciones','Conversation personalization'), b('Analítica','Analytics')] },
-        { name: b('Sistema Comercial Avanzado','Advanced Sales System'), impl: R(9000000,15000000,true), custom: true,
-          tag: b('Para empresas con procesos comerciales complejos.','For companies with complex sales processes.'),
-          features: [b('Múltiples agentes','Multiple agents'), b('CRM','CRM'), b('WhatsApp','WhatsApp'), b('Email','Email'), b('Pagos','Payments'), b('IA','AI'), b('APIs','APIs'), b('Automatización completa del funnel','Full funnel automation'), b('Dashboards','Dashboards'), b('Integraciones empresariales','Enterprise integrations')] }
+          features: [PREV, b('Lead scoring','Lead scoring'), b('Seguimiento automático','Automatic follow-up'), b('Recuperación de leads','Lead recovery'), b('Automatización del funnel','Funnel automation'), b('Agendamiento','Scheduling'), b('Automatizaciones multietapa','Multi-stage automations')] },
+        { name: T_INT, impl: FROM(5000000),
+          tag: b('Un sistema comercial con IA para procesos complejos.','An AI-powered sales system for complex processes.'),
+          features: [PREV, b('Agente de ventas con IA','AI sales agent'), b('IA para calificación y conversaciones','AI qualification and conversations'), b('Recuperación de oportunidades','Opportunity recovery'), b('Pagos','Payments'), b('Personalización de conversaciones','Conversation personalization'), b('Analítica y dashboards','Analytics and dashboards'), b('APIs e integraciones empresariales','APIs and enterprise integrations'), b('Múltiples agentes','Multiple agents')] }
       ]
     },
 
     agendamiento: {
       name: b('Agendamiento','Scheduling'),
-      priceLabel: 'investment',
+      monthlyLabel: b('Mensualidad','Monthly fee'),
       variants: [
-        { name: b('Agendamiento Simple','Simple Scheduling'), impl: R(1050000,1750000),
+        { name: T_ESE, impl: R(700000,1300000), monthly: R(0,150000), monthlyOptional: true,
           tag: b('Para empezar a recibir citas sin cruces ni llamadas.','To start taking appointments without conflicts or calls.'),
           features: [b('Calendario','Calendar'), b('Formularios','Forms'), b('Confirmación','Confirmation'), b('Recordatorios','Reminders'), b('Email','Email'), b('WhatsApp','WhatsApp')] },
-        { name: b('Agendamiento Automatizado','Automated Scheduling'), impl: R(1750000,2800000),
+        { name: T_AUT, rec: true, impl: R(1500000,2800000), monthly: R(150000,350000),
           tag: b('Gestión completa de la cita, sin intervención humana.','Full appointment management, no human intervention.'),
-          features: [PREV, b('WhatsApp','WhatsApp'), b('Confirmaciones','Confirmations'), b('Cancelaciones','Cancellations'), b('Reprogramaciones','Rescheduling'), b('CRM','CRM'), b('Seguimiento','Follow-up'), b('Automatizaciones','Automations')] },
-        { name: b('Agendamiento + IA','Scheduling + AI'), impl: R(2800000,4550000),
-          tag: b('Un agente que conversa, entiende lo que necesita el cliente y agenda.','An agent that chats, understands what the customer needs and books.'),
-          features: [b('Agente de IA','AI agent'), b('Conversación natural','Natural conversation'), b('Identificación de necesidades','Needs identification'), b('Consulta de disponibilidad','Availability lookup'), b('Agendamiento','Scheduling'), b('Reprogramación','Rescheduling'), b('CRM','CRM'), b('Seguimiento','Follow-up')] },
-        { name: b('Agendamiento Complejo','Complex Scheduling'), impl: R(4550000,7000000,true), custom: true,
-          tag: b('Para operaciones con varios profesionales, calendarios o sedes.','For operations with multiple professionals, calendars or locations.'),
-          features: [b('Múltiples profesionales','Multiple professionals'), b('Múltiples calendarios','Multiple calendars'), b('Múltiples sedes','Multiple locations'), b('Reglas complejas','Complex rules'), b('Pagos','Payments'), b('IA','AI'), b('APIs','APIs'), b('CRM','CRM'), b('Integraciones personalizadas','Custom integrations')] }
+          features: [PREV, b('Cancelaciones','Cancellations'), b('Reprogramaciones','Rescheduling'), b('CRM','CRM'), b('Seguimiento','Follow-up'), b('Automatizaciones','Automations')] },
+        { name: T_INT, impl: FROM(3000000), monthly: FROM(350000),
+          tag: b('Un agente que agenda y soporta varios profesionales, calendarios o sedes.','An agent that books and supports multiple professionals, calendars or locations.'),
+          features: [PREV, b('Agente de IA con conversación natural','AI agent with natural conversation'), b('Identificación de necesidades y consulta de disponibilidad','Needs identification and availability lookup'), b('Múltiples profesionales, calendarios y sedes','Multiple professionals, calendars and locations'), b('Reglas complejas','Complex rules'), b('Pagos','Payments'), b('APIs e integraciones personalizadas','APIs and custom integrations')] }
       ]
     },
 
     procesos: {
       name: b('Procesos Internos','Internal Processes'),
-      priceLabel: 'investment',
+      monthlyLabel: b('Mensualidad','Monthly fee'),
       variants: [
-        { name: b('Automatización Simple','Simple Automation'), impl: R(2100000,3400000),
+        { name: T_ESE, impl: R(900000,1800000),
           tag: b('Para procesos pequeños.','For small processes.'),
           features: [b('Formularios','Forms'), b('Emails','Emails'), b('Notificaciones','Notifications'), b('Documentos','Documents'), b('Organización de información','Information organization'), b('Reportes simples','Simple reports')] },
-        { name: b('Automatización de Procesos','Process Automation'), impl: R(3400000,6800000),
+        { name: T_AUT, rec: true, impl: R(2000000,4000000),
           tag: b('Para conectar varias herramientas.','To connect several tools.'),
           features: [b('CRM','CRM'), b('Bases de datos','Databases'), b('APIs','APIs'), b('WhatsApp','WhatsApp'), b('Email','Email'), b('Documentos','Documents'), b('Reportes','Reports'), b('Automatizaciones multietapa','Multi-stage automations')] },
-        { name: b('Procesos con IA','AI Processes'), impl: R(6800000,12750000),
-          tag: b('Para que la IA haga el trabajo repetitivo de tu equipo.','To let AI do your team’s repetitive work.'),
-          features: [b('Agentes internos','Internal agents'), b('Procesamiento de documentos','Document processing'), b('Clasificación','Classification'), b('Extracción de información','Information extraction'), b('Análisis de datos','Data analysis'), b('Generación de reportes','Report generation'), b('IA conectada a sistemas','AI connected to systems'), b('Automatización avanzada','Advanced automation')] },
-        { name: b('Sistema Empresarial a Medida','Custom Enterprise System'), impl: R(12750000,25500000,true), custom: true,
-          tag: b('Para empresas con procesos complejos.','For companies with complex processes.'),
-          features: [b('APIs','APIs'), b('Bases de datos','Databases'), b('IA','AI'), b('Dashboards','Dashboards'), b('Múltiples sistemas','Multiple systems'), b('ERP','ERP'), b('CRM','CRM'), b('Automatizaciones avanzadas','Advanced automations'), b('Arquitectura personalizada','Custom architecture')] }
+        { name: T_INT, impl: FROM(4500000),
+          tag: b('Para que la IA y tus sistemas trabajen juntos en procesos complejos.','To let AI and your systems work together on complex processes.'),
+          features: [b('Agentes internos','Internal agents'), b('Procesamiento de documentos','Document processing'), b('Clasificación y extracción de información','Classification and information extraction'), b('Análisis de datos y generación de reportes','Data analysis and report generation'), b('IA conectada a sistemas','AI connected to systems'), b('ERP y múltiples sistemas','ERP and multiple systems'), b('Dashboards','Dashboards'), b('Arquitectura personalizada','Custom architecture')] }
       ]
     }
   };

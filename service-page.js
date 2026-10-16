@@ -19,29 +19,33 @@
 
   var UI = {
     implementation: b('Implementación','Implementation'),
-    implSub: b('pago único','one-time'),
-    operation: b('Operación mensual','Monthly operation'),
     investment: b('Inversión','Investment'),
+    implSub: b('pago único','one-time'),
+    optional: b('opcional','optional'),
+    maint: b('Mantenimiento opcional','Optional maintenance'),
     perMonth: b('/ mes','/ month'),
     from: b('Desde','From'),
-    custom: b('A medida','Custom'),
+    rec: b('Recomendado','Recommended'),
     selected: b('Seleccionado','Selected'),
     include: b('Puede incluir','May include'),
+    exclude: b('No incluye','Not included'),
     reference: b('Tu referencia','Your reference'),
     exact: b('El valor exacto se define según integraciones y complejidad.','The exact value is defined by integrations and complexity. Prices in USD are approximate.'),
     fx: b('','Prices shown in USD (approx., based on COP rate).'),
     cta: b('Solicitar cotización','Request a quote'),
     ctaCard: b('Quiero esta solución','I want this solution'),
-    ctaCustom: b('Construir este sistema','Build this system'),
     allPrev: b('Todo lo del nivel anterior','Everything in the previous level')
   };
 
+  // precio unico, rango o "desde"
   function rangeHTML(p){
     if(p.from) return '<span class="p-from">'+esc(t(UI.from))+'</span><span class="pn">'+money(p.min)+'</span>';
+    if(p.exact) return '<span class="pn">'+money(p.min)+'</span>';
     return '<span class="pn">'+money(p.min)+'</span><span class="pn pn2">– '+money(p.max)+(p.plus?'+':'')+'</span>';
   }
   function rangeTextIn(p, l){
     if(p.from) return (l==='en' ? 'From ' : 'Desde ')+moneyIn(p.min, l);
+    if(p.exact) return moneyIn(p.min, l);
     return moneyIn(p.min, l)+' – '+moneyIn(p.max, l)+(p.plus?'+':'');
   }
   function rangeText(p){ return rangeTextIn(p, lang()); }
@@ -51,40 +55,52 @@
     var elGrid = document.getElementById('var-grid');
     var elNotes = document.getElementById('notes');
     var elBar = document.getElementById('quote-bar');
-    var sel = 0;
+    // arranca en el nivel recomendado
+    var sel = Math.max(0, s.variants.map(function(v){ return !!v.rec; }).indexOf(true));
 
-    var priceLabel = function(){ return t(key === 'crm' ? UI.implementation : UI.investment); };
+    var implLabel = function(v){ return t(v.monthly ? UI.implementation : UI.investment); };
 
     var priceBlock = function(v){
-      if(s.isAgents){
-        return '<div class="price-dual">'+
-          '<div class="price-box"><span class="price-label">'+esc(t(UI.implementation))+' <i>'+esc(t(UI.implSub))+'</i></span>'+
-            '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">'+cur()+'</span></div></div>'+
-          '<div class="price-box alt"><span class="price-label">'+esc(t(UI.operation))+'</span>'+
-            '<div class="price">'+rangeHTML(v.monthly)+' <span class="cop">'+cur()+' '+esc(t(UI.perMonth))+'</span></div></div>'+
-        '</div>';
-      }
-      return '<div class="price-box single"><span class="price-label">'+esc(priceLabel())+'</span>'+
+      var hasM = !!v.monthly;
+      var impl = '<div class="price-box'+(hasM?'':' single')+'"><span class="price-label">'+esc(implLabel(v))+(hasM ? ' <i>'+esc(t(UI.implSub))+'</i>' : '')+'</span>'+
         '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">'+cur()+'</span></div></div>';
+      if(!hasM){
+        var maint = v.maint
+          ? '<p class="maint-line"><b>'+esc(t(UI.maint))+'</b> '+esc(rangeText(v.maint))+' '+cur()+' '+esc(t(UI.perMonth))+'</p>' : '';
+        return impl + maint;
+      }
+      var mon = '<div class="price-box alt"><span class="price-label">'+esc(t(s.monthlyLabel))+(v.monthlyOptional ? ' <i>'+esc(t(UI.optional))+'</i>' : '')+'</span>'+
+        '<div class="price">'+rangeHTML(v.monthly)+' <span class="cop">'+cur()+' '+esc(t(UI.perMonth))+'</span></div></div>';
+      return '<div class="price-dual">'+impl+mon+'</div>';
+    };
+
+    // descripcion del precio para el mensaje de WhatsApp, en el idioma l
+    var describe = function(v, l){
+      var en = l==='en', c = en ? 'USD' : 'COP';
+      var txt = function(p, suf){ return rangeTextIn(p, l)+' '+c+(suf||''); };
+      var out = (v.monthly ? (en ? 'implementation ' : 'implementación ') : (en ? 'price ' : 'inversión ')) + txt(v.impl);
+      if(v.monthly){
+        var lab = s.isAgents ? (en ? 'monthly operation ' : 'operación mensual ') : (en ? 'monthly fee ' : 'mensualidad ');
+        out += ' + ' + lab + txt(v.monthly, en ? '/month' : '/mes') + (v.monthlyOptional ? (en ? ' (optional)' : ' (opcional)') : '');
+      }
+      if(v.maint) out += ' + ' + (en ? 'optional maintenance ' : 'mantenimiento opcional ') + txt(v.maint, en ? '/month' : '/mes');
+      return out;
     };
 
     var waLink = function(v){
       var en = lang()==='en';
-      var msg = (en ? 'Hi, I’d like a quote for: ' : 'Hola, quiero cotizar: ') + t(s.name) + ' – ' + t(v.name) + '. ' + (en ? 'Reference seen: ' : 'Referencia vista: ');
-      var part = function(p, suffix){ return rangeText(p)+' '+cur()+(suffix||''); };
-      msg += s.isAgents
-        ? (en ? 'implementation ' : 'implementación ') + part(v.impl) + ' + ' + (en ? 'monthly ' : 'operación ') + part(v.monthly, en ? '/month' : '/mes')
-        : part(v.impl);
-      if(en) msg += ' (approx.; in COP: ' + rangeTextIn(v.impl,'es') + (s.isAgents ? ' + ' + rangeTextIn(v.monthly,'es') + '/mes' : '') + ')';
+      var msg = (en ? 'Hi, I’d like a quote for: ' : 'Hola, quiero cotizar: ') + t(s.name) + ' – ' + (en ? 'level ' : 'nivel ') + t(v.name) + '. ' + (en ? 'Reference seen: ' : 'Referencia vista: ') + describe(v, lang());
+      if(en) msg += ' (approx.; in COP: ' + describe(v, 'es') + ')';
       return 'https://wa.me/'+C.WA+'?text='+encodeURIComponent(msg);
     };
+
+    var li = function(f){ return '<li>'+esc(f === C.PREV ? t(UI.allPrev) : t(f))+'</li>'; };
 
     var render = function(){
       var v = s.variants[sel];
 
       elChips.innerHTML = s.variants.map(function(vr,i){
-        var label = s.isAgents ? t(vr.chip) : t(vr.name);
-        return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(label)+'</button>';
+        return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(t(vr.name))+'</button>';
       }).join('');
 
       elGrid.setAttribute('data-n', s.variants.length);
@@ -94,16 +110,17 @@
 
       elGrid.innerHTML = s.variants.map(function(vr,i){
         var on = i===sel;
-        return '<article class="var-card'+(on?' on':'')+'" data-i="'+i+'">'+
+        return '<article class="var-card'+(on?' on':'')+(vr.rec?' rec':'')+'" data-i="'+i+'">'+
           '<div class="var-top"><h3>'+esc(t(vr.name))+'</h3>'+
-            (vr.custom ? '<span class="badge">'+esc(t(UI.custom))+'</span>' : '')+
+            (vr.rec ? '<span class="badge rec">'+esc(t(UI.rec))+'</span>' : '')+
             (on ? '<span class="sel">✓ '+esc(t(UI.selected))+'</span>' : '')+'</div>'+
           '<div class="price-wrap">'+priceBlock(vr)+'</div>'+
           '<div class="var-desc"><p class="var-tag">'+esc(t(vr.tag))+'</p>'+
           (vr.note ? '<p class="var-note">'+esc(t(vr.note))+'</p>' : '')+'</div>'+
           '<span class="inc-label">'+esc(t(UI.include))+'</span>'+
-          '<ul class="feat">'+vr.features.map(function(f){ return '<li>'+esc(f === C.PREV ? t(UI.allPrev) : t(f))+'</li>'; }).join('')+'</ul>'+
-          '<a class="btn-card" href="'+waLink(vr)+'" target="_blank" rel="noopener">'+esc(t(vr.custom ? UI.ctaCustom : UI.ctaCard))+' →</a>'+
+          '<ul class="feat'+(vr.excl ? '' : ' grow')+'">'+vr.features.map(li).join('')+'</ul>'+
+          (vr.excl ? '<span class="inc-label exc-label">'+esc(t(UI.exclude))+'</span><ul class="feat excl grow">'+vr.excl.map(li).join('')+'</ul>' : '')+
+          '<a class="btn-card" href="'+waLink(vr)+'" target="_blank" rel="noopener">'+esc(t(UI.ctaCard))+' →</a>'+
         '</article>';
       }).join('');
 
@@ -112,10 +129,9 @@
         '<p>'+esc(t(C.NOTE_RANGE))+'</p>'+
         '<p>'+esc(t(C.NOTE_GENERAL))+'</p>';
 
-      var barPrice = s.isAgents
-        ? '<div class="bar-prices"><div><span>'+esc(t(UI.implementation))+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div>'+
-          '<div><span>'+esc(t(UI.operation))+'</span><b>'+rangeText(v.monthly)+' '+cur()+' '+esc(t(UI.perMonth))+'</b></div></div>'
-        : '<div class="bar-prices"><div><span>'+esc(priceLabel())+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div></div>';
+      var barPrice = '<div class="bar-prices"><div><span>'+esc(implLabel(v))+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div>'+
+        (v.monthly ? '<div><span>'+esc(t(s.monthlyLabel))+(v.monthlyOptional ? ' ('+esc(t(UI.optional))+')' : '')+'</span><b>'+rangeText(v.monthly)+' '+cur()+' '+esc(t(UI.perMonth))+'</b></div>' : '')+
+        '</div>';
       elBar.innerHTML = '<div class="quote-inner"><div class="bar-info"><span class="bar-ref">'+esc(t(UI.reference))+' · '+esc(t(v.name))+'</span>'+barPrice+
         '<span class="bar-exact">'+esc(t(UI.exact))+'</span></div>'+
         '<a class="btn-primary bar-cta" href="'+waLink(v)+'" target="_blank" rel="noopener">'+esc(t(UI.cta))+'</a></div>';
@@ -126,7 +142,7 @@
 
     // tarjetas del mismo alto: precio y descripcion alinean sus bloques entre columnas
     var equalize = function(){
-      ['.price-wrap','.var-desc'].forEach(function(sel){
+      ['.price-wrap','.var-desc','.feat:not(.excl)'].forEach(function(sel){
         var els = [].slice.call(elGrid.querySelectorAll(sel));
         els.forEach(function(e){ e.style.minHeight = ''; });
         if(window.matchMedia('(max-width:700px)').matches) return;
