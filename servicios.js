@@ -13,8 +13,9 @@
    HTML que lo referencian hoy (buscar con: grep -rn "servicios.js?v=" .):
      servicios/web.html, crm.html, agentes.html, conversion.html, agendamiento.html, procesos.html
    (index.html y servicios.html no cargan este archivo.)
-   Si tambien cambian service-page.js o service-page.css, subir su ?v= en esos mismos HTML.
-   Version actual de servicios.js: 2 */
+   Si tambien cambian service-page.js, service-page.css o agent-calculator.js (solo en servicios/agentes.html),
+   subir su ?v= en esos mismos HTML.
+   Version actual de servicios.js: 4 */
 (function(){
   var WA = '573014112090';
   function b(es,en){ return {es:es,en:en}; }
@@ -79,6 +80,9 @@
       name: b('Agentes Automatizados','Automated Agents'),
       isAgents: true,
       monthlyLabel: b('Operación mensual','Monthly operation'),
+      // Nota al pie de las 3 tarjetas (HTML de confianza: lleva un enlace a la calculadora)
+      tierNote: b('Precios calculados con el modelo Haiku. Sonnet 5 disponible como mejora — <a href="#calcula-tu-plan">usa la calculadora</a> para ver el valor con cada modelo.',
+                  'Prices calculated with the Haiku model. Sonnet 5 available as an upgrade — <a href="#calcula-tu-plan">use the calculator</a> to see the price with each model.'),
       extraNote: b('Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta.',
                    'Meta/WhatsApp costs, when applicable, may be charged separately according to Meta’s current rates.'),
       variants: [
@@ -146,5 +150,40 @@
     }
   };
 
-  window.LazyCatalog = {USD_COP_RATE:USD_COP_RATE, toUSD:toUSD, WA:WA, PREV:PREV, NOTE_RANGE:NOTE_RANGE, NOTE_GENERAL:NOTE_GENERAL, SERVICES:SERVICES};
+  // ==== CALCULADORA DE AGENTES (servicios/agentes.html) ====
+  // Solo precio de venta. Anclajes = los 3 niveles publicados (conv/mes -> impl + mensualidad del nivel).
+  // Entre anclajes: interpolacion lineal. Debajo del primero: se mantiene su valor. Encima del ultimo:
+  // se prolonga con la pendiente marginal del ultimo tramo (sin tope). 'mult' es decision de producto.
+  SERVICES.agentes.calc = {
+    anchors: [ {conv:300, tier:0}, {conv:1000, tier:1}, {conv:3000, tier:2} ],
+    min: 100, max: 20000,        // rango del control (conversaciones/mes)
+    round: 50000,                // el resultado se redondea a multiplos de este valor (COP)
+    highVolume: 5000,            // por encima, se muestra la nota de confirmacion con el equipo
+    models: [
+      { id:'haiku',  name:b('Haiku','Haiku'),     label:b('estándar','standard'), mult:1.0,
+        desc:b('Rápido y eficiente. Ideal para preguntas frecuentes, flujos simples y atención de alto volumen.','Fast and efficient. Ideal for FAQs, simple flows and high-volume support.') },
+      { id:'sonnet', name:b('Sonnet 5','Sonnet 5'), label:b('avanzado','advanced'), mult:1.18,
+        desc:b('Respuestas más naturales y mejor manejo de conversaciones complejas o que requieren más contexto.','More natural responses and better handling of complex conversations that need more context.') }
+    ]
+  };
+
+  // Devuelve {impl, monthly} en COP para 'conv' conversaciones/mes y el modelo 'modelId'.
+  function estimateAgent(conv, modelId){
+    var s = SERVICES.agentes, k = s.calc;
+    var A = k.anchors.map(function(a){ var v = s.variants[a.tier]; return {c:a.conv, i:v.impl.min, m:v.monthly.min}; });
+    var c = Math.max(conv, A[0].c);                       // por debajo del primer anclaje: no se extrapola hacia abajo
+    var lin = function(x0,y0,x1,y1){ return y0 + (y1-y0) * (c-x0) / (x1-x0); };
+    var i, m;
+    if(c <= A[1].c){ i = lin(A[0].c,A[0].i,A[1].c,A[1].i); m = lin(A[0].c,A[0].m,A[1].c,A[1].m); }
+    else if(c <= A[2].c){ i = lin(A[1].c,A[1].i,A[2].c,A[2].i); m = lin(A[1].c,A[1].m,A[2].c,A[2].m); }
+    else {                                                // por encima del ultimo: misma pendiente marginal del tramo 2
+      i = A[2].i + (c-A[2].c) * (A[2].i-A[1].i) / (A[2].c-A[1].c);
+      m = A[2].m + (c-A[2].c) * (A[2].m-A[1].m) / (A[2].c-A[1].c);
+    }
+    var mult = 1; k.models.forEach(function(x){ if(x.id === modelId) mult = x.mult; });
+    var r = function(x){ return Math.round(x * mult / k.round) * k.round; };
+    return {impl:r(i), monthly:r(m)};
+  }
+
+  window.LazyCatalog = {estimateAgent:estimateAgent, USD_COP_RATE:USD_COP_RATE, toUSD:toUSD, WA:WA, PREV:PREV, NOTE_RANGE:NOTE_RANGE, NOTE_GENERAL:NOTE_GENERAL, SERVICES:SERVICES};
 })();

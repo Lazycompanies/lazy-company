@@ -124,6 +124,13 @@
         '</article>';
       }).join('');
 
+      // nota al pie de las tarjetas (si el servicio la define)
+      var tn = document.getElementById('tier-note');
+      if(s.tierNote){
+        if(!tn){ tn = document.createElement('p'); tn.id = 'tier-note'; tn.className = 'tier-note'; elNotes.parentNode.insertBefore(tn, elNotes); }
+        tn.innerHTML = t(s.tierNote);
+      }
+
       elNotes.innerHTML =
         (s.extraNote ? '<p>'+esc(t(s.extraNote))+'</p>' : '')+
         '<p>'+esc(t(C.NOTE_RANGE))+'</p>'+
