@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Servicios | Sistemas de IA, agentes y automatización · Lazy Company</title>
-<meta name="description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento y procesos internos. Explora los tres niveles de cada solución (Esencial, Automatizado e Integrado) y sus valores de referencia en COP.">
+<meta name="description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento, procesos internos y apps. Explora los tres niveles de cada solución (Esencial, Automatizado e Integrado) y sus valores de referencia en COP.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lazycompanies.com/servicios.html">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lazycompanies.com/servicios.html">
 <meta property="og:title" content="Servicios | Lazy Company">
-<meta property="og:description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento y procesos internos, con rangos de inversión.">
+<meta property="og:description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento, procesos internos y apps, con rangos de inversión.">
 <meta property="og:image" content="https://lazycompanies.com/og-image.png">
 <meta property="og:locale" content="es_CO">
 
@@ -26,7 +26,8 @@
     {"@type":"Service","position":3,"name":"Agentes Automatizados","provider":{"@type":"Organization","name":"Lazy Company"}},
     {"@type":"Service","position":4,"name":"Conversión de Ventas","provider":{"@type":"Organization","name":"Lazy Company"}},
     {"@type":"Service","position":5,"name":"Agendamiento","provider":{"@type":"Organization","name":"Lazy Company"}},
-    {"@type":"Service","position":6,"name":"Procesos Internos","provider":{"@type":"Organization","name":"Lazy Company"}}
+    {"@type":"Service","position":6,"name":"Procesos Internos","provider":{"@type":"Organization","name":"Lazy Company"}},
+    {"@type":"Service","position":7,"name":"Apps","provider":{"@type":"Organization","name":"Lazy Company"}}
   ]
 }
 </script>
@@ -79,6 +80,7 @@
   .services-grid > .fade-in:nth-child(4){transition-delay:.21s;}
   .services-grid > .fade-in:nth-child(5){transition-delay:.28s;}
   .services-grid > .fade-in:nth-child(6){transition-delay:.35s;}
+  .services-grid > .fade-in:nth-child(7){transition-delay:.42s;}
 
   .head{max-width:720px; margin:0 auto; padding:90px 32px 60px; text-align:center; position:relative; background:rgba(139,111,82,0.035); box-shadow:0 0 0 100vmax rgba(139,111,82,0.035); clip-path:inset(0 -100vmax);}
   .label{font-family:var(--font-mono); font-size:10.5px; letter-spacing:3px; text-transform:uppercase; color:var(--taupe-deep); display:block; margin-bottom:20px;}
@@ -89,7 +91,9 @@
   .group{max-width:1180px; margin:0 auto; padding:0 40px 40px;}
   .group-label{font-family:var(--font-mono); font-size:10px; letter-spacing:2.5px; text-transform:uppercase; color:var(--taupe); margin:56px 0 24px; display:block; padding-left:4px;}
   .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media (min-width:921px){.services-grid > .service-card:last-child:nth-child(3n+1){grid-column:2;}}
   @media (max-width:920px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:920px) and (min-width:601px){.services-grid > .service-card:last-child:nth-child(odd){grid-column:1 / -1; justify-self:center; width:calc(50% - 12px);}}
   @media (max-width:600px){.services-grid{grid-template-columns:1fr;}}
   .service-card{position:relative; isolation:isolate;
     background:
@@ -226,6 +230,13 @@
       <div class="service-top"><svg class="svc-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="12" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8.5 6H13a3 3 0 0 1 3 3v.5M8.5 18H13a3 3 0 0 0 3-3v-.5"/></svg></div>
       <h3 data-es="Procesos Internos" data-en="Internal Processes">Procesos Internos</h3>
       <p data-es="Automatizamos las tareas y procesos que hoy consumen horas de tu equipo." data-en="We automate the tasks and processes that today consume your team's hours.">Automatizamos las tareas y procesos que hoy consumen horas de tu equipo.</p>
+      <span class="service-cta" data-es="Explorar soluciones →" data-en="Explore solutions →">Explorar soluciones →</span>
+    </a>
+
+    <a class="service-card" href="servicios/apps.html">
+      <div class="service-top"><svg class="svc-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 5.5h4M10.5 18.5h3"/></svg></div>
+      <h3 data-es="Apps" data-en="Apps">Apps</h3>
+      <p data-es="Web apps, PWA y apps nativas para iOS y Android: tu negocio en el celular de tus clientes." data-en="Web apps, PWAs and native iOS and Android apps: your business on your customers’ phones.">Web apps, PWA y apps nativas para iOS y Android: tu negocio en el celular de tus clientes.</p>
       <span class="service-cta" data-es="Explorar soluciones →" data-en="Explore solutions →">Explorar soluciones →</span>
     </a>
 

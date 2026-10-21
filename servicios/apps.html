@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Desarrollo de apps: web app, PWA y app nativa iOS/Android | Lazy Company</title>
+<meta name="description" content="Web apps, PWA y apps nativas para iOS y Android: tres tipos de aplicación con implementación y mantenimiento en COP. Elige el que tu negocio necesita.">
+<meta name="robots" content="index, follow">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<link rel="canonical" href="https://lazycompanies.com/servicios/apps.html">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon-180.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lazycompanies.com/servicios/apps.html">
+<meta property="og:title" content="Desarrollo de apps: web app, PWA y app nativa iOS/Android | Lazy Company">
+<meta property="og:description" content="Web app simple, PWA o app nativa iOS/Android. Explora los tres tipos de aplicación y sus valores de referencia.">
+<meta property="og:image" content="https://lazycompanies.com/og-image.png">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Lazy Company">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Desarrollo de apps: web app, PWA y app nativa iOS/Android | Lazy Company">
+<meta name="twitter:description" content="Web app simple, PWA o app nativa iOS/Android. Explora los tres tipos de aplicación y sus valores de referencia.">
+<meta name="twitter:image" content="https://lazycompanies.com/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Apps · Lazy Company",
+  "serviceType": "Apps",
+  "description": "Desarrollo de web apps, PWA y aplicaciones nativas para iOS y Android, con implementación y mantenimiento mensual.",
+  "url": "https://lazycompanies.com/servicios/apps.html",
+  "provider": {
+    "@type": "Organization",
+    "name": "Lazy Company",
+    "url": "https://lazycompanies.com",
+    "logo": "https://lazycompanies.com/logo.png"
+  },
+  "areaServed": "CO"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../service-page.css?v=6">
+</head>
+<body data-service="apps">
+
+<nav>
+  <a class="logo" href="../index.html">Lazy<em>Company</em></a>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
+    <li><a class="active" href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a></li>
+    <li><a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a></li>
+    <li><a class="nav-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a></li>
+    <li><button id="lang-toggle" aria-label="Change language">EN</button></li>
+  </ul>
+  <button class="lang-toggle-m" aria-label="Change language">EN</button>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a>
+  <a href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+  <a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+  <a class="m-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a>
+</div>
+
+<div class="wrap crumb">
+  <a class="back" href="../servicios.html" data-es="← Volver a servicios" data-en="← Back to services">← Volver a servicios</a>
+</div>
+
+<header class="head">
+  <svg class="svc-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 5.5h4M10.5 18.5h3"/></svg>
+  <span class="label" data-es="Servicio" data-en="Service">Servicio</span>
+  <h1 data-es="Tu negocio en el <em>celular de tus clientes</em>" data-en="Your business on <em>your customers’ phones</em>">Tu negocio en el <em>celular de tus clientes</em></h1>
+  <p class="lead" data-es="Desde una web app simple hasta una app nativa en las tiendas: construimos el tipo de aplicación que tu negocio necesita para estar en el celular de tus clientes." data-en="From a simple web app to a native app in the stores: we build the type of application your business needs to be on your customers’ phones.">Desde una web app simple hasta una app nativa en las tiendas: construimos el tipo de aplicación que tu negocio necesita para estar en el celular de tus clientes.</p>
+  <div class="drives"><span data-es="Lo que define el precio" data-en="What drives the price">Lo que define el precio</span><em style="font-style:normal;" data-es="Tipo de aplicación y plataformas" data-en="Application type and platforms">Tipo de aplicación y plataformas</em></div>
+</header>
+
+<section class="wrap compare" id="tipos-de-app">
+  <div class="compare-head">
+    <h2 data-es="¿Qué tipo de app <em>necesitas</em>?" data-en="What type of app <em>do you need</em>?">¿Qué tipo de app <em>necesitas</em>?</h2>
+    <p data-es="Cada nivel corresponde a un tipo de aplicación distinto, no a un tamaño. Estas son sus diferencias." data-en="Each level is a different type of application, not a different size. Here is how they differ.">Cada nivel corresponde a un tipo de aplicación distinto, no a un tamaño. Estas son sus diferencias.</p>
+  </div>
+  <div class="compare-grid">
+    <article class="cmp">
+      <span class="cmp-tier" data-es="Esencial" data-en="Essential">Esencial</span>
+      <h3 data-es="Web App Simple" data-en="Simple Web App">Web App Simple</h3>
+      <dl>
+        <dt data-es="Qué es" data-en="What it is">Qué es</dt><dd data-es="Un sitio optimizado para verse y sentirse como app en el celular: responsive, sin instalación ni funciones offline." data-en="A site optimized to look and feel like an app on mobile: responsive, with no installation and no offline features.">Un sitio optimizado para verse y sentirse como app en el celular: responsive, sin instalación ni funciones offline.</dd>
+        <dt data-es="Para qué sirve" data-en="What it’s for">Para qué sirve</dt><dd data-es="Lanzar rápido una experiencia móvil: consultas, formularios y servicios sencillos para tus clientes." data-en="Launching a mobile experience quickly: lookups, forms and simple services for your customers.">Lanzar rápido una experiencia móvil: consultas, formularios y servicios sencillos para tus clientes.</dd>
+        <dt data-es="Diferencia clave" data-en="Key difference">Diferencia clave</dt><dd class="key" data-es="La más económica y la más rápida de lanzar." data-en="The most affordable and the fastest to launch.">La más económica y la más rápida de lanzar.</dd>
+      </dl>
+    </article>
+    <article class="cmp">
+      <span class="cmp-tier" data-es="Automatizado · Recomendado" data-en="Automated · Recommended">Automatizado · Recomendado</span>
+      <h3 data-es="PWA (Progressive Web App)" data-en="PWA (Progressive Web App)">PWA (Progressive Web App)</h3>
+      <dl>
+        <dt data-es="Qué es" data-en="What it is">Qué es</dt><dd data-es="Una aplicación web instalable desde el navegador: funciona offline y puede enviar notificaciones push, sin pasar por las tiendas de apps." data-en="A web application installable from the browser: it works offline and can send push notifications, without going through app stores.">Una aplicación web instalable desde el navegador: funciona offline y puede enviar notificaciones push, sin pasar por las tiendas de apps.</dd>
+        <dt data-es="Para qué sirve" data-en="What it’s for">Para qué sirve</dt><dd data-es="Dar una experiencia tipo app, con ícono en el celular y avisos, sin el costo ni los tiempos de publicar en las tiendas." data-en="Delivering an app-like experience, with a phone icon and notifications, without the cost or lead time of publishing in the stores.">Dar una experiencia tipo app, con ícono en el celular y avisos, sin el costo ni los tiempos de publicar en las tiendas.</dd>
+        <dt data-es="Diferencia clave" data-en="Key difference">Diferencia clave</dt><dd class="key" data-es="El balance entre alcance y funcionalidad." data-en="The balance between reach and functionality.">El balance entre alcance y funcionalidad.</dd>
+      </dl>
+    </article>
+    <article class="cmp">
+      <span class="cmp-tier" data-es="Integrado" data-en="Integrated">Integrado</span>
+      <h3 data-es="App Nativa iOS/Android" data-en="Native iOS/Android App">App Nativa iOS/Android</h3>
+      <dl>
+        <dt data-es="Qué es" data-en="What it is">Qué es</dt><dd data-es="Una app real publicada en App Store y/o Google Play, con acceso a funciones nativas del dispositivo." data-en="A real app published on the App Store and/or Google Play, with access to native device features.">Una app real publicada en App Store y/o Google Play, con acceso a funciones nativas del dispositivo.</dd>
+        <dt data-es="Para qué sirve" data-en="What it’s for">Para qué sirve</dt><dd data-es="Ofrecer la mejor experiencia posible y tener presencia en las tiendas oficiales." data-en="Offering the best possible experience and having a presence in the official stores.">Ofrecer la mejor experiencia posible y tener presencia en las tiendas oficiales.</dd>
+        <dt data-es="Diferencia clave" data-en="Key difference">Diferencia clave</dt><dd class="key" data-es="Máximo rendimiento y presencia en tiendas, pero es la más costosa y la más lenta de aprobar." data-en="Maximum performance and store presence, but it is the most expensive and the slowest to get approved.">Máximo rendimiento y presencia en tiendas, pero es la más costosa y la más lenta de aprobar.</dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<main class="wrap build">
+  <span class="chips-label" data-es="Elige tu tipo de app" data-en="Choose your app type">Elige tu tipo de app</span>
+  <div class="chips" id="chips" role="group"></div>
+  <h2 class="build-h" data-es="¿Qué podemos construir?" data-en="What can we build?">¿Qué podemos construir?</h2>
+  <div class="var-grid" id="var-grid"></div>
+  <noscript><p class="notes" style="border:0;">Activa JavaScript para ver los niveles y rangos, o <a href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" style="text-decoration:underline;">escríbenos por WhatsApp</a>.</p></noscript>
+  <div class="notes" id="notes"></div>
+</main>
+
+
+<section class="wrap others">
+  <h2 data-es="Otros servicios" data-en="Other services">Otros servicios</h2>
+  <div class="others-list">
+      <a href="web.html" data-es="Web" data-en="Web">Web</a>
+      <a href="crm.html" data-es="CRM" data-en="CRM">CRM</a>
+      <a href="agentes.html" data-es="Agentes Automatizados" data-en="Automated Agents">Agentes Automatizados</a>
+      <a href="conversion.html" data-es="Conversión de Ventas" data-en="Sales Conversion">Conversión de Ventas</a>
+      <a href="agendamiento.html" data-es="Agendamiento" data-en="Scheduling">Agendamiento</a>
+      <a href="procesos.html" data-es="Procesos Internos" data-en="Internal Processes">Procesos Internos</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Lazy<em>Company</em></div>
+  <div class="footer-links">
+    <a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a>
+    <a href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+    <a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+    <a href="https://wa.me/573014112090" target="_blank" data-es="Contacto" data-en="Contact">Contacto</a>
+  </div>
+  <p class="footer-bottom" data-es="© 2026 Lazy Company · Trabaja menos. Vende más. Vive mejor." data-en="© 2026 Lazy Company · Work less. Sell more. Live better.">© 2026 Lazy Company · Trabaja menos. Vende más. Vive mejor.</p>
+  <p class="footer-bottom" style="margin-top:6px;"><a href="../privacidad.html" style="color:var(--ink-mid); text-decoration:underline;" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a></p>
+</footer>
+
+<div class="quote-bar" id="quote-bar" aria-live="polite"></div>
+
+<div id="chat-widget">
+  <div id="chat-box">
+    <div id="chat-header">
+      <div class="chat-avatar">S</div>
+      <div class="chat-header-info">
+        <span class="chat-name">Sofía</span>
+        <span class="chat-status"><span class="status-dot"></span><span data-es="En línea · Lazy Company" data-en="Online · Lazy Company">En línea · Lazy Company</span></span>
+      </div>
+      <button id="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">×</button>
+    </div>
+    <div id="chat-messages">
+      <div class="msg sofia" data-es="¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?" data-en="Hi! I'm Sofía, Lazy Company's advisor. How can I help you today?">¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?</div>
+    </div>
+    <div id="chat-input-area">
+      <textarea id="chat-input" placeholder="Escribe tu pregunta..." rows="1"></textarea>
+      <button id="chat-send" onclick="sendMessage()" aria-label="Enviar"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+    </div>
+  </div>
+  <button id="chat-toggle" onclick="toggleChat()" aria-label="Chat"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
+</div>
+
+<script src="../lang.js?v=2"></script>
+<script src="../servicios.js?v=7"></script>
+<script src="../service-page.js?v=5"></script>
+
+</body>
+</html>

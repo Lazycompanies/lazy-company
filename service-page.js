@@ -59,17 +59,21 @@
     var sel = Math.max(0, s.variants.map(function(v){ return !!v.rec; }).indexOf(true));
 
     var implLabel = function(v){ return t(v.monthly ? UI.implementation : UI.investment); };
+    var monLabel = function(v){ return t(v.monthlyLabel || s.monthlyLabel); };
 
     var priceBlock = function(v){
       var hasM = !!v.monthly;
+      var implFor = v.implFor ? '<p class="impl-for">'+esc(t(v.implFor))+'</p>' : '';
+      var implAlt = v.implAlt
+        ? '<p class="maint-line"><b>'+esc(t(v.implAlt.label))+'</b> '+esc(rangeText(v.implAlt.price))+' '+cur()+'</p>' : '';
       var impl = '<div class="price-box'+(hasM?'':' single')+'"><span class="price-label">'+esc(implLabel(v))+(hasM ? ' <i>'+esc(t(UI.implSub))+'</i>' : '')+'</span>'+
-        '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">'+cur()+'</span></div></div>';
+        '<div class="price">'+rangeHTML(v.impl)+' <span class="cop">'+cur()+'</span></div>'+implFor+implAlt+'</div>';
       if(!hasM){
         var maint = v.maint
           ? '<p class="maint-line"><b>'+esc(t(UI.maint))+'</b> '+esc(rangeText(v.maint))+' '+cur()+' '+esc(t(UI.perMonth))+'</p>' : '';
         return impl + maint;
       }
-      var mon = '<div class="price-box alt"><span class="price-label">'+esc(t(s.monthlyLabel))+(v.monthlyOptional ? ' <i>'+esc(t(UI.optional))+'</i>' : '')+'</span>'+
+      var mon = '<div class="price-box alt"><span class="price-label">'+esc(monLabel(v))+(v.monthlyOptional ? ' <i>'+esc(t(UI.optional))+'</i>' : '')+'</span>'+
         '<div class="price">'+rangeHTML(v.monthly)+' <span class="cop">'+cur()+' '+esc(t(UI.perMonth))+'</span></div></div>';
       return '<div class="price-dual">'+impl+mon+'</div>';
     };
@@ -78,9 +82,10 @@
     var describe = function(v, l){
       var en = l==='en', c = en ? 'USD' : 'COP';
       var txt = function(p, suf){ return rangeTextIn(p, l)+' '+c+(suf||''); };
-      var out = (v.monthly ? (en ? 'implementation ' : 'implementación ') : (en ? 'price ' : 'inversión ')) + txt(v.impl);
+      var out = (v.monthly ? (en ? 'implementation ' : 'implementación ') : (en ? 'price ' : 'inversión ')) + (v.implForShort ? '(' + v.implForShort[l] + ') ' : '') + txt(v.impl);
+      if(v.implAlt) out += ' (' + (en ? 'both platforms: ' : 'ambas plataformas: ') + txt(v.implAlt.price) + ')';
       if(v.monthly){
-        var lab = s.isAgents ? (en ? 'monthly operation ' : 'operación mensual ') : (en ? 'monthly fee ' : 'mensualidad ');
+        var lab = (v.monthlyLabel || s.monthlyLabel)[l].toLowerCase() + ' ';
         out += ' + ' + lab + txt(v.monthly, en ? '/month' : '/mes') + (v.monthlyOptional ? (en ? ' (optional)' : ' (opcional)') : '');
       }
       if(v.maint) out += ' + ' + (en ? 'optional maintenance ' : 'mantenimiento opcional ') + txt(v.maint, en ? '/month' : '/mes');
@@ -89,7 +94,7 @@
 
     var waLink = function(v){
       var en = lang()==='en';
-      var msg = (en ? 'Hi, I’d like a quote for: ' : 'Hola, quiero cotizar: ') + t(s.name) + ' – ' + (en ? 'level ' : 'nivel ') + t(v.name) + '. ' + (en ? 'Reference seen: ' : 'Referencia vista: ') + describe(v, lang());
+      var msg = (en ? 'Hi, I’d like a quote for: ' : 'Hola, quiero cotizar: ') + t(s.name) + ' – ' + (en ? 'level ' : 'nivel ') + t(v.name) + (v.sub ? ' (' + t(v.sub) + ')' : '') + '. ' + (en ? 'Reference seen: ' : 'Referencia vista: ') + describe(v, lang());
       if(en) msg += ' (approx.; in COP: ' + describe(v, 'es') + ')';
       return 'https://wa.me/'+C.WA+'?text='+encodeURIComponent(msg);
     };
@@ -100,7 +105,7 @@
       var v = s.variants[sel];
 
       elChips.innerHTML = s.variants.map(function(vr,i){
-        return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(t(vr.name))+'</button>';
+        return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(t(vr.name) + (vr.sub ? ' · ' + t(vr.sub) : ''))+'</button>';
       }).join('');
 
       elGrid.setAttribute('data-n', s.variants.length);
@@ -114,6 +119,7 @@
           '<div class="var-top"><h3>'+esc(t(vr.name))+'</h3>'+
             (vr.rec ? '<span class="badge rec">'+esc(t(UI.rec))+'</span>' : '')+
             (on ? '<span class="sel">✓ '+esc(t(UI.selected))+'</span>' : '')+'</div>'+
+          (vr.sub ? '<p class="var-sub">'+esc(t(vr.sub))+'</p>' : '')+
           '<div class="price-wrap">'+priceBlock(vr)+'</div>'+
           '<div class="var-desc"><p class="var-tag">'+esc(t(vr.tag))+'</p>'+
           (vr.note ? '<p class="var-note">'+esc(t(vr.note))+'</p>' : '')+'</div>'+
@@ -136,10 +142,10 @@
         '<p>'+esc(t(C.NOTE_RANGE))+'</p>'+
         '<p>'+esc(t(C.NOTE_GENERAL))+'</p>';
 
-      var barPrice = '<div class="bar-prices"><div><span>'+esc(implLabel(v))+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div>'+
-        (v.monthly ? '<div><span>'+esc(t(s.monthlyLabel))+(v.monthlyOptional ? ' ('+esc(t(UI.optional))+')' : '')+'</span><b>'+rangeText(v.monthly)+' '+cur()+' '+esc(t(UI.perMonth))+'</b></div>' : '')+
+      var barPrice = '<div class="bar-prices"><div><span>'+esc(implLabel(v) + (v.implForShort ? ' · ' + t(v.implForShort) : ''))+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div>'+
+        (v.monthly ? '<div><span>'+esc(monLabel(v))+(v.monthlyOptional ? ' ('+esc(t(UI.optional))+')' : '')+'</span><b>'+rangeText(v.monthly)+' '+cur()+' '+esc(t(UI.perMonth))+'</b></div>' : '')+
         '</div>';
-      elBar.innerHTML = '<div class="quote-inner"><div class="bar-info"><span class="bar-ref">'+esc(t(UI.reference))+' · '+esc(t(v.name))+'</span>'+barPrice+
+      elBar.innerHTML = '<div class="quote-inner"><div class="bar-info"><span class="bar-ref">'+esc(t(UI.reference))+' · '+esc(t(v.name) + (v.sub ? ' · ' + t(v.sub) : ''))+'</span>'+barPrice+
         '<span class="bar-exact">'+esc(t(UI.exact))+'</span></div>'+
         '<a class="btn-primary bar-cta" href="'+waLink(v)+'" target="_blank" rel="noopener">'+esc(t(UI.cta))+'</a></div>';
 

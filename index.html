@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Lazy Company | Sistemas de IA, agentes y automatización para negocios · Colombia</title>
-<meta name="description" content="Construimos sistemas de IA, agentes, automatizaciones, CRM y sistemas web para negocios: Web, CRM, Agentes Automatizados, Conversión de Ventas, Agendamiento y Procesos Internos.">
+<meta name="description" content="Construimos sistemas de IA, agentes, automatizaciones, CRM y sistemas web para negocios: Web, CRM, Agentes Automatizados, Conversión de Ventas, Agendamiento, Procesos Internos y Apps.">
 <meta name="keywords" content="automatización con IA, agentes de IA, CRM, chatbot WhatsApp, automatización de procesos, sistemas web, Colombia">
 <meta name="author" content="Lazy Company">
 <meta name="robots" content="index, follow">
@@ -19,7 +19,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lazycompanies.com/">
 <meta property="og:title" content="Lazy Company | Sistemas de IA, agentes y automatización">
-<meta property="og:description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento y procesos internos para tu negocio.">
+<meta property="og:description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento, procesos internos y apps para tu negocio.">
 <meta property="og:image" content="https://lazycompanies.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -29,7 +29,7 @@
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lazy Company | Sistemas de IA, agentes y automatización">
-<meta name="twitter:description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento y procesos internos.">
+<meta name="twitter:description" content="Web, CRM, agentes de IA, conversión de ventas, agendamiento, procesos internos y apps.">
 <meta name="twitter:image" content="https://lazycompanies.com/og-image.png">
 
 <script type="application/ld+json">
@@ -54,7 +54,7 @@
       "name": "Sistemas de IA y automatización para negocios",
       "provider": { "@type": "Organization", "name": "Lazy Company" },
       "areaServed": "CO",
-      "description": "Sistemas de IA, agentes, automatizaciones, CRM y sistemas web: Web, CRM, Agentes Automatizados, Conversión de Ventas, Agendamiento y Procesos Internos.",
+      "description": "Sistemas de IA, agentes, automatizaciones, CRM y sistemas web: Web, CRM, Agentes Automatizados, Conversión de Ventas, Agendamiento, Procesos Internos y Apps.",
       "url": "https://lazycompanies.com/servicios.html",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
@@ -65,7 +65,8 @@
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agentes Automatizados", "url": "https://lazycompanies.com/servicios/agentes.html" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Conversión de Ventas", "url": "https://lazycompanies.com/servicios/conversion.html" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agendamiento", "url": "https://lazycompanies.com/servicios/agendamiento.html" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Procesos Internos", "url": "https://lazycompanies.com/servicios/procesos.html" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Procesos Internos", "url": "https://lazycompanies.com/servicios/procesos.html" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Apps", "url": "https://lazycompanies.com/servicios/apps.html" } }
         ]
       }
     },
@@ -144,6 +145,7 @@
   .card-grid > .fade-in:nth-child(4){transition-delay:.24s;}
   .card-grid > .fade-in:nth-child(5){transition-delay:.32s;}
   .card-grid > .fade-in:nth-child(6){transition-delay:.4s;}
+  .card-grid > .fade-in:nth-child(7){transition-delay:.48s;}
   .faq-list > .fade-in:nth-child(1){transition-delay:0s;}
   .faq-list > .fade-in:nth-child(2){transition-delay:.06s;}
   .faq-list > .fade-in:nth-child(3){transition-delay:.12s;}
@@ -188,6 +190,9 @@
   .frame{position:relative; border-radius:10px; overflow:hidden; aspect-ratio:4/3; background:rgba(139,111,82,0.08);}
   .frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.6s ease;}
   .frame img.active{opacity:1;}
+  .frame-art{background:linear-gradient(135deg,#1f1610 0%,#3a2e22 100%);}
+  .frame-art svg{position:absolute; inset:0; width:100%; height:100%;}
+  @media (min-width:761px){.card-grid > .service-card:last-child:nth-child(odd){grid-column:1 / -1; justify-self:center; width:calc(50% - 20px);}}
   .reflection{position:relative; height:56px; overflow:hidden; border-radius:0 0 10px 10px; margin-top:1px;}
   .reflection img{position:absolute; left:0; top:-100%; width:100%; height:100%; object-fit:cover; transform:scaleY(-1); opacity:0; transition:opacity 1.6s ease;}
   .reflection img.active{opacity:1;}
@@ -353,6 +358,22 @@
       <div class="frame"><img class="active" alt="Automatización de procesos internos"><img alt=""></div>
       <div class="reflection"><img class="active" alt=""><img alt=""></div>
       <div class="card-meta"><div><h3 data-es="Procesos Internos" data-en="Internal Processes">Procesos Internos</h3><p data-es="Automatizamos las tareas que hoy consumen horas de tu equipo." data-en="We automate the tasks that today consume your team’s hours.">Automatizamos las tareas que hoy consumen horas de tu equipo.</p></div><span class="card-num">06</span></div>
+    </a>
+    <a class="service-card" href="servicios/apps.html">
+      <div class="frame frame-art">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="#E3CDAE" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="150" y="24" width="100" height="212" rx="18"/><path d="M188 38h24M184 220h32"/>
+          <rect x="164" y="62" width="30" height="30" rx="8" stroke="#B89A78" fill="#B89A78" fill-opacity=".22"/><rect x="206" y="62" width="30" height="30" rx="8"/>
+          <rect x="164" y="108" width="30" height="30" rx="8"/><rect x="206" y="108" width="30" height="30" rx="8" stroke-opacity=".55"/>
+          <rect x="164" y="154" width="72" height="34" rx="8" stroke-opacity=".7"/>
+          <rect x="54" y="112" width="70" height="104" rx="9" stroke-opacity=".5"/><path d="M54 128h70" stroke-opacity=".5"/>
+          <rect x="278" y="92" width="80" height="62" rx="7" stroke-opacity=".5"/><path d="M278 107h80" stroke-opacity=".5"/>
+          <path d="M132 150H128M272 124h-18" stroke="#B89A78" stroke-opacity=".8"/>
+          <circle cx="82" cy="172" r="3" fill="#E3CDAE" stroke="none"/><circle cx="318" cy="130" r="3" fill="#E3CDAE" stroke="none" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="reflection"></div>
+      <div class="card-meta"><div><h3 data-es="Apps" data-en="Apps">Apps</h3><p data-es="Web apps, PWA y apps nativas para que tu negocio viva en el celular de tus clientes." data-en="Web apps, PWAs and native apps so your business lives on your customers’ phones.">Web apps, PWA y apps nativas para que tu negocio viva en el celular de tus clientes.</p></div><span class="card-num">07</span></div>
     </a>
   </div>
   <div class="grid-cta">

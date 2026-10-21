@@ -2,20 +2,22 @@
    Lo leen las paginas servicios/*.html via service-page.js. Valores en COP.
    Para cambiar un precio o una funcionalidad, editar solo este archivo.
 
-   Modelo: 3 niveles identicos en los 6 servicios -> Esencial, Automatizado (Recomendado), Integrado.
+   Modelo: 3 niveles identicos en los 7 servicios -> Esencial, Automatizado (Recomendado), Integrado.
    Formas de precio:  R(min,max[,true]) rango  |  EX(n) valor fijo  |  FROM(n) "desde".
    Por nivel: impl (pago unico), monthly (mensualidad, opcional), maint (mantenimiento opcional, solo Web).
+   Opcionales por nivel: sub (subtitulo, p.ej. el tipo de app), implFor / implForShort (a que aplica el precio de
+   implementacion), implAlt {label, price} (segundo precio de implementacion), monthlyLabel (etiqueta propia de la mensualidad).
 
    ⚠ VERSIONADO ANTI-CACHE: cada vez que cambien los precios o la tasa USD_COP_RATE,
    subir el numero de version (?v=N) en TODOS los HTML que cargan este archivo, para que
    el navegador no sirva una copia en cache con precios viejos:
      <script src="../servicios.js?v=N"></script>
    HTML que lo referencian hoy (buscar con: grep -rn "servicios.js?v=" .):
-     servicios/web.html, crm.html, agentes.html, conversion.html, agendamiento.html, procesos.html
+     servicios/web.html, crm.html, agentes.html, conversion.html, agendamiento.html, procesos.html, apps.html
    (index.html y servicios.html no cargan este archivo.)
    Si tambien cambian service-page.js, service-page.css o agent-calculator.js (solo en servicios/agentes.html),
    subir su ?v= en esos mismos HTML.
-   Version actual de servicios.js: 6 */
+   Version actual de servicios.js: 7 */
 (function(){
   var WA = '573014112090';
   function b(es,en){ return {es:es,en:en}; }
@@ -146,6 +148,29 @@
         { name: T_INT, impl: FROM(4500000),
           tag: b('Para que la IA y tus sistemas trabajen juntos en procesos complejos.','To let AI and your systems work together on complex processes.'),
           features: [b('Agentes internos','Internal agents'), b('Procesamiento de documentos','Document processing'), b('Clasificación y extracción de información','Classification and information extraction'), b('Análisis de datos y generación de reportes','Data analysis and report generation'), b('IA conectada a sistemas','AI connected to systems'), b('ERP y múltiples sistemas','ERP and multiple systems'), b('Dashboards','Dashboards'), b('Arquitectura personalizada','Custom architecture')] }
+      ]
+    },
+    apps: {
+      name: b('Apps','Apps'),
+      monthlyLabel: b('Mensualidad','Monthly fee'),
+      variants: [
+        { name: T_ESE, sub: b('Web App Simple','Simple Web App'),
+          impl: R(1800000,3000000),
+          monthly: R(0,200000), monthlyOptional: true, monthlyLabel: b('Mantenimiento mensual','Monthly maintenance'),
+          tag: b('Un sitio optimizado para verse y sentirse como app en el celular: responsive, sin instalación ni funciones offline.','A site optimized to look and feel like an app on mobile: responsive, no installation and no offline features.'),
+          features: [b('Optimizada para verse y sentirse como app en el celular','Optimized to look and feel like an app on mobile'), b('Diseño responsive','Responsive design'), b('Sin instalación: se abre desde el navegador','No installation: opens from the browser'), b('Publicación','Publishing')] },
+        { name: T_AUT, rec: true, sub: b('PWA','PWA'),
+          impl: R(4000000,7000000),
+          monthly: R(200000,400000),
+          tag: b('Una Progressive Web App: instalable desde el navegador, funciona offline y envía notificaciones push, sin pasar por las tiendas de apps.','A Progressive Web App: installable from the browser, works offline and sends push notifications, without going through app stores.'),
+          features: [PREV, b('Instalable desde el navegador','Installable from the browser'), b('Funciona offline','Works offline'), b('Notificaciones push','Push notifications'), b('Sin pasar por tiendas de apps','No app store required')] },
+        { name: T_INT, sub: b('App Nativa iOS/Android','Native iOS/Android App'),
+          impl: FROM(9000000), implFor: b('Una plataforma (iOS o Android)','One platform (iOS or Android)'), implForShort: b('1 plataforma','1 platform'),
+          implAlt: { label: b('Ambas plataformas (iOS y Android)','Both platforms (iOS and Android)'), price: FROM(14000000) },
+          monthly: FROM(500000),
+          tag: b('Una app real publicada en App Store y/o Google Play, con acceso a funciones nativas del dispositivo.','A real app published on the App Store and/or Google Play, with access to native device features.'),
+          note: b('Las cuentas de desarrollador de Apple ($99 USD/año) y Google Play ($25 USD pago único) son costos externos a cargo del cliente, no incluidos en el precio.','Apple ($99 USD/year) and Google Play ($25 USD one-time) developer accounts are external costs borne by the client and are not included in the price.'),
+          features: [b('App real publicada en App Store y/o Google Play','A real app published on the App Store and/or Google Play'), b('Acceso a funciones nativas del dispositivo','Access to native device features'), b('Máximo rendimiento y presencia en las tiendas','Maximum performance and store presence'), b('iOS, Android o ambas, según la plataforma elegida','iOS, Android or both, depending on the chosen platform')] }
       ]
     }
   };
