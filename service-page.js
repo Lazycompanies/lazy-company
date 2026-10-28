@@ -206,65 +206,11 @@
     addOffers();
   }
 
-  /* ---- reveal, menu movil y chat de Sofia (igual que el resto del sitio) ---- */
+  /* ---- reveal (menu movil y chat de Sofia: site.js) ---- */
   document.querySelectorAll('.head > *, .explainer, .others > *').forEach(function(el){ el.classList.add('fade-in'); });
   var revealObserver = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
   }, {threshold:0.12, rootMargin:'0px 0px -30px 0px'});
   document.querySelectorAll('.fade-in').forEach(function(el){ revealObserver.observe(el); });
 
-  window.toggleMobileMenu = function(){
-    document.getElementById('mobile-menu').classList.toggle('open');
-    document.getElementById('hamburger').classList.toggle('open');
-    document.body.style.overflow = document.getElementById('mobile-menu').classList.contains('open') ? 'hidden' : '';
-  };
-  document.querySelectorAll('.mobile-menu a').forEach(function(a){ a.addEventListener('click', function(){
-    document.getElementById('mobile-menu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-    document.body.style.overflow = '';
-  }); });
-
-  var WORKER_URL = 'https://lazy-agent.aeromarcos.workers.dev';
-  var chatHistory = [], isChatOpen = false;
-  window.toggleChat = function(){
-    isChatOpen = !isChatOpen;
-    document.getElementById('chat-box').classList.toggle('open', isChatOpen);
-    if(isChatOpen) document.getElementById('chat-input').focus();
-  };
-  function appendMessage(text, type){
-    var msgs = document.getElementById('chat-messages');
-    var div = document.createElement('div');
-    div.className = 'msg ' + type;
-    div.innerHTML = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-    return div;
-  }
-  window.sendMessage = async function(){
-    var input = document.getElementById('chat-input');
-    var text = input.value.trim();
-    if(!text) return;
-    input.value = ''; input.style.height = 'auto';
-    appendMessage(text, 'user');
-    chatHistory.push({ role:'user', content:text });
-    var typing = appendMessage('Sofía está escribiendo...', 'typing');
-    try{
-      var res = await fetch(WORKER_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ messages: chatHistory }) });
-      var data = await res.json();
-      typing.remove();
-      var reply = data.reply || 'Hubo un error. Escríbenos al WhatsApp: +57 301 411 2090';
-      appendMessage(reply, 'sofia');
-      chatHistory.push({ role:'assistant', content:reply });
-    }catch(err){
-      typing.remove();
-      appendMessage('Hubo un error de conexión. Escríbenos al WhatsApp: +57 301 411 2090', 'sofia');
-    }
-  };
-  document.getElementById('chat-input').addEventListener('keydown', function(e){
-    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); window.sendMessage(); }
-  });
-  document.getElementById('chat-input').addEventListener('input', function(){
-    this.style.height = 'auto';
-    this.style.height = Math.min(this.scrollHeight, 80) + 'px';
-  });
 })();

@@ -1,0 +1,153 @@
+/* Lazy Company — sistema de marca compartido (todas las paginas).
+   Tokens de color y tipografia + chrome comun: logo, nav, menu movil, footer y chat de Sofia.
+   Se carga ANTES del <style> de cada pagina y de service-page.css, que solo contienen lo propio de cada pagina.
+   Al cambiar este archivo, subir ?v=N en todos los HTML (y en scripts/gen-pages.js para servicios/*.html). */
+:root{
+  /* paleta del manual de marca */
+  --carbon:#292A26;        /* texto principal, fondos oscuros */
+  --oliva:#686B50;         /* color de marca:acento y CTA (4.48:1 sobre crema: solo texto grande o botones) */
+  --beige:#CFC5B3;         /* superficie secundaria */
+  --crema:#EDE7DC;         /* fondo de pagina */
+  /* derivados (no estan en el manual) */
+  --claro:#F7F4EF;         /* superficie de tarjeta sobre crema */
+  --carbon-mid:#55574F;    /* texto secundario:5.96:1 sobre crema */
+  --oliva-aa:#585B43;      /* oliva para texto pequeno:5.7:1 sobre crema */
+  /* canales RGB para transparencias: rgba(var(--oliva-rgb), .2) */
+  --carbon-rgb:41,42,38;
+  --oliva-rgb:104,107,80;
+  --beige-rgb:207,197,179;
+  --crema-rgb:237,231,220;
+  --claro-rgb:247,244,239;
+
+  --font-serif:'Playfair Display',Georgia,serif;          /* display / titulos */
+  --font-sans:'Montserrat',system-ui,sans-serif;          /* cuerpo / UI */
+  --font-mono:'Space Mono',ui-monospace,monospace;        /* acento tecnico */
+
+  --gutter:clamp(20px,4vw,50px);
+}
+
+*{margin:0; padding:0; box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--crema); color:var(--carbon); font-family:var(--font-sans); font-weight:400;}
+a{text-decoration:none; color:inherit;}
+/* Playfair en 700 es muy pesada: los titulos sin peso explicito van en 500 */
+h1,h2,h3,h4{font-weight:500;}
+a[x-apple-data-detectors]{color:inherit !important; text-decoration:none !important; font:inherit !important;}
+::selection{background:var(--oliva); color:var(--claro);}
+
+/* ---------- logo (PROVISIONAL) ----------
+   images/brand/logo-lazy.svg y monograma-la.svg son vectores AUTOTRAZADOS (oct 2026) desde la unica referencia
+   aprobada del brand book (seccion 04, imagen de ~375 px). Se usan como mascara: el color lo pone `color`
+   (oliva sobre crema = version principal; crema sobre carbon/video). Los PNG del mismo nombre son la fuente del trazo.
+   PENDIENTE: el lettering "lazy" es una pieza exclusiva y el monograma "la" un dibujo aprobado (brand book 04 y 07).
+   El brand book exige que el archivo maestro lo revise/redibuje A MANO un disenador (curvas, ligadura "la",
+   espaciado, trazos finos de la "z" y la "y"): el autotrazado hereda las imperfecciones de la referencia.
+   Cuando llegue ese vector: reemplazar los dos .svg con el mismo nombre (no hay que tocar HTML) y regenerar
+   favicon.ico / favicon-*.png desde el monograma final. NO usar imagenes generadas por IA como maestro. */
+.logo{display:inline-flex; align-items:center; line-height:1; color:var(--oliva); flex-shrink:0;}
+.logo-mark{display:block; width:122px; aspect-ratio:375/207; background:currentColor;
+  -webkit-mask:url(images/brand/logo-lazy.svg) center/contain no-repeat; mask:url(images/brand/logo-lazy.svg) center/contain no-repeat;}
+@media (max-width:860px){ .logo-mark{width:100px;} }
+
+/* ---------- nav ---------- */
+nav{position:sticky; top:0; z-index:100; display:flex; justify-content:space-between; align-items:center; gap:24px; padding:16px var(--gutter); background:var(--crema); border-bottom:1px solid rgba(var(--carbon-rgb),0.144); transition:background .35s, border-color .35s, padding .35s;}
+.nav-links{display:flex; gap:28px; align-items:center; list-style:none;}
+.nav-links a{font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--carbon-mid); padding:6px 0; border-bottom:1px solid transparent; transition:color .25s, border-color .25s;}
+.nav-links a:hover{color:var(--carbon);}
+.nav-links a.active{color:var(--carbon); border-bottom-color:var(--oliva);}
+.nav-links a.nav-cta{background:var(--oliva); color:var(--claro); padding:11px 18px; border:0; font-weight:600; transition:background .25s;}
+.nav-links a.nav-cta:hover{background:var(--carbon); color:var(--claro);}
+#lang-toggle,.lang-toggle-m{width:34px; height:34px; border:1px solid rgba(var(--carbon-rgb),0.32); border-radius:2px; background:none; color:var(--carbon-mid); font-family:var(--font-mono); font-size:10.5px; letter-spacing:.04em; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .25s, color .25s;}
+#lang-toggle:hover,.lang-toggle-m:hover{border-color:var(--carbon); color:var(--carbon);}
+.lang-toggle-m{display:none;}
+.nav-hamburger{display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:10px 6px; z-index:101;}
+.nav-hamburger span{display:block; width:22px; height:1.5px; background:var(--carbon); transition:.3s;}
+.nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px);}
+.nav-hamburger.open span{background:var(--crema);}
+
+/* index: nav transparente sobre el video del hero hasta que se hace scroll */
+nav.nav--hero{position:fixed; left:0; right:0; background:transparent; border-bottom-color:transparent; padding-top:24px; padding-bottom:24px;}
+nav.nav--hero .logo, nav.nav--hero .nav-links a{color:var(--crema);}
+nav.nav--hero .nav-links a:hover{color:var(--claro);}
+nav.nav--hero #lang-toggle, nav.nav--hero .lang-toggle-m{border-color:rgba(var(--crema-rgb),.5); color:var(--crema);}
+nav.nav--hero .nav-hamburger span{background:var(--crema);}
+nav.nav--hero.scrolled{background:var(--crema); border-bottom-color:rgba(var(--carbon-rgb),0.144); padding-top:14px; padding-bottom:14px;}
+nav.nav--hero.scrolled .logo{color:var(--oliva);}
+nav.nav--hero.scrolled .nav-links a{color:var(--carbon-mid);}
+nav.nav--hero.scrolled .nav-links a:hover{color:var(--carbon);}
+nav.nav--hero.scrolled .nav-links a.nav-cta{color:var(--claro);}
+nav.nav--hero.scrolled #lang-toggle, nav.nav--hero.scrolled .lang-toggle-m{border-color:rgba(var(--carbon-rgb),0.32); color:var(--carbon-mid);}
+nav.nav--hero.scrolled .nav-hamburger span{background:var(--carbon);}
+nav.nav--hero .nav-hamburger.open span{background:var(--crema);}
+
+/* ---------- menu movil ---------- */
+.mobile-menu{display:none; position:fixed; inset:0; z-index:99; background:rgba(var(--carbon-rgb),.98); flex-direction:column; align-items:center; justify-content:center; gap:30px; opacity:0; transition:opacity .3s;}
+.mobile-menu.open{display:flex; opacity:1;}
+.mobile-menu a{font-size:13px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:rgba(var(--crema-rgb),.82); padding:6px 0;}
+.mobile-menu a:hover{color:var(--claro);}
+.mobile-menu .m-cta{background:var(--oliva); color:var(--claro) !important; padding:16px 30px; font-weight:600; margin-top:8px;}
+.mobile-menu .m-cta:hover{background:var(--claro); color:var(--carbon) !important;}
+/* con el menu abierto, el logo y los controles del nav pasan a claro */
+body.menu-open nav .logo{color:var(--crema);}
+body.menu-open nav .lang-toggle-m{border-color:rgba(var(--crema-rgb),.5); color:var(--crema);}
+body.menu-open nav{background:transparent; border-bottom-color:transparent;}
+
+@media (max-width:860px){
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex;}
+  .lang-toggle-m{display:flex; width:40px; height:40px; margin-left:auto;}
+  nav, nav.nav--hero{gap:10px; padding-top:14px; padding-bottom:14px;}
+}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--carbon); color:var(--crema); padding:64px var(--gutter) 28px;}
+.footer-inner{max-width:1160px; margin:0 auto;}
+.footer-top{display:flex; justify-content:space-between; align-items:flex-end; gap:32px; flex-wrap:wrap; padding-bottom:36px; border-bottom:1px solid rgba(var(--crema-rgb),.14);}
+.site-footer .logo{color:var(--crema);}
+.site-footer .logo-mark{width:200px;}
+.footer-tag{font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4; color:rgba(var(--crema-rgb),.86); max-width:30ch;}
+.footer-links{display:flex; gap:10px 30px; flex-wrap:wrap; padding:26px 0;}
+.footer-links a{font-size:11px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:rgba(var(--crema-rgb),.78); padding:6px 0; transition:color .25s;}
+.footer-links a:hover{color:var(--claro);}
+.footer-bottom{display:flex; justify-content:space-between; gap:12px 24px; flex-wrap:wrap; padding-top:20px; border-top:1px solid rgba(var(--crema-rgb),.14); font-family:var(--font-mono); font-size:11px; letter-spacing:.04em; color:rgba(var(--crema-rgb),.66);}
+.footer-bottom a{text-decoration:underline; text-underline-offset:3px; text-decoration-color:rgba(var(--crema-rgb),.35);}
+.footer-bottom a:hover{color:var(--claro);}
+@media (max-width:600px){
+  .site-footer{padding-top:52px;}
+  .footer-top{flex-direction:column; align-items:flex-start; gap:18px;}
+  .site-footer .logo{align-items:center;}
+  .footer-links{flex-direction:column; gap:4px;}
+  .footer-bottom{flex-direction:column; padding-bottom:76px;} /* que la burbuja del chat no tape el pie */
+}
+
+/* ---------- chat de Sofia ---------- */
+#chat-widget{position:fixed; bottom:24px; right:24px; z-index:200; font-family:var(--font-sans);}
+#chat-toggle{width:56px; height:56px; border-radius:50%; background:var(--oliva); border:none; color:var(--claro); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px -10px rgba(var(--carbon-rgb),.55); transition:background .25s, transform .25s;}
+#chat-toggle:hover{background:var(--carbon); transform:translateY(-2px);}
+#chat-toggle svg{width:23px; height:23px; fill:currentColor;}
+#chat-box{position:fixed; bottom:92px; right:24px; width:340px; max-width:calc(100vw - 32px); height:440px; max-height:calc(100vh - 140px); background:var(--claro); border-radius:6px; border:1px solid rgba(var(--carbon-rgb),0.176); box-shadow:0 24px 60px -18px rgba(var(--carbon-rgb),.42); display:none; flex-direction:column; overflow:hidden;}
+#chat-box.open{display:flex;}
+#chat-header{background:var(--carbon); color:var(--crema); padding:15px 18px; display:flex; align-items:center; gap:12px;}
+.chat-avatar{width:32px; height:32px; border-radius:50%; background:var(--oliva); color:var(--claro); display:flex; align-items:center; justify-content:center; font-family:var(--font-serif); font-style:italic; font-size:16px;}
+.chat-header-info{flex-grow:1; display:flex; flex-direction:column; gap:2px;}
+.chat-name{font-size:13px; font-weight:600;}
+.chat-status{font-family:var(--font-mono); font-size:10px; letter-spacing:.04em; color:rgba(var(--crema-rgb),.78); display:flex; align-items:center; gap:6px;}
+.status-dot{width:6px; height:6px; border-radius:50%; background:#8FAE8A;}
+#chat-close{background:none; border:none; color:var(--crema); font-size:22px; cursor:pointer; line-height:1; width:32px; height:32px;}
+#chat-messages{flex-grow:1; overflow-y:auto; padding:16px 18px; display:flex; flex-direction:column; gap:12px;}
+.msg{max-width:82%; padding:10px 14px; border-radius:10px; font-size:13.5px; line-height:1.5;}
+.msg.sofia{background:var(--crema); color:var(--carbon); align-self:flex-start; border-bottom-left-radius:2px;}
+.msg.user{background:var(--oliva); color:var(--claro); align-self:flex-end; border-bottom-right-radius:2px;}
+.msg.typing{background:var(--crema); color:var(--carbon-mid); align-self:flex-start; font-style:italic;}
+#chat-input-area{display:flex; gap:8px; padding:12px; border-top:1px solid rgba(var(--carbon-rgb),0.144);}
+#chat-input{flex-grow:1; border:1px solid rgba(var(--carbon-rgb),0.256); border-radius:4px; padding:9px 12px; font-family:var(--font-sans); font-size:13px; color:var(--carbon); resize:none; max-height:80px; outline:none; background:var(--crema);}
+#chat-input:focus{border-color:var(--oliva);}
+#chat-send{background:var(--oliva); border:none; border-radius:4px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:background .25s;}
+#chat-send:hover{background:var(--carbon);}
+#chat-send svg{width:16px; height:16px; fill:var(--claro);}
+@media (max-width:700px){ #chat-widget, #chat-box{right:16px;} }
+
+:focus-visible{outline:2px solid var(--oliva); outline-offset:3px;}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} nav, #chat-toggle, .nav-hamburger span{transition:none;} }
