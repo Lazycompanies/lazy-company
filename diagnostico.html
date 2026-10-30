@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+
+<title>Diagnóstico gratuito de automatización | Lazy Company</title>
+<meta name="description" content="Responde 7 preguntas rápidas y descubre el potencial de automatización de tu negocio y qué servicios de Lazy Company encajan contigo. Gratis y en 1 minuto.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://lazycompanies.com/diagnostico.html">
+<link rel="icon" href="favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=3">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png?v=3">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lazycompanies.com/diagnostico.html">
+<meta property="og:title" content="Diagnóstico gratuito | Lazy Company">
+<meta property="og:description" content="Descubre en 1 minuto cuánto de tu negocio podría funcionar solo.">
+<meta property="og:image" content="https://lazycompanies.com/og-image.png">
+<meta property="og:locale" content="es_CO">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brand.css?v=4">
+<style>
+  /* ---- diagnostico (tecnologia tranquila: lineas finas, sin efectos pesados) ---- */
+  .dg-page{max-width:1120px; margin:0 auto; padding:clamp(40px,7vh,84px) var(--gutter) clamp(72px,10vh,120px);}
+  .dg-head{max-width:640px; margin-bottom:36px;}
+  .dg-eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--carbon-mid); display:inline-flex; align-items:center; gap:9px; margin-bottom:18px;}
+  .dg-eyebrow i{width:6px; height:6px; border-radius:50%; background:#8FAE8A;}
+  .dg-head h1{font-family:var(--font-serif); font-weight:400; font-size:clamp(30px,4vw,48px); line-height:1.12; color:var(--carbon);}
+  .dg-head h1 em{font-style:italic; color:var(--oliva);}
+  .dg-head p{margin-top:16px; font-size:16px; line-height:1.65; color:var(--carbon-mid); max-width:52ch;}
+
+  .dg{position:relative; background:var(--claro); border:1px solid rgba(var(--carbon-rgb),.12); border-radius:4px; padding:clamp(24px,4vw,48px);}
+  .dg-top{display:flex; align-items:center; gap:16px; margin-bottom:clamp(24px,4vw,40px);}
+  .dg-bar{flex:1; height:1px; background:rgba(var(--carbon-rgb),.14); position:relative; overflow:hidden;}
+  .dg-bar i{position:absolute; inset:0; background:var(--oliva); transform-origin:left; transform:scaleX(0); transition:transform .5s cubic-bezier(.65,0,.35,1); height:2px; top:-.5px;}
+  .dg-meta{font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; color:var(--carbon-mid); white-space:nowrap; min-width:7ch; text-align:right;}
+  .dg:not(.dg-started) .dg-top{display:none;}
+
+  .dg-stage{transition:opacity .18s ease, transform .18s ease;}
+  .dg-stage.dg-out{opacity:0; transform:translateY(6px);}
+  .dg-stage.dg-in{animation:dgIn .38s cubic-bezier(.16,.84,.44,1);}
+  @keyframes dgIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+  .dg-stage h2{font-family:var(--font-serif); font-weight:400; font-size:clamp(24px,2.8vw,34px); line-height:1.2; color:var(--carbon); outline:none;}
+  .dg-hint{margin-top:8px; font-size:14px; color:var(--carbon-mid);}
+  .dg-q{border:0; min-width:0;}
+  .dg-q legend{margin-bottom:26px; padding:0;}
+
+  .dg-intro{max-width:56ch;}
+  .dg-intro p{margin:14px 0 28px; font-size:16px; line-height:1.65; color:var(--carbon-mid);}
+
+  .dg-opts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+  .dg-opts--many{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .dg-opt{position:relative; display:flex; align-items:center; min-height:62px; padding:14px 46px 14px 18px; text-align:left; font:inherit; font-size:15px; font-weight:500; line-height:1.35; color:var(--carbon); background:var(--crema); border:1px solid rgba(var(--carbon-rgb),.16); border-radius:4px; cursor:pointer; transition:border-color .2s, background .2s, transform .2s;}
+  .dg-opt::after{content:''; position:absolute; right:16px; top:50%; width:18px; height:18px; margin-top:-9px; border-radius:50%; border:1px solid rgba(var(--carbon-rgb),.3); transition:background .2s, border-color .2s;}
+  .dg-opt:hover{border-color:rgba(var(--carbon-rgb),.45);}
+  .dg-opt.on{border-color:var(--oliva); background:rgba(var(--oliva-rgb),.08);}
+  .dg-opt.off{opacity:.45; cursor:default;}
+  .dg-opt.off:hover{border-color:rgba(var(--carbon-rgb),.16);}
+  .dg-opt.on::after{background:var(--oliva) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.3l2.6 2.5L13 6.4' fill='none' stroke='%23F7F4EF' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat; border-color:var(--oliva);}
+  .dg-other{margin-top:14px; max-width:420px;}
+  .dg-other input, .dg-f input{width:100%; font:inherit; font-size:16px; color:var(--carbon); background:var(--crema); border:1px solid rgba(var(--carbon-rgb),.22); border-radius:4px; padding:13px 14px; outline:none; transition:border-color .2s;}
+  .dg-other input:focus, .dg-f input:focus{border-color:var(--oliva);}
+
+  .dg-nav{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:32px; flex-wrap:wrap;}
+  .dg-btn{display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 30px; font:inherit; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--claro); background:var(--oliva); border:0; border-radius:2px; cursor:pointer; transition:background .25s, opacity .25s;}
+  .dg-btn:hover{background:var(--carbon);}
+  .dg-btn:disabled{opacity:.4; cursor:not-allowed; background:var(--oliva);}
+  .dg-btn[hidden]{display:none;}
+  .dg-link{font:inherit; font-size:13px; font-weight:500; letter-spacing:.04em; color:var(--carbon-mid); background:none; border:0; padding:10px 0; cursor:pointer;}
+  .dg-link:hover{color:var(--carbon);}
+
+  /* captura */
+  .dg-cap{display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(24px,4vw,56px); align-items:start;}
+  .dg-teaser{background:var(--beige); border-radius:4px; padding:28px; display:flex; flex-direction:column; gap:6px;}
+  .dg-k{font-family:var(--font-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--carbon-mid);}
+  .dg-lv{font-family:var(--font-serif); font-weight:500; font-size:34px; line-height:1.1; color:var(--carbon);}
+  .dg-num{font-family:var(--font-mono); font-size:15px; color:var(--carbon); margin-bottom:18px;}
+  .dg-teaser-list{list-style:none; display:grid; gap:8px; margin-top:6px;}
+  .dg-teaser-list li{padding:11px 14px; background:var(--claro); border-radius:3px; font-weight:600;}
+  .dg-blur{filter:blur(6px); user-select:none; -webkit-user-select:none;}
+  .dg-lead{margin:10px 0 22px; font-size:15px; line-height:1.6; color:var(--carbon-mid);}
+  .dg-form{display:grid; gap:14px;}
+  .dg-f{display:grid; gap:6px;}
+  .dg-f > span{font-size:13px; font-weight:500; color:var(--carbon);}
+  .dg-phone{display:grid; grid-template-columns:84px minmax(0,1fr); gap:8px;}
+  .dg-f input[aria-invalid]{border-color:#9A3B2E;}
+  .dg-err{font-style:normal; font-size:12.5px; color:#9A3B2E; min-height:0;}
+  .dg-err:empty{display:none;}
+  .dg-check{display:flex; gap:10px; align-items:flex-start; font-size:13.5px; line-height:1.5; color:var(--carbon-mid); cursor:pointer;}
+  .dg-check input{margin-top:3px; width:18px; height:18px; accent-color:var(--oliva); flex-shrink:0;}
+  .dg-check a{color:var(--carbon); text-decoration:underline; text-underline-offset:3px;}
+  .dg-hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+
+  /* resultado */
+  .dg-res{display:grid; grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr); gap:clamp(24px,4vw,56px); align-items:start;}
+  .dg-score{background:var(--carbon); color:var(--crema); border-radius:4px; padding:30px; display:flex; flex-direction:column; align-items:flex-start; gap:10px;}
+  .dg-score .dg-k{color:rgba(var(--crema-rgb),.7);}
+  .dg-score .dg-lv{color:var(--crema);}
+  .dg-score p{font-size:14.5px; line-height:1.6; color:rgba(var(--crema-rgb),.82);}
+  .dg-gauge{position:relative; width:136px; height:136px; margin:8px 0 4px;}
+  .dg-gauge svg{width:100%; height:100%; transform:rotate(-90deg);}
+  .dg-gauge circle{fill:none; stroke:rgba(var(--crema-rgb),.14); stroke-width:6;}
+  .dg-gauge circle.v{stroke:var(--beige); stroke-linecap:round; stroke-dasharray:100; stroke-dashoffset:calc(100 - var(--p)); animation:dgGauge 1.2s cubic-bezier(.65,0,.35,1);}
+  @keyframes dgGauge{from{stroke-dashoffset:100;}}
+  .dg-gauge strong{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-serif); font-weight:500; font-size:40px; color:var(--crema);}
+  .dg-gauge small{font-family:var(--font-mono); font-size:12px; color:rgba(var(--crema-rgb),.6); margin-left:2px; align-self:center; padding-top:12px;}
+  .dg-svcs{list-style:none; margin:22px 0 30px; border-top:1px solid rgba(var(--carbon-rgb),.12);}
+  .dg-svc{display:grid; grid-template-columns:48px minmax(0,1fr); gap:10px; padding:20px 0; border-bottom:1px solid rgba(var(--carbon-rgb),.12);}
+  .dg-idx{font-family:var(--font-mono); font-size:14px; color:var(--oliva); padding-top:4px;}
+  .dg-svc h3{font-family:var(--font-serif); font-weight:500; font-size:22px; color:var(--carbon); margin-bottom:6px;}
+  .dg-svc p{font-size:15px; line-height:1.6; color:var(--carbon-mid);}
+  .dg-svc a{display:inline-block; margin-top:10px; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--carbon); border-bottom:1px solid var(--oliva); padding-bottom:2px;}
+  .dg-sub{font-family:var(--font-mono); font-weight:400; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--carbon-mid); margin-bottom:12px;}
+  .dg-impact{list-style:none; display:grid; gap:10px; margin-bottom:30px;}
+  .dg-impact li{position:relative; padding-left:22px; font-size:15px; line-height:1.55; color:var(--carbon);}
+  .dg-impact li::before{content:''; position:absolute; left:0; top:.72em; width:12px; height:1px; background:var(--oliva);}
+  .dg-wa{width:100%; max-width:420px;}
+  .dg-note{margin:10px 0 18px; font-size:13px; color:var(--carbon-mid);}
+
+  @media (max-width:860px){
+    .dg-opts--many{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .dg-cap, .dg-res{grid-template-columns:minmax(0,1fr);}
+  }
+  @media (max-width:560px){
+    .dg-opts, .dg-opts--many{grid-template-columns:minmax(0,1fr);}
+    .dg-opt{min-height:56px;}
+    .dg{padding:22px 18px;}
+    .dg-nav .dg-btn{flex:1;}
+    .dg-teaser{padding:22px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .dg-stage, .dg-stage.dg-in{animation:none; transition:opacity .2s !important;}
+    .dg-gauge circle.v{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html" aria-label="Lazy Company"><!-- PENDIENTE LOGO: images/brand/logo-lazy.svg es un vector AUTOTRAZADO desde la referencia aprobada del brand book (provisional). El archivo maestro debe revisarlo/redibujarlo A MANO un diseñador (curvas, ligadura "la", espaciado). Ver brand.css, bloque .logo --><span class="logo-mark" aria-hidden="true"></span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
+    <li><a href="servicios.html" data-es="Servicios" data-en="Services">Servicios</a></li>
+    <li><a href="nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a></li>
+    <li><a class="nav-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a></li>
+    <li><button id="lang-toggle" aria-label="Change language">EN</button></li>
+  </ul>
+  <button class="lang-toggle-m" aria-label="Change language">EN</button>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" data-es="Inicio" data-en="Home">Inicio</a>
+  <a href="servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+  <a href="nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+  <a class="m-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a>
+</div>
+
+<main class="dg-page">
+  <header class="dg-head">
+    <span class="dg-eyebrow"><i></i><span data-es="Diagnóstico gratuito · 1 minuto" data-en="Free diagnosis · 1 minute">Diagnóstico gratuito · 1 minuto</span></span>
+    <h1 data-es="¿Cuánto de tu negocio podría <em>funcionar solo</em>?" data-en="How much of your business could <em>run on its own</em>?">¿Cuánto de tu negocio podría <em>funcionar solo</em>?</h1>
+    <p data-es="Responde 7 preguntas tocando opciones y descubre tu potencial de automatización y qué servicios encajan contigo." data-en="Answer 7 questions by tapping options and discover your automation potential and which services fit you.">Responde 7 preguntas tocando opciones y descubre tu potencial de automatización y qué servicios encajan contigo.</p>
+  </header>
+  <section class="dg" id="diag" aria-live="polite">
+    <div class="dg-top"><div class="dg-bar" aria-hidden="true"><i></i></div><span class="dg-meta"></span></div>
+    <div class="dg-stage"></div>
+    <noscript><p data-es="Activa JavaScript para hacer el diagnóstico, o escríbenos por WhatsApp." data-en="Enable JavaScript to take the diagnosis, or message us on WhatsApp.">Activa JavaScript para hacer el diagnóstico, o <a href="https://wa.me/573014112090">escríbenos por WhatsApp</a>.</p></noscript>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a class="logo" href="index.html" aria-label="Lazy Company"><!-- PENDIENTE LOGO: images/brand/logo-lazy.svg es un vector AUTOTRAZADO desde la referencia aprobada del brand book (provisional). El archivo maestro debe revisarlo/redibujarlo A MANO un diseñador (curvas, ligadura "la", espaciado). Ver brand.css, bloque .logo --><span class="logo-mark" aria-hidden="true"></span></a>
+      <p class="footer-tag" data-es="Trabaja menos. Vende más. Vive mejor." data-en="Work less. Sell more. Live better.">Trabaja menos. Vende más. Vive mejor.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html" data-es="Inicio" data-en="Home">Inicio</a>
+      <a href="servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+      <a href="nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+      <a href="https://wa.me/573014112090" target="_blank" rel="noopener" data-es="Contacto" data-en="Contact">Contacto</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Lazy Company</span>
+      <a href="privacidad.html" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a>
+    </div>
+  </div>
+</footer>
+
+<div id="chat-widget">
+  <div id="chat-box">
+    <div id="chat-header">
+      <div class="chat-avatar">S</div>
+      <div class="chat-header-info">
+        <span class="chat-name">Sofía</span>
+        <span class="chat-status"><span class="status-dot"></span><span data-es="En línea · Lazy Company" data-en="Online · Lazy Company">En línea · Lazy Company</span></span>
+      </div>
+      <button id="chat-close" onclick="toggleChat()">×</button>
+    </div>
+    <div id="chat-messages">
+      <div class="msg sofia" data-es="¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?" data-en="Hi! I'm Sofía, Lazy Company's advisor. How can I help you today?">¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?</div>
+    </div>
+    <div id="chat-input-area">
+      <textarea id="chat-input" placeholder="Escribe tu pregunta..." rows="1"></textarea>
+      <button id="chat-send" onclick="sendMessage()"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+    </div>
+  </div>
+  <button id="chat-toggle" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
+</div>
+
+<script src="lang.js?v=2"></script>
+<script src="site.js?v=1"></script>
+<script src="diagnostico.js?v=2"></script>
+</body>
+</html>
