@@ -88,15 +88,15 @@
       extraNote: b('Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta.',
                    'Meta/WhatsApp costs, when applicable, may be charged separately according to Meta’s current rates.'),
       variants: [
-        { name: T_ESE, impl: EX(1200000), monthly: EX(200000),
+        { name: T_ESE, impl: EX(989000), monthly: EX(200000),
           tag: b('Incluye 300 conversaciones al mes.','Includes 300 conversations per month.'),
           features: [b('300 conversaciones/mes','300 conversations/month'), b('1 canal (WhatsApp o Instagram, a elegir)','1 channel (WhatsApp or Instagram, your choice)'), b('Hasta 10 preguntas frecuentes configuradas','Up to 10 configured FAQs'), b('1 idioma','1 language'), b('Pruebas funcionales','Functional testing'), b('1 sesión de capacitación','1 training session')],
           excl: [b('Integraciones con CRM u otros sistemas','Integrations with a CRM or other systems'), b('Captura y clasificación de prospectos','Lead capture and classification'), b('Flujos automatizados','Automated flows'), b('Canales adicionales','Additional channels'), b('Reporte mensual','Monthly report')] },
-        { name: T_AUT, rec: true, impl: EX(2800000), monthly: EX(500000),
+        { name: T_AUT, rec: true, impl: EX(1780000), monthly: EX(500000),
           tag: b('Incluye 1.000 conversaciones al mes.','Includes 1,000 conversations per month.'),
           features: [b('1.000 conversaciones/mes','1,000 conversations/month'), b('2 canales (WhatsApp + Instagram)','2 channels (WhatsApp + Instagram)'), b('Hasta 30 preguntas/intenciones','Up to 30 questions/intents'), b('Captura y clasificación de prospectos','Lead capture and classification'), b('Hasta 3 flujos automatizados','Up to 3 automated flows'), b('1 integración sencilla (CRM u hoja de cálculo)','1 simple integration (CRM or spreadsheet)'), b('Reporte mensual básico','Basic monthly report')],
           excl: [b('Chat web como canal','Web chat as a channel'), b('Más de 3 flujos o flujos personalizados','More than 3 flows or custom flows'), b('Más de 1 integración','More than 1 integration'), b('Reglas avanzadas de clasificación y derivación','Advanced classification and routing rules'), b('Prioridad de soporte','Priority support')] },
-        { name: T_INT, impl: FROM(4800000), monthly: FROM(800000),
+        { name: T_INT, impl: FROM(3200000), monthly: FROM(800000),
           tag: b('Incluye 3.000 conversaciones al mes.','Includes 3,000 conversations per month.'),
           features: [b('3.000 conversaciones/mes','3,000 conversations/month'), b('Hasta 3 canales (WhatsApp + Instagram + chat web)','Up to 3 channels (WhatsApp + Instagram + web chat)'), b('Flujos personalizados (hasta 6)','Custom flows (up to 6)'), b('Hasta 3 integraciones compatibles','Up to 3 compatible integrations'), b('Reglas de clasificación y derivación','Classification and routing rules'), b('Revisión mensual y prioridad de soporte','Monthly review and priority support')],
           excl: [b('Canales adicionales a los 3 incluidos','Channels beyond the 3 included'), b('Integraciones por encima de las 3 incluidas','Integrations beyond the 3 included'), b('Conversaciones por encima del cupo (se evalúa una ampliación del plan)','Conversations above the quota (a plan upgrade is assessed)'), b('Costos de plataformas de terceros (Meta/WhatsApp, cuando apliquen)','Third-party platform costs (Meta/WhatsApp, when applicable)')] }
@@ -211,8 +211,12 @@
       m = A[2].m + (c-A[2].c) * (A[2].m-A[1].m) / (A[2].c-A[1].c);   // mensualidad: misma pendiente marginal del tramo 2
     }
     var mi = 1, mm = 1; k.models.forEach(function(x){ if(x.id === modelId){ mi = x.multImpl; mm = x.multMonthly; } });
-    var r = function(x, mult){ return Math.round(x * mult / k.round) * k.round; };
-    return {impl:r(i, mi), monthly:r(m, mm)};
+    // Sobre un nivel publicado sin recargo de modelo se respeta el precio exacto de la tarjeta (989.000 no se redondea a 1.000.000)
+    var r = function(x, mult, key){
+      if(mult === 1 && A.some(function(a){ return a[key] === x; })) return x;
+      return Math.round(x * mult / k.round) * k.round;
+    };
+    return {impl:r(i, mi, 'i'), monthly:r(m, mm, 'm')};
   }
 
   window.LazyCatalog = {estimateAgent:estimateAgent, USD_COP_RATE:USD_COP_RATE, toUSD:toUSD, WA:WA, PREV:PREV, NOTE_RANGE:NOTE_RANGE, NOTE_GENERAL:NOTE_GENERAL, SERVICES:SERVICES};

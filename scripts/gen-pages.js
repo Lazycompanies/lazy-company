@@ -313,7 +313,7 @@ ${s.key==='agentes' ? CALC : ''}
 
 <script src="../lang.js?v=2"></script>
 <script src="../site.js?v=1"></script>
-<script src="../servicios.js?v=7"></script>
+<script src="../servicios.js?v=8"></script>
 <script src="../service-page.js?v=6"></script>
 ${s.key==='agentes' ? '<script src="../agent-calculator.js?v=3"></script>' : ''}
 </body>
