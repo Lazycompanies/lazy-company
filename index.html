@@ -190,8 +190,6 @@
   .frame{position:relative; border-radius:10px; overflow:hidden; aspect-ratio:4/3; background:rgba(var(--beige-rgb),0.32);}
   .frame img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.6s ease;}
   .frame img.active{opacity:1;}
-  .frame-art{background:var(--carbon);}
-  .frame-art svg{position:absolute; inset:0; width:100%; height:100%;}
   @media (min-width:761px) and (max-width:1100px){.card-grid > .service-card:last-child:nth-child(odd){grid-column:1 / -1; justify-self:center; width:calc(50% - 14px);}}
   .reflection{position:relative; height:56px; overflow:hidden; border-radius:0 0 10px 10px; margin-top:1px;}
   .reflection img{position:absolute; left:0; top:-100%; width:100%; height:100%; object-fit:cover; transform:scaleY(-1); opacity:0; transition:opacity 1.6s ease;}
@@ -338,19 +336,8 @@
       <div class="reflection"><img class="active" alt=""><img alt=""></div>
       <div class="card-meta"><div><h3 data-es="Procesos Internos" data-en="Internal Processes">Procesos Internos</h3><p data-es="Automatizamos las tareas que hoy consumen horas de tu equipo." data-en="We automate the tasks that today consume your team’s hours.">Automatizamos las tareas que hoy consumen horas de tu equipo.</p></div><span class="card-num">06</span></div>
     </a>
-    <a class="service-card" href="servicios/apps.html">
-      <div class="frame frame-art">
-        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="#CFC5B3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="150" y="24" width="100" height="212" rx="18"/><path d="M188 38h24M184 220h32"/>
-          <rect x="164" y="62" width="30" height="30" rx="8" stroke="#CFC5B3" fill="#CFC5B3" fill-opacity=".22"/><rect x="206" y="62" width="30" height="30" rx="8"/>
-          <rect x="164" y="108" width="30" height="30" rx="8"/><rect x="206" y="108" width="30" height="30" rx="8" stroke-opacity=".55"/>
-          <rect x="164" y="154" width="72" height="34" rx="8" stroke-opacity=".7"/>
-          <rect x="54" y="112" width="70" height="104" rx="9" stroke-opacity=".5"/><path d="M54 128h70" stroke-opacity=".5"/>
-          <rect x="278" y="92" width="80" height="62" rx="7" stroke-opacity=".5"/><path d="M278 107h80" stroke-opacity=".5"/>
-          <path d="M132 150H128M272 124h-18" stroke="#CFC5B3" stroke-opacity=".8"/>
-          <circle cx="82" cy="172" r="3" fill="#CFC5B3" stroke="none"/><circle cx="318" cy="130" r="3" fill="#CFC5B3" stroke="none" opacity=".7"/>
-        </svg>
-      </div>
+    <a class="service-card" href="servicios/apps.html" data-images='["images/apps.webp","images/apps.webp"]'>
+      <div class="frame"><img class="active" alt="Apps para el celular de tus clientes"><img alt=""></div>
       <div class="reflection"></div>
       <div class="card-meta"><div><h3 data-es="Apps" data-en="Apps">Apps</h3><p data-es="Web apps, PWA y apps nativas para que tu negocio viva en el celular de tus clientes." data-en="Web apps, PWAs and native apps so your business lives on your customers’ phones.">Web apps, PWA y apps nativas para que tu negocio viva en el celular de tus clientes.</p></div><span class="card-num">07</span></div>
     </a>
