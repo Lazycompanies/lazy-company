@@ -29,18 +29,110 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Apps · Lazy Company",
-  "serviceType": "Apps",
-  "description": "Desarrollo de web apps, PWA y aplicaciones nativas para iOS y Android, con implementación y mantenimiento mensual.",
-  "url": "https://lazycompanies.com/servicios/apps.html",
-  "provider": {
-    "@type": "Organization",
-    "name": "Lazy Company",
-    "url": "https://lazycompanies.com",
-    "logo": "https://lazycompanies.com/logo.png"
-  },
-  "areaServed": "CO"
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Apps · Lazy Company",
+      "serviceType": "Apps",
+      "description": "Desarrollo de web apps, PWA y aplicaciones nativas para iOS y Android, con implementación y mantenimiento mensual.",
+      "url": "https://lazycompanies.com/servicios/apps.html",
+      "provider": {
+        "@type": "Organization",
+        "name": "Lazy Company",
+        "url": "https://lazycompanies.com",
+        "logo": "https://lazycompanies.com/logo.png"
+      },
+      "areaServed": "CO",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "COP",
+        "lowPrice": "1800000",
+        "highPrice": "9000000",
+        "offerCount": 3
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Niveles de Apps",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Apps · Esencial (Web App Simple)",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "1800000",
+              "maxPrice": "3000000"
+            },
+            "description": "implementación $1.800.000 – $3.000.000 COP + mantenimiento mensual $0 – $200.000 COP/mes (opcional)",
+            "url": "https://lazycompanies.com/servicios/apps.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "Apps · Automatizado (PWA)",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "4000000",
+              "maxPrice": "7000000"
+            },
+            "description": "implementación $4.000.000 – $7.000.000 COP + mensualidad $200.000 – $400.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/apps.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "Apps · Integrado (App Nativa iOS/Android)",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "9000000"
+            },
+            "description": "implementación (1 plataforma) desde $9.000.000 COP (ambas plataformas: desde $14.000.000 COP) + mensualidad desde $500.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/apps.html#var-grid"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta desarrollar una app con Lazy Company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hay 3 niveles con valores de referencia en pesos colombianos. Esencial (Web App Simple): implementación $1.800.000 – $3.000.000 COP + mantenimiento mensual $0 – $200.000 COP/mes (opcional). Automatizado (PWA): implementación $4.000.000 – $7.000.000 COP + mensualidad $200.000 – $400.000 COP/mes. Integrado (App Nativa iOS/Android): implementación (1 plataforma) desde $9.000.000 COP (ambas plataformas: desde $14.000.000 COP) + mensualidad desde $500.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué incluye el nivel Automatizado (PWA)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Una Progressive Web App: instalable desde el navegador, funciona offline y envía notificaciones push, sin pasar por las tiendas de apps. Detalle: todo lo del nivel Esencial; Instalable desde el navegador; Funciona offline; Notificaciones push; Sin pasar por tiendas de apps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hay costos adicionales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿De qué depende el precio final?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Principalmente de: tipo de aplicación y plataformas. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -48,7 +140,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../brand.css?v=4">
-<link rel="stylesheet" href="../service-page.css?v=7">
+<link rel="stylesheet" href="../service-page.css?v=8">
 </head>
 <body data-service="apps">
 
@@ -122,13 +214,35 @@
 
 <main class="wrap build">
   <span class="chips-label" data-es="Elige tu tipo de app" data-en="Choose your app type">Elige tu tipo de app</span>
-  <div class="chips" id="chips" role="group"></div>
+  <div class="chips" id="chips" role="group"><button type="button" class="chip" data-i="0" aria-pressed="false">Esencial · Web App Simple</button><button type="button" class="chip on" data-i="1" aria-pressed="true">Automatizado · PWA</button><button type="button" class="chip" data-i="2" aria-pressed="false">Integrado · App Nativa iOS/Android</button></div>
   <h2 class="build-h" data-es="¿Qué podemos construir?" data-en="What can we build?">¿Qué podemos construir?</h2>
-  <div class="var-grid" id="var-grid"></div>
-  <noscript><p class="notes" style="border:0;">Activa JavaScript para ver los niveles y rangos, o <a href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" style="text-decoration:underline;">escríbenos por WhatsApp</a>.</p></noscript>
-  <div class="notes" id="notes"></div>
+  <p id="fx-note" class="fx-note" hidden></p>
+  <div class="var-grid" id="var-grid" data-n="3"><article class="var-card" data-i="0"><div class="var-top"><h3>Esencial</h3></div><p class="var-sub">Web App Simple</p><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$1.800.000</span><span class="pn pn2">– $3.000.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mantenimiento mensual <i>opcional</i></span><div class="price"><span class="pn">$0</span><span class="pn pn2">– $200.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Un sitio optimizado para verse y sentirse como app en el celular: responsive, sin instalación ni funciones offline.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Optimizada para verse y sentirse como app en el celular</li><li>Diseño responsive</li><li>Sin instalación: se abre desde el navegador</li><li>Publicación</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Apps%20%E2%80%93%20nivel%20Esencial%20(Web%20App%20Simple).%20Referencia%20vista%3A%20implementaci%C3%B3n%20%241.800.000%20%E2%80%93%20%243.000.000%20COP%20%2B%20mantenimiento%20mensual%20%240%20%E2%80%93%20%24200.000%20COP%2Fmes%20(opcional)" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card on rec" data-i="1"><div class="var-top"><h3>Automatizado</h3><span class="badge rec">Recomendado</span><span class="sel">✓ Seleccionado</span></div><p class="var-sub">PWA</p><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$4.000.000</span><span class="pn pn2">– $7.000.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mensualidad</span><div class="price"><span class="pn">$200.000</span><span class="pn pn2">– $400.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Una Progressive Web App: instalable desde el navegador, funciona offline y envía notificaciones push, sin pasar por las tiendas de apps.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Todo lo del nivel anterior</li><li>Instalable desde el navegador</li><li>Funciona offline</li><li>Notificaciones push</li><li>Sin pasar por tiendas de apps</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Apps%20%E2%80%93%20nivel%20Automatizado%20(PWA).%20Referencia%20vista%3A%20implementaci%C3%B3n%20%244.000.000%20%E2%80%93%20%247.000.000%20COP%20%2B%20mensualidad%20%24200.000%20%E2%80%93%20%24400.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card" data-i="2"><div class="var-top"><h3>Integrado</h3></div><p class="var-sub">App Nativa iOS/Android</p><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="p-from">Desde</span><span class="pn">$9.000.000</span> <span class="cop">COP</span></div><p class="impl-for">Una plataforma (iOS o Android)</p><p class="maint-line"><b>Ambas plataformas (iOS y Android)</b> Desde $14.000.000 COP</p></div><div class="price-box alt"><span class="price-label">Mensualidad</span><div class="price"><span class="p-from">Desde</span><span class="pn">$500.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Una app real publicada en App Store y/o Google Play, con acceso a funciones nativas del dispositivo.</p><p class="var-note">Las cuentas de desarrollador de Apple ($99 USD/año) y Google Play ($25 USD pago único) son costos externos a cargo del cliente, no incluidos en el precio.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>App real publicada en App Store y/o Google Play</li><li>Acceso a funciones nativas del dispositivo</li><li>Máximo rendimiento y presencia en las tiendas</li><li>iOS, Android o ambas, según la plataforma elegida</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Apps%20%E2%80%93%20nivel%20Integrado%20(App%20Nativa%20iOS%2FAndroid).%20Referencia%20vista%3A%20implementaci%C3%B3n%20(1%20plataforma)%20desde%20%249.000.000%20COP%20(ambas%20plataformas%3A%20desde%20%2414.000.000%20COP)%20%2B%20mensualidad%20desde%20%24500.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article></div>
+  <div class="notes" id="notes"><p>Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p><p>Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p></div>
 </main>
 
+
+<section class="wrap svc-faq" id="preguntas-frecuentes">
+  <h2 data-es="Preguntas frecuentes" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+  <div class="svc-faq-list">
+    <details class="svc-faq-item">
+      <summary data-es="¿Cuánto cuesta desarrollar una app con Lazy Company?" data-en="How much does developing an app cost with Lazy Company?">¿Cuánto cuesta desarrollar una app con Lazy Company?</summary>
+      <p data-es="Hay 3 niveles con valores de referencia en pesos colombianos. Esencial (Web App Simple): implementación $1.800.000 – $3.000.000 COP + mantenimiento mensual $0 – $200.000 COP/mes (opcional). Automatizado (PWA): implementación $4.000.000 – $7.000.000 COP + mensualidad $200.000 – $400.000 COP/mes. Integrado (App Nativa iOS/Android): implementación (1 plataforma) desde $9.000.000 COP (ambas plataformas: desde $14.000.000 COP) + mensualidad desde $500.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="There are 3 levels with reference prices (approximate USD; billed in Colombian pesos). Essential (Simple Web App): implementation $550 – $920 USD + monthly maintenance $0 – $60 USD/month (optional). Automated (PWA): implementation $1,230 – $2,150 USD + monthly fee $60 – $120 USD/month. Integrated (Native iOS/Android App): implementation (1 platform) from $2,770 USD (both platforms: from $4,310 USD) + monthly fee from $150 USD/month. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Hay 3 niveles con valores de referencia en pesos colombianos. Esencial (Web App Simple): implementación $1.800.000 – $3.000.000 COP + mantenimiento mensual $0 – $200.000 COP/mes (opcional). Automatizado (PWA): implementación $4.000.000 – $7.000.000 COP + mensualidad $200.000 – $400.000 COP/mes. Integrado (App Nativa iOS/Android): implementación (1 plataforma) desde $9.000.000 COP (ambas plataformas: desde $14.000.000 COP) + mensualidad desde $500.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Qué incluye el nivel Automatizado (PWA)?" data-en="What does the Automated (PWA) level include?">¿Qué incluye el nivel Automatizado (PWA)?</summary>
+      <p data-es="Una Progressive Web App: instalable desde el navegador, funciona offline y envía notificaciones push, sin pasar por las tiendas de apps. Detalle: todo lo del nivel Esencial; Instalable desde el navegador; Funciona offline; Notificaciones push; Sin pasar por tiendas de apps." data-en="A Progressive Web App: installable from the browser, works offline and sends push notifications, without going through app stores. Details: everything in the Essential level; Installable from the browser; Works offline; Push notifications; No app store required.">Una Progressive Web App: instalable desde el navegador, funciona offline y envía notificaciones push, sin pasar por las tiendas de apps. Detalle: todo lo del nivel Esencial; Instalable desde el navegador; Funciona offline; Notificaciones push; Sin pasar por tiendas de apps.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Hay costos adicionales?" data-en="Are there additional costs?">¿Hay costos adicionales?</summary>
+      <p data-es="Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado." data-en="Costs of external platforms, licenses, infrastructure or third-party services may be charged separately.">Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿De qué depende el precio final?" data-en="What does the final price depend on?">¿De qué depende el precio final?</summary>
+      <p data-es="Principalmente de: tipo de aplicación y plataformas. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="Mainly on: application type and platforms. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Principalmente de: tipo de aplicación y plataformas. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+  </div>
+</section>
 
 <section class="wrap others">
   <h2 data-es="Otros servicios" data-en="Other services">Otros servicios</h2>
@@ -161,7 +275,7 @@
   </div>
 </footer>
 
-<div class="quote-bar" id="quote-bar" aria-live="polite"></div>
+<div class="quote-bar" id="quote-bar" aria-live="polite"><div class="quote-inner"><div class="bar-info"><span class="bar-ref">Tu referencia · Automatizado · PWA</span><div class="bar-prices"><div><span>Implementación</span><b>$4.000.000 – $7.000.000 COP</b></div><div><span>Mensualidad</span><b>$200.000 – $400.000 COP / mes</b></div></div><span class="bar-exact">El valor exacto se define según integraciones y complejidad.</span></div><a class="btn-primary bar-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Apps%20%E2%80%93%20nivel%20Automatizado%20(PWA).%20Referencia%20vista%3A%20implementaci%C3%B3n%20%244.000.000%20%E2%80%93%20%247.000.000%20COP%20%2B%20mensualidad%20%24200.000%20%E2%80%93%20%24400.000%20COP%2Fmes" target="_blank" rel="noopener">Solicitar cotización</a></div></div>
 
 <div id="chat-widget">
   <div id="chat-box">
@@ -187,7 +301,7 @@
 <script src="../lang.js?v=2"></script>
 <script src="../site.js?v=1"></script>
 <script src="../servicios.js?v=8"></script>
-<script src="../service-page.js?v=6"></script>
+<script src="../service-page.js?v=7"></script>
 
 </body>
 </html>

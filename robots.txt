@@ -1,0 +1,6 @@
+# lazycompanies.com
+# Abierto a buscadores y a asistentes de IA (ChatGPT, Claude, Perplexity, Gemini, Copilot).
+User-agent: *
+Allow: /
+
+Sitemap: https://lazycompanies.com/sitemap.xml

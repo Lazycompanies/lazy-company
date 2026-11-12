@@ -7,8 +7,10 @@
  *
  * Cuando correrlo: al cambiar la plantilla comun (nav, footer, chat, <head>, versiones ?v=N de
  * css/js), los textos de cabecera de un servicio, o al agregar/quitar un servicio.
- * NO hace falta para cambiar precios, niveles o features: eso vive en servicios.js y lo pinta
- * service-page.js en el navegador.
+ * Tambien hay que correrlo al cambiar precios, niveles o features en servicios.js: el HTML sale
+ * ya pintado en espanol (tarjetas, notas, preguntas frecuentes y schema) para que Google y los
+ * robots de IA, que muchas veces no ejecutan JavaScript, lean los precios. service-page.js lo
+ * vuelve a pintar igual en el navegador. Tambien regenera llms.txt (resumen para IAs).
  *
  * Uso (desde la raiz del repo):   node scripts/gen-pages.js
  * Probar sin tocar el repo:       node scripts/gen-pages.js <carpeta-de-salida>
@@ -17,6 +19,12 @@
 const fs = require('fs'), path = require('path');
 const ROOT = process.argv[2] ? path.resolve(process.argv[2]) : path.resolve(__dirname, '..');
 const SITE = 'https://lazycompanies.com';
+
+// catalogo (servicios.js) y render de las tarjetas (service-page.js), los mismos que usa el navegador
+global.window = global.window || {};
+require(path.join(__dirname, '..', 'servicios.js'));
+const C = global.window.LazyCatalog;
+const { makeView } = require(path.join(__dirname, '..', 'service-page.js'));
 
 const ICONS = {
   web: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
@@ -29,7 +37,7 @@ const ICONS = {
 };
 
 const S = [
-  { key:'web', num:'01',
+  { key:'web', faqWhat:{es:'una página web a la medida',en:'a custom website'}, num:'01',
     name:{es:'Web',en:'Web'},
     title:'Páginas web y sistemas web a la medida | Lazy Company',
     desc:'Páginas y sistemas web a la medida en Colombia: desde una web profesional hasta webs con IA, CRM y automatizaciones. Niveles de solución y rangos de inversión en COP.',
@@ -38,7 +46,7 @@ const S = [
     lead:{es:'Sitios y sistemas web construidos a la medida. No vendemos plantillas: diseñamos y conectamos tu web con lo que tu negocio necesita para vender.',en:'Custom-built websites and web systems. We don’t sell templates: we design and connect your site to whatever your business needs to sell.'},
     drives:{es:'Tipo y complejidad del proyecto',en:'Project type and complexity'},
     sdesc:'Sitios y sistemas web a la medida, con diseño personalizado, CRM, automatizaciones, agendamiento e inteligencia artificial.' },
-  { key:'crm', num:'02',
+  { key:'crm', faqWhat:{es:'implementar un CRM',en:'implementing a CRM'}, num:'02',
     name:{es:'CRM',en:'CRM'},
     title:'Implementación de CRM con automatización e IA | Lazy Company',
     desc:'Implementamos, personalizamos, automatizamos y conectamos tu CRM: pipeline, seguimiento automático, WhatsApp e IA. Niveles y rangos de inversión en COP.',
@@ -47,7 +55,7 @@ const S = [
     lead:{es:'No somos un software CRM: implementamos, personalizamos, automatizamos y conectamos el CRM de tu operación comercial con el resto de tus herramientas.',en:'We’re not CRM software: we implement, customize, automate and connect the CRM behind your sales operation with the rest of your tools.'},
     drives:{es:'Nivel de implementación, automatización e IA',en:'Implementation level, automation and AI'},
     sdesc:'Implementación, personalización, automatización y conexión de CRM con WhatsApp, email, APIs e inteligencia artificial.' },
-  { key:'agentes', num:'03',
+  { key:'agentes', faqWhat:{es:'un agente de IA para WhatsApp',en:'an AI agent for WhatsApp'}, num:'03',
     name:{es:'Agentes Automatizados',en:'Automated Agents'},
     title:'Agentes de IA para WhatsApp y web | Lazy Company',
     desc:'Agentes de IA que atienden, califican y agendan por WhatsApp, Instagram y web, 24/7. Tres planes (Esencial, Automatizado e Integrado) con implementación y operación mensual en COP.',
@@ -56,7 +64,7 @@ const S = [
     lead:{es:'Agentes de IA entrenados con tu información que atienden, califican y agendan por WhatsApp o web, las 24 horas. Separamos siempre lo que pagas una vez (implementación) de lo que pagas cada mes (operación).',en:'AI agents trained on your information that answer, qualify and schedule via WhatsApp or web, 24/7. We always separate what you pay once (implementation) from what you pay monthly (operation).'},
     drives:{es:'Implementación + conversaciones mensuales',en:'Implementation + monthly conversations'},
     sdesc:'Agentes de inteligencia artificial para WhatsApp y web que atienden, califican leads y agendan, con implementación única y operación mensual.' },
-  { key:'conversion', num:'04',
+  { key:'conversion', faqWhat:{es:'un sistema de conversión de ventas',en:'a sales conversion system'}, num:'04',
     name:{es:'Conversión de Ventas',en:'Sales Conversion'},
     title:'Sistemas de conversión de ventas con IA | Lazy Company',
     desc:'Sistemas que capturan, califican, siguen y convierten leads automáticamente: CRM, WhatsApp, agentes de IA y automatización del funnel. Rangos de inversión en COP.',
@@ -65,7 +73,7 @@ const S = [
     lead:{es:'Construimos sistemas que capturan, califican, siguen y convierten leads automáticamente.',en:'We build systems that capture, qualify, follow up and convert leads automatically.'},
     drives:{es:'Complejidad del funnel y de las automatizaciones',en:'Funnel and automation complexity'},
     sdesc:'Sistemas de captura, calificación, seguimiento y conversión automática de leads con CRM, WhatsApp, email e inteligencia artificial.' },
-  { key:'agendamiento', num:'05',
+  { key:'agendamiento', faqWhat:{es:'un sistema de agendamiento automático',en:'an automated scheduling system'}, num:'05',
     name:{es:'Agendamiento',en:'Scheduling'},
     title:'Sistemas de agendamiento automático con IA | Lazy Company',
     desc:'Citas que se agendan, confirman, recuerdan y reprograman solas, conectadas a tu CRM y WhatsApp, con agentes de IA opcionales. Rangos de inversión en COP.',
@@ -74,7 +82,7 @@ const S = [
     lead:{es:'Sistemas de citas que se agendan, confirman, recuerdan y reprograman solos, conectados a tu CRM y a tus canales.',en:'Appointment systems that book, confirm, remind and reschedule on their own, connected to your CRM and channels.'},
     drives:{es:'Complejidad del sistema y cantidad de integraciones',en:'System complexity and number of integrations'},
     sdesc:'Sistemas de agendamiento automático con confirmaciones, recordatorios y reprogramaciones, conectados a CRM, WhatsApp e inteligencia artificial.' },
-  { key:'procesos', num:'06',
+  { key:'procesos', faqWhat:{es:'automatizar procesos internos',en:'automating internal processes'}, num:'06',
     name:{es:'Procesos Internos',en:'Internal Processes'},
     title:'Automatización de procesos internos con IA | Lazy Company',
     desc:'Automatizamos las tareas y procesos que hoy consumen horas de tu equipo: integraciones entre herramientas, APIs, documentos e IA. Rangos de inversión en COP.',
@@ -83,7 +91,7 @@ const S = [
     lead:{es:'Automatizamos las tareas y procesos que hoy consumen horas de tu equipo.',en:'We automate the tasks and processes that today consume your team’s hours.'},
     drives:{es:'Complejidad del proceso y cantidad de sistemas conectados',en:'Process complexity and number of connected systems'},
     sdesc:'Automatización de procesos internos con integraciones entre herramientas, APIs, bases de datos, documentos e inteligencia artificial.' },
-  { key:'apps', num:'07',
+  { key:'apps', faqWhat:{es:'desarrollar una app',en:'developing an app'}, num:'07',
     name:{es:'Apps',en:'Apps'},
     title:'Desarrollo de apps: web app, PWA y app nativa iOS/Android | Lazy Company',
     desc:'Web apps, PWA y apps nativas para iOS y Android: tres tipos de aplicación con implementación y mantenimiento en COP. Elige el que tu negocio necesita.',
@@ -168,14 +176,82 @@ const COMPARE = `
 </section>
 `;
 
+const view = (key, l) => makeView(C, key, () => l);
+const tierName = (v, l) => v.name[l] + (v.sub ? ` (${v.sub[l]})` : '');
+const sentence = x => /[.!?]$/.test(x) ? x : x + '.';
+const lower1 = x => x.charAt(0).toLowerCase() + x.slice(1);
+
+// Preguntas frecuentes de cada servicio: solo datos que ya estan publicados (precios, features, notas).
+function faqs(s){
+  const out = [];
+  const add = (q, a) => out.push({q, a});
+  const cat = C.SERVICES[s.key], vs = cat.variants;
+  const rec = vs.find(v => v.rec) || vs[0], recI = vs.indexOf(rec);
+  const listOf = (v, l) => v.features.map(f => f === C.PREV
+    ? (l === 'en' ? `everything in the ${vs[recI-1].name.en} level` : `todo lo del nivel ${vs[recI-1].name.es}`)
+    : f[l]).join('; ');
+
+  add({es:`¿Cuánto cuesta ${s.faqWhat.es} con Lazy Company?`, en:`How much does ${s.faqWhat.en} cost with Lazy Company?`},
+      {es:`Hay ${vs.length} niveles con valores de referencia en pesos colombianos. ` + vs.map(v => `${tierName(v,'es')}: ${view(s.key,'es').describe(v,'es')}`).join('. ') + '. ' + C.NOTE_RANGE.es,
+       en:`There are ${vs.length} levels with reference prices (approximate USD; billed in Colombian pesos). ` + vs.map(v => `${tierName(v,'en')}: ${view(s.key,'en').describe(v,'en')}`).join('. ') + '. ' + C.NOTE_RANGE.en});
+  add({es:`¿Qué incluye el nivel ${tierName(rec,'es')}?`, en:`What does the ${tierName(rec,'en')} level include?`},
+      {es:sentence(`${sentence(rec.tag.es)} Detalle: ${listOf(rec,'es')}`), en:sentence(`${sentence(rec.tag.en)} Details: ${listOf(rec,'en')}`)});
+  if(rec.excl) add({es:`¿Qué no incluye el nivel ${tierName(rec,'es')}?`, en:`What is not included in the ${tierName(rec,'en')} level?`},
+      {es:sentence(rec.excl.map(x => x.es).join('; ')), en:sentence(rec.excl.map(x => x.en).join('; '))});
+  add({es:'¿Hay costos adicionales?', en:'Are there additional costs?'},
+      {es:(cat.extraNote ? cat.extraNote.es + ' ' : '') + C.NOTE_GENERAL.es, en:(cat.extraNote ? cat.extraNote.en + ' ' : '') + C.NOTE_GENERAL.en});
+  add({es:'¿De qué depende el precio final?', en:'What does the final price depend on?'},
+      {es:`Principalmente de: ${lower1(s.drives.es)}. ${C.NOTE_RANGE.es}`, en:`Mainly on: ${lower1(s.drives.en)}. ${C.NOTE_RANGE.en}`});
+  return out;
+}
+
+const htmlEsc = x => String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function faqSection(list){
+  return `
+<section class="wrap svc-faq" id="preguntas-frecuentes">
+  <h2 data-es="Preguntas frecuentes" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+  <div class="svc-faq-list">
+${list.map(f => `    <details class="svc-faq-item">
+      <summary ${bi({es:htmlEsc(f.q.es), en:htmlEsc(f.q.en)})}>${htmlEsc(f.q.es)}</summary>
+      <p ${bi({es:htmlEsc(f.a.es), en:htmlEsc(f.a.en)})}>${htmlEsc(f.a.es)}</p>
+    </details>`).join('\n')}
+  </div>
+</section>
+`;
+}
+
 function page(s){
   const url = `${SITE}/servicios/${s.key}.html`;
   const name = s.name.es;
+  const cat = C.SERVICES[s.key], V = view(s.key, 'es'), sel = V.recIndex;
+  const list = faqs(s);
+  // precio de implementacion de cada nivel: valor fijo, "desde" o rango
+  const priceOf = p => p.exact ? {price:String(p.min)}
+    : {priceSpecification:{'@type':'PriceSpecification', priceCurrency:'COP', minPrice:String(p.min), ...(p.max ? {maxPrice:String(p.max)} : {})}};
+  const lows = cat.variants.map(v => v.impl.min), highs = cat.variants.map(v => v.impl.max || v.impl.min);
   const ld = {
-    '@context':'https://schema.org', '@type':'Service',
-    name: `${name} · Lazy Company`, serviceType: name, description: s.sdesc, url,
-    provider:{'@type':'Organization', name:'Lazy Company', url:SITE, logo:`${SITE}/logo.png`},
-    areaServed:'CO'
+    '@context':'https://schema.org',
+    '@graph':[
+      {
+        '@type':'Service',
+        name: `${name} · Lazy Company`, serviceType: name, description: s.sdesc, url,
+        provider:{'@type':'Organization', name:'Lazy Company', url:SITE, logo:`${SITE}/logo.png`},
+        areaServed:'CO',
+        offers:{'@type':'AggregateOffer', priceCurrency:'COP', lowPrice:String(Math.min(...lows)), highPrice:String(Math.max(...highs)), offerCount:cat.variants.length},
+        hasOfferCatalog:{
+          '@type':'OfferCatalog', name:`Niveles de ${name}`,
+          itemListElement: cat.variants.map(v => ({
+            '@type':'Offer', name:`${name} · ${tierName(v,'es')}`, priceCurrency:'COP', ...priceOf(v.impl),
+            description: V.describe(v,'es'), url:`${url}#var-grid`
+          }))
+        }
+      },
+      {
+        '@type':'FAQPage',
+        mainEntity: list.map(f => ({'@type':'Question', name:f.q.es, acceptedAnswer:{'@type':'Answer', text:f.a.es}}))
+      }
+    ]
   };
   const others = S.filter(o=>o.key!==s.key).map(o=>`<a href="${o.key}.html" ${bi(o.name)}>${o.name.es}</a>`).join('\n      ');
   const chipsLabel = s.key==='apps' ? {es:'Elige tu tipo de app',en:'Choose your app type'} : {es:'Elige tu nivel',en:'Choose your level'};
@@ -216,7 +292,7 @@ ${JSON.stringify(ld, null, 2)}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../brand.css?v=4">
-<link rel="stylesheet" href="../service-page.css?v=7">
+<link rel="stylesheet" href="../service-page.css?v=8">
 </head>
 <body data-service="${s.key}">
 
@@ -254,14 +330,14 @@ ${JSON.stringify(ld, null, 2)}
 ${s.key==='agentes' ? EXPLAINER : (s.key==='apps' ? COMPARE : '')}
 <main class="wrap build">
   <span class="chips-label" ${bi(chipsLabel)}>${chipsLabel.es}</span>
-  <div class="chips" id="chips" role="group"></div>
+  <div class="chips" id="chips" role="group">${V.chipsHTML(sel)}</div>
   <h2 class="build-h" data-es="¿Qué podemos construir?" data-en="What can we build?">¿Qué podemos construir?</h2>
-  <div class="var-grid" id="var-grid"></div>
-  <noscript><p class="notes" style="border:0;">Activa JavaScript para ver los niveles y rangos, o <a href="${wa}" style="text-decoration:underline;">escríbenos por WhatsApp</a>.</p></noscript>
-  <div class="notes" id="notes"></div>
+  <p id="fx-note" class="fx-note" hidden></p>
+  <div class="var-grid" id="var-grid" data-n="${cat.variants.length}">${V.gridHTML(sel)}</div>
+${cat.tierNote ? `  <p id="tier-note" class="tier-note">${V.tierNoteHTML()}</p>\n` : ''}  <div class="notes" id="notes">${V.notesHTML()}</div>
 </main>
 
-${s.key==='agentes' ? CALC : ''}
+${s.key==='agentes' ? CALC : ''}${faqSection(list)}
 <section class="wrap others">
   <h2 data-es="Otros servicios" data-en="Other services">Otros servicios</h2>
   <div class="others-list">
@@ -288,7 +364,7 @@ ${s.key==='agentes' ? CALC : ''}
   </div>
 </footer>
 
-<div class="quote-bar" id="quote-bar" aria-live="polite"></div>
+<div class="quote-bar" id="quote-bar" aria-live="polite">${V.barHTML(sel)}</div>
 
 <div id="chat-widget">
   <div id="chat-box">
@@ -314,7 +390,7 @@ ${s.key==='agentes' ? CALC : ''}
 <script src="../lang.js?v=2"></script>
 <script src="../site.js?v=1"></script>
 <script src="../servicios.js?v=8"></script>
-<script src="../service-page.js?v=6"></script>
+<script src="../service-page.js?v=7"></script>
 ${s.key==='agentes' ? '<script src="../agent-calculator.js?v=3"></script>' : ''}
 </body>
 </html>
@@ -332,4 +408,33 @@ fs.writeFileSync(path.join(ROOT,'servicios','index.html'),
 <meta http-equiv="refresh" content="0; url=../servicios.html"></head>
 <body><a href="../servicios.html">Servicios</a><script>location.replace('../servicios.html');</script></body></html>
 `);
+// llms.txt: resumen del sitio para asistentes de IA (formato llmstxt.org). Precios desde servicios.js.
+const LLMS = `# Lazy Company
+
+> Lazy Company es una empresa colombiana que construye sistemas de IA, agentes de IA para WhatsApp e Instagram, automatizaciones, CRM, páginas web y apps para negocios. Atiende en español e inglés. Todos los precios están en pesos colombianos (COP) y son valores de referencia: el precio final depende del alcance.
+
+Cada servicio tiene tres niveles: Esencial, Automatizado (el recomendado) e Integrado. Los costos de plataformas externas (por ejemplo Meta/WhatsApp, licencias o tiendas de apps) pueden cobrarse por separado.
+
+## Servicios
+
+${S.map(s => {
+  const vs = C.SERVICES[s.key].variants, V = view(s.key, 'es');
+  return `- [${s.name.es}](${SITE}/servicios/${s.key}.html): ${s.sdesc} Precios de referencia: ` + vs.map(v => `${tierName(v,'es')}: ${V.describe(v,'es')}`).join('; ') + '.';
+}).join('\n')}
+
+## Herramientas
+
+- [Diagnóstico gratuito](${SITE}/diagnostico.html): 7 preguntas que estiman el potencial de automatización de un negocio (0 a 100) y recomiendan 3 servicios.
+- [Calculadora de agentes de IA](${SITE}/servicios/agentes.html#calcula-tu-plan): estima implementación y mensualidad según conversaciones al mes y el modelo de IA.
+
+## Empresa
+
+- [Inicio](${SITE}/): qué hace Lazy Company y preguntas frecuentes.
+- [Servicios](${SITE}/servicios.html): los 7 servicios y sus niveles.
+- [Nosotros](${SITE}/nosotros.html): quiénes somos y cómo trabajamos.
+- Contacto: WhatsApp +57 301 411 2090 (https://wa.me/573014112090), correo lazycompanies@gmail.com, Instagram https://www.instagram.com/lazycompany
+- Zona: Colombia.
+`;
+fs.writeFileSync(path.join(ROOT, 'llms.txt'), LLMS);
+
 console.log('ok', S.length);

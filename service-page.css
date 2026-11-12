@@ -265,3 +265,18 @@ body{overflow-x:clip; background:var(--crema); color:var(--carbon); font-family:
   .btn-card{padding:17px 18px;}
 }
 @media (prefers-reduced-motion:reduce){ .var-card, .chip, .btn-card{transition:none;} .var-card:hover, .chip:hover{transform:none;} }
+
+/* ---- preguntas frecuentes (generadas por scripts/gen-pages.js desde servicios.js) ---- */
+.svc-faq{padding-top:70px;}
+.svc-faq h2{font-family:var(--font-serif); font-weight:400; font-size:22px; margin-bottom:18px;}
+.svc-faq-list{max-width:860px;}
+.svc-faq-item{border-top:1px solid rgba(var(--carbon-rgb),0.144);}
+.svc-faq-item:last-child{border-bottom:1px solid rgba(var(--carbon-rgb),0.144);}
+.svc-faq-item summary{list-style:none; display:flex; justify-content:space-between; align-items:center; gap:20px; padding:20px 0; min-height:44px; cursor:pointer; font-family:var(--font-serif); font-size:16.5px; line-height:1.4; color:var(--carbon);}
+.svc-faq-item summary::-webkit-details-marker{display:none;}
+.svc-faq-item summary::after{content:'+'; font-family:var(--font-mono); font-size:16px; flex-shrink:0; transition:transform .3s;}
+.svc-faq-item[open] summary::after{transform:rotate(45deg);}
+.svc-faq-item summary:hover{color:var(--oliva);}
+.svc-faq-item p{padding:0 0 22px; max-width:760px; font-size:15px; line-height:1.7; color:var(--carbon-mid);}
+@media (max-width:700px){ .svc-faq{padding-top:52px;} .svc-faq-item summary{font-size:15.5px;} }
+@media (prefers-reduced-motion:reduce){ .svc-faq-item summary::after{transition:none;} }

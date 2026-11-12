@@ -29,18 +29,100 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "CRM · Lazy Company",
-  "serviceType": "CRM",
-  "description": "Implementación, personalización, automatización y conexión de CRM con WhatsApp, email, APIs e inteligencia artificial.",
-  "url": "https://lazycompanies.com/servicios/crm.html",
-  "provider": {
-    "@type": "Organization",
-    "name": "Lazy Company",
-    "url": "https://lazycompanies.com",
-    "logo": "https://lazycompanies.com/logo.png"
-  },
-  "areaServed": "CO"
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "CRM · Lazy Company",
+      "serviceType": "CRM",
+      "description": "Implementación, personalización, automatización y conexión de CRM con WhatsApp, email, APIs e inteligencia artificial.",
+      "url": "https://lazycompanies.com/servicios/crm.html",
+      "provider": {
+        "@type": "Organization",
+        "name": "Lazy Company",
+        "url": "https://lazycompanies.com",
+        "logo": "https://lazycompanies.com/logo.png"
+      },
+      "areaServed": "CO",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "COP",
+        "lowPrice": "1200000",
+        "highPrice": "4500000",
+        "offerCount": 3
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Niveles de CRM",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "CRM · Esencial",
+            "priceCurrency": "COP",
+            "price": "1200000",
+            "description": "implementación $1.200.000 COP + mensualidad $0 – $200.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/crm.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "CRM · Automatizado",
+            "priceCurrency": "COP",
+            "price": "2500000",
+            "description": "implementación $2.500.000 COP + mensualidad $250.000 – $500.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/crm.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "CRM · Integrado",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "4500000"
+            },
+            "description": "implementación desde $4.500.000 COP + mensualidad desde $500.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/crm.html#var-grid"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta implementar un CRM con Lazy Company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $1.200.000 COP + mensualidad $0 – $200.000 COP/mes. Automatizado: implementación $2.500.000 COP + mensualidad $250.000 – $500.000 COP/mes. Integrado: implementación desde $4.500.000 COP + mensualidad desde $500.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué incluye el nivel Automatizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para empresas que quieren automatizar el seguimiento comercial. Detalle: todo lo del nivel Esencial; Lead routing; Seguimiento automático; Notificaciones; WhatsApp; Email; Lead scoring; Dashboards; Integraciones."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hay costos adicionales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El software/licencia del CRM puede cobrarse aparte. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿De qué depende el precio final?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Principalmente de: nivel de implementación, automatización e IA. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -48,7 +130,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../brand.css?v=4">
-<link rel="stylesheet" href="../service-page.css?v=7">
+<link rel="stylesheet" href="../service-page.css?v=8">
 </head>
 <body data-service="crm">
 
@@ -86,13 +168,35 @@
 
 <main class="wrap build">
   <span class="chips-label" data-es="Elige tu nivel" data-en="Choose your level">Elige tu nivel</span>
-  <div class="chips" id="chips" role="group"></div>
+  <div class="chips" id="chips" role="group"><button type="button" class="chip" data-i="0" aria-pressed="false">Esencial</button><button type="button" class="chip on" data-i="1" aria-pressed="true">Automatizado</button><button type="button" class="chip" data-i="2" aria-pressed="false">Integrado</button></div>
   <h2 class="build-h" data-es="¿Qué podemos construir?" data-en="What can we build?">¿Qué podemos construir?</h2>
-  <div class="var-grid" id="var-grid"></div>
-  <noscript><p class="notes" style="border:0;">Activa JavaScript para ver los niveles y rangos, o <a href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" style="text-decoration:underline;">escríbenos por WhatsApp</a>.</p></noscript>
-  <div class="notes" id="notes"></div>
+  <p id="fx-note" class="fx-note" hidden></p>
+  <div class="var-grid" id="var-grid" data-n="3"><article class="var-card" data-i="0"><div class="var-top"><h3>Esencial</h3></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$1.200.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mensualidad</span><div class="price"><span class="pn">$0</span><span class="pn pn2">– $200.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Para empresas que necesitan organizar clientes y oportunidades.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Configuración</li><li>Pipeline</li><li>Campos personalizados</li><li>Usuarios</li><li>Contactos</li><li>Etapas comerciales</li><li>Formularios</li><li>Automatizaciones básicas</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20CRM%20%E2%80%93%20nivel%20Esencial.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%241.200.000%20COP%20%2B%20mensualidad%20%240%20%E2%80%93%20%24200.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card on rec" data-i="1"><div class="var-top"><h3>Automatizado</h3><span class="badge rec">Recomendado</span><span class="sel">✓ Seleccionado</span></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$2.500.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mensualidad</span><div class="price"><span class="pn">$250.000</span><span class="pn pn2">– $500.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Para empresas que quieren automatizar el seguimiento comercial.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Todo lo del nivel anterior</li><li>Lead routing</li><li>Seguimiento automático</li><li>Notificaciones</li><li>WhatsApp</li><li>Email</li><li>Lead scoring</li><li>Dashboards</li><li>Integraciones</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20CRM%20%E2%80%93%20nivel%20Automatizado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%242.500.000%20COP%20%2B%20mensualidad%20%24250.000%20%E2%80%93%20%24500.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card" data-i="2"><div class="var-top"><h3>Integrado</h3></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="p-from">Desde</span><span class="pn">$4.500.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mensualidad</span><div class="price"><span class="p-from">Desde</span><span class="pn">$500.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Para empresas con procesos comerciales complejos que quieren incorporar IA.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Todo lo del nivel anterior</li><li>IA para clasificación de leads</li><li>IA para análisis de conversaciones y resúmenes</li><li>IA para seguimiento y generación de respuestas</li><li>Agentes conectados al CRM</li><li>Múltiples pipelines y equipos</li><li>APIs, ERP y facturación</li><li>Arquitectura personalizada</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20CRM%20%E2%80%93%20nivel%20Integrado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20desde%20%244.500.000%20COP%20%2B%20mensualidad%20desde%20%24500.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article></div>
+  <div class="notes" id="notes"><p>El software/licencia del CRM puede cobrarse aparte.</p><p>Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p><p>Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p></div>
 </main>
 
+
+<section class="wrap svc-faq" id="preguntas-frecuentes">
+  <h2 data-es="Preguntas frecuentes" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+  <div class="svc-faq-list">
+    <details class="svc-faq-item">
+      <summary data-es="¿Cuánto cuesta implementar un CRM con Lazy Company?" data-en="How much does implementing a CRM cost with Lazy Company?">¿Cuánto cuesta implementar un CRM con Lazy Company?</summary>
+      <p data-es="Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $1.200.000 COP + mensualidad $0 – $200.000 COP/mes. Automatizado: implementación $2.500.000 COP + mensualidad $250.000 – $500.000 COP/mes. Integrado: implementación desde $4.500.000 COP + mensualidad desde $500.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="There are 3 levels with reference prices (approximate USD; billed in Colombian pesos). Essential: implementation $370 USD + monthly fee $0 – $60 USD/month. Automated: implementation $770 USD + monthly fee $80 – $150 USD/month. Integrated: implementation from $1,380 USD + monthly fee from $150 USD/month. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $1.200.000 COP + mensualidad $0 – $200.000 COP/mes. Automatizado: implementación $2.500.000 COP + mensualidad $250.000 – $500.000 COP/mes. Integrado: implementación desde $4.500.000 COP + mensualidad desde $500.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Qué incluye el nivel Automatizado?" data-en="What does the Automated level include?">¿Qué incluye el nivel Automatizado?</summary>
+      <p data-es="Para empresas que quieren automatizar el seguimiento comercial. Detalle: todo lo del nivel Esencial; Lead routing; Seguimiento automático; Notificaciones; WhatsApp; Email; Lead scoring; Dashboards; Integraciones." data-en="For companies that want to automate sales follow-up. Details: everything in the Essential level; Lead routing; Automatic follow-up; Notifications; WhatsApp; Email; Lead scoring; Dashboards; Integrations.">Para empresas que quieren automatizar el seguimiento comercial. Detalle: todo lo del nivel Esencial; Lead routing; Seguimiento automático; Notificaciones; WhatsApp; Email; Lead scoring; Dashboards; Integraciones.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Hay costos adicionales?" data-en="Are there additional costs?">¿Hay costos adicionales?</summary>
+      <p data-es="El software/licencia del CRM puede cobrarse aparte. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado." data-en="The CRM software/license may be charged separately. Costs of external platforms, licenses, infrastructure or third-party services may be charged separately.">El software/licencia del CRM puede cobrarse aparte. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿De qué depende el precio final?" data-en="What does the final price depend on?">¿De qué depende el precio final?</summary>
+      <p data-es="Principalmente de: nivel de implementación, automatización e IA. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="Mainly on: implementation level, automation and AI. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Principalmente de: nivel de implementación, automatización e IA. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+  </div>
+</section>
 
 <section class="wrap others">
   <h2 data-es="Otros servicios" data-en="Other services">Otros servicios</h2>
@@ -125,7 +229,7 @@
   </div>
 </footer>
 
-<div class="quote-bar" id="quote-bar" aria-live="polite"></div>
+<div class="quote-bar" id="quote-bar" aria-live="polite"><div class="quote-inner"><div class="bar-info"><span class="bar-ref">Tu referencia · Automatizado</span><div class="bar-prices"><div><span>Implementación</span><b>$2.500.000 COP</b></div><div><span>Mensualidad</span><b>$250.000 – $500.000 COP / mes</b></div></div><span class="bar-exact">El valor exacto se define según integraciones y complejidad.</span></div><a class="btn-primary bar-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20CRM%20%E2%80%93%20nivel%20Automatizado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%242.500.000%20COP%20%2B%20mensualidad%20%24250.000%20%E2%80%93%20%24500.000%20COP%2Fmes" target="_blank" rel="noopener">Solicitar cotización</a></div></div>
 
 <div id="chat-widget">
   <div id="chat-box">
@@ -151,7 +255,7 @@
 <script src="../lang.js?v=2"></script>
 <script src="../site.js?v=1"></script>
 <script src="../servicios.js?v=8"></script>
-<script src="../service-page.js?v=6"></script>
+<script src="../service-page.js?v=7"></script>
 
 </body>
 </html>

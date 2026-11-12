@@ -29,18 +29,110 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Agendamiento · Lazy Company",
-  "serviceType": "Agendamiento",
-  "description": "Sistemas de agendamiento automático con confirmaciones, recordatorios y reprogramaciones, conectados a CRM, WhatsApp e inteligencia artificial.",
-  "url": "https://lazycompanies.com/servicios/agendamiento.html",
-  "provider": {
-    "@type": "Organization",
-    "name": "Lazy Company",
-    "url": "https://lazycompanies.com",
-    "logo": "https://lazycompanies.com/logo.png"
-  },
-  "areaServed": "CO"
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Agendamiento · Lazy Company",
+      "serviceType": "Agendamiento",
+      "description": "Sistemas de agendamiento automático con confirmaciones, recordatorios y reprogramaciones, conectados a CRM, WhatsApp e inteligencia artificial.",
+      "url": "https://lazycompanies.com/servicios/agendamiento.html",
+      "provider": {
+        "@type": "Organization",
+        "name": "Lazy Company",
+        "url": "https://lazycompanies.com",
+        "logo": "https://lazycompanies.com/logo.png"
+      },
+      "areaServed": "CO",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "COP",
+        "lowPrice": "700000",
+        "highPrice": "3000000",
+        "offerCount": 3
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Niveles de Agendamiento",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Agendamiento · Esencial",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "700000",
+              "maxPrice": "1300000"
+            },
+            "description": "implementación $700.000 – $1.300.000 COP + mensualidad $0 – $150.000 COP/mes (opcional)",
+            "url": "https://lazycompanies.com/servicios/agendamiento.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "Agendamiento · Automatizado",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "1500000",
+              "maxPrice": "2800000"
+            },
+            "description": "implementación $1.500.000 – $2.800.000 COP + mensualidad $150.000 – $350.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/agendamiento.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "Agendamiento · Integrado",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "3000000"
+            },
+            "description": "implementación desde $3.000.000 COP + mensualidad desde $350.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/agendamiento.html#var-grid"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta un sistema de agendamiento automático con Lazy Company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $700.000 – $1.300.000 COP + mensualidad $0 – $150.000 COP/mes (opcional). Automatizado: implementación $1.500.000 – $2.800.000 COP + mensualidad $150.000 – $350.000 COP/mes. Integrado: implementación desde $3.000.000 COP + mensualidad desde $350.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué incluye el nivel Automatizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Gestión completa de la cita, sin intervención humana. Detalle: todo lo del nivel Esencial; Cancelaciones; Reprogramaciones; CRM; Seguimiento; Automatizaciones."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hay costos adicionales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿De qué depende el precio final?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Principalmente de: complejidad del sistema y cantidad de integraciones. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -48,7 +140,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../brand.css?v=4">
-<link rel="stylesheet" href="../service-page.css?v=7">
+<link rel="stylesheet" href="../service-page.css?v=8">
 </head>
 <body data-service="agendamiento">
 
@@ -86,13 +178,35 @@
 
 <main class="wrap build">
   <span class="chips-label" data-es="Elige tu nivel" data-en="Choose your level">Elige tu nivel</span>
-  <div class="chips" id="chips" role="group"></div>
+  <div class="chips" id="chips" role="group"><button type="button" class="chip" data-i="0" aria-pressed="false">Esencial</button><button type="button" class="chip on" data-i="1" aria-pressed="true">Automatizado</button><button type="button" class="chip" data-i="2" aria-pressed="false">Integrado</button></div>
   <h2 class="build-h" data-es="¿Qué podemos construir?" data-en="What can we build?">¿Qué podemos construir?</h2>
-  <div class="var-grid" id="var-grid"></div>
-  <noscript><p class="notes" style="border:0;">Activa JavaScript para ver los niveles y rangos, o <a href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" style="text-decoration:underline;">escríbenos por WhatsApp</a>.</p></noscript>
-  <div class="notes" id="notes"></div>
+  <p id="fx-note" class="fx-note" hidden></p>
+  <div class="var-grid" id="var-grid" data-n="3"><article class="var-card" data-i="0"><div class="var-top"><h3>Esencial</h3></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$700.000</span><span class="pn pn2">– $1.300.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mensualidad <i>opcional</i></span><div class="price"><span class="pn">$0</span><span class="pn pn2">– $150.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Para empezar a recibir citas sin cruces ni llamadas.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Calendario</li><li>Formularios</li><li>Confirmación</li><li>Recordatorios</li><li>Email</li><li>WhatsApp</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agendamiento%20%E2%80%93%20nivel%20Esencial.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%24700.000%20%E2%80%93%20%241.300.000%20COP%20%2B%20mensualidad%20%240%20%E2%80%93%20%24150.000%20COP%2Fmes%20(opcional)" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card on rec" data-i="1"><div class="var-top"><h3>Automatizado</h3><span class="badge rec">Recomendado</span><span class="sel">✓ Seleccionado</span></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$1.500.000</span><span class="pn pn2">– $2.800.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mensualidad</span><div class="price"><span class="pn">$150.000</span><span class="pn pn2">– $350.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Gestión completa de la cita, sin intervención humana.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Todo lo del nivel anterior</li><li>Cancelaciones</li><li>Reprogramaciones</li><li>CRM</li><li>Seguimiento</li><li>Automatizaciones</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agendamiento%20%E2%80%93%20nivel%20Automatizado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%241.500.000%20%E2%80%93%20%242.800.000%20COP%20%2B%20mensualidad%20%24150.000%20%E2%80%93%20%24350.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card" data-i="2"><div class="var-top"><h3>Integrado</h3></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="p-from">Desde</span><span class="pn">$3.000.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Mensualidad</span><div class="price"><span class="p-from">Desde</span><span class="pn">$350.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Un agente que agenda y soporta varios profesionales, calendarios o sedes.</p></div><span class="inc-label">Puede incluir</span><ul class="feat grow"><li>Todo lo del nivel anterior</li><li>Agente de IA con conversación natural</li><li>Identificación de necesidades y consulta de disponibilidad</li><li>Múltiples profesionales, calendarios y sedes</li><li>Reglas complejas</li><li>Pagos</li><li>APIs e integraciones personalizadas</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agendamiento%20%E2%80%93%20nivel%20Integrado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20desde%20%243.000.000%20COP%20%2B%20mensualidad%20desde%20%24350.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article></div>
+  <div class="notes" id="notes"><p>Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p><p>Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p></div>
 </main>
 
+
+<section class="wrap svc-faq" id="preguntas-frecuentes">
+  <h2 data-es="Preguntas frecuentes" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+  <div class="svc-faq-list">
+    <details class="svc-faq-item">
+      <summary data-es="¿Cuánto cuesta un sistema de agendamiento automático con Lazy Company?" data-en="How much does an automated scheduling system cost with Lazy Company?">¿Cuánto cuesta un sistema de agendamiento automático con Lazy Company?</summary>
+      <p data-es="Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $700.000 – $1.300.000 COP + mensualidad $0 – $150.000 COP/mes (opcional). Automatizado: implementación $1.500.000 – $2.800.000 COP + mensualidad $150.000 – $350.000 COP/mes. Integrado: implementación desde $3.000.000 COP + mensualidad desde $350.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="There are 3 levels with reference prices (approximate USD; billed in Colombian pesos). Essential: implementation $220 – $400 USD + monthly fee $0 – $50 USD/month (optional). Automated: implementation $460 – $860 USD + monthly fee $50 – $110 USD/month. Integrated: implementation from $920 USD + monthly fee from $110 USD/month. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $700.000 – $1.300.000 COP + mensualidad $0 – $150.000 COP/mes (opcional). Automatizado: implementación $1.500.000 – $2.800.000 COP + mensualidad $150.000 – $350.000 COP/mes. Integrado: implementación desde $3.000.000 COP + mensualidad desde $350.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Qué incluye el nivel Automatizado?" data-en="What does the Automated level include?">¿Qué incluye el nivel Automatizado?</summary>
+      <p data-es="Gestión completa de la cita, sin intervención humana. Detalle: todo lo del nivel Esencial; Cancelaciones; Reprogramaciones; CRM; Seguimiento; Automatizaciones." data-en="Full appointment management, no human intervention. Details: everything in the Essential level; Cancellations; Rescheduling; CRM; Follow-up; Automations.">Gestión completa de la cita, sin intervención humana. Detalle: todo lo del nivel Esencial; Cancelaciones; Reprogramaciones; CRM; Seguimiento; Automatizaciones.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Hay costos adicionales?" data-en="Are there additional costs?">¿Hay costos adicionales?</summary>
+      <p data-es="Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado." data-en="Costs of external platforms, licenses, infrastructure or third-party services may be charged separately.">Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿De qué depende el precio final?" data-en="What does the final price depend on?">¿De qué depende el precio final?</summary>
+      <p data-es="Principalmente de: complejidad del sistema y cantidad de integraciones. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="Mainly on: system complexity and number of integrations. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Principalmente de: complejidad del sistema y cantidad de integraciones. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+  </div>
+</section>
 
 <section class="wrap others">
   <h2 data-es="Otros servicios" data-en="Other services">Otros servicios</h2>
@@ -125,7 +239,7 @@
   </div>
 </footer>
 
-<div class="quote-bar" id="quote-bar" aria-live="polite"></div>
+<div class="quote-bar" id="quote-bar" aria-live="polite"><div class="quote-inner"><div class="bar-info"><span class="bar-ref">Tu referencia · Automatizado</span><div class="bar-prices"><div><span>Implementación</span><b>$1.500.000 – $2.800.000 COP</b></div><div><span>Mensualidad</span><b>$150.000 – $350.000 COP / mes</b></div></div><span class="bar-exact">El valor exacto se define según integraciones y complejidad.</span></div><a class="btn-primary bar-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agendamiento%20%E2%80%93%20nivel%20Automatizado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%241.500.000%20%E2%80%93%20%242.800.000%20COP%20%2B%20mensualidad%20%24150.000%20%E2%80%93%20%24350.000%20COP%2Fmes" target="_blank" rel="noopener">Solicitar cotización</a></div></div>
 
 <div id="chat-widget">
   <div id="chat-box">
@@ -151,7 +265,7 @@
 <script src="../lang.js?v=2"></script>
 <script src="../site.js?v=1"></script>
 <script src="../servicios.js?v=8"></script>
-<script src="../service-page.js?v=6"></script>
+<script src="../service-page.js?v=7"></script>
 
 </body>
 </html>

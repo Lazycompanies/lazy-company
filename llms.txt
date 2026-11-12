@@ -1,0 +1,28 @@
+# Lazy Company
+
+> Lazy Company es una empresa colombiana que construye sistemas de IA, agentes de IA para WhatsApp e Instagram, automatizaciones, CRM, páginas web y apps para negocios. Atiende en español e inglés. Todos los precios están en pesos colombianos (COP) y son valores de referencia: el precio final depende del alcance.
+
+Cada servicio tiene tres niveles: Esencial, Automatizado (el recomendado) e Integrado. Los costos de plataformas externas (por ejemplo Meta/WhatsApp, licencias o tiendas de apps) pueden cobrarse por separado.
+
+## Servicios
+
+- [Web](https://lazycompanies.com/servicios/web.html): Sitios y sistemas web a la medida, con diseño personalizado, CRM, automatizaciones, agendamiento e inteligencia artificial. Precios de referencia: Esencial: inversión $1.500.000 – $2.500.000 COP + mantenimiento opcional $100.000 – $200.000 COP/mes; Automatizado: inversión $3.000.000 – $5.500.000 COP + mantenimiento opcional $250.000 – $450.000 COP/mes; Integrado: inversión desde $6.000.000 COP + mantenimiento opcional desde $500.000 COP/mes.
+- [CRM](https://lazycompanies.com/servicios/crm.html): Implementación, personalización, automatización y conexión de CRM con WhatsApp, email, APIs e inteligencia artificial. Precios de referencia: Esencial: implementación $1.200.000 COP + mensualidad $0 – $200.000 COP/mes; Automatizado: implementación $2.500.000 COP + mensualidad $250.000 – $500.000 COP/mes; Integrado: implementación desde $4.500.000 COP + mensualidad desde $500.000 COP/mes.
+- [Agentes Automatizados](https://lazycompanies.com/servicios/agentes.html): Agentes de inteligencia artificial para WhatsApp y web que atienden, califican leads y agendan, con implementación única y operación mensual. Precios de referencia: Esencial: implementación $989.000 COP + operación mensual $200.000 COP/mes; Automatizado: implementación $1.780.000 COP + operación mensual $500.000 COP/mes; Integrado: implementación desde $3.200.000 COP + operación mensual desde $800.000 COP/mes.
+- [Conversión de Ventas](https://lazycompanies.com/servicios/conversion.html): Sistemas de captura, calificación, seguimiento y conversión automática de leads con CRM, WhatsApp, email e inteligencia artificial. Precios de referencia: Esencial: inversión $1.200.000 – $2.000.000 COP; Automatizado: inversión $2.500.000 – $4.500.000 COP; Integrado: inversión desde $5.000.000 COP.
+- [Agendamiento](https://lazycompanies.com/servicios/agendamiento.html): Sistemas de agendamiento automático con confirmaciones, recordatorios y reprogramaciones, conectados a CRM, WhatsApp e inteligencia artificial. Precios de referencia: Esencial: implementación $700.000 – $1.300.000 COP + mensualidad $0 – $150.000 COP/mes (opcional); Automatizado: implementación $1.500.000 – $2.800.000 COP + mensualidad $150.000 – $350.000 COP/mes; Integrado: implementación desde $3.000.000 COP + mensualidad desde $350.000 COP/mes.
+- [Procesos Internos](https://lazycompanies.com/servicios/procesos.html): Automatización de procesos internos con integraciones entre herramientas, APIs, bases de datos, documentos e inteligencia artificial. Precios de referencia: Esencial: inversión $900.000 – $1.800.000 COP; Automatizado: inversión $2.000.000 – $4.000.000 COP; Integrado: inversión desde $4.500.000 COP.
+- [Apps](https://lazycompanies.com/servicios/apps.html): Desarrollo de web apps, PWA y aplicaciones nativas para iOS y Android, con implementación y mantenimiento mensual. Precios de referencia: Esencial (Web App Simple): implementación $1.800.000 – $3.000.000 COP + mantenimiento mensual $0 – $200.000 COP/mes (opcional); Automatizado (PWA): implementación $4.000.000 – $7.000.000 COP + mensualidad $200.000 – $400.000 COP/mes; Integrado (App Nativa iOS/Android): implementación (1 plataforma) desde $9.000.000 COP (ambas plataformas: desde $14.000.000 COP) + mensualidad desde $500.000 COP/mes.
+
+## Herramientas
+
+- [Diagnóstico gratuito](https://lazycompanies.com/diagnostico.html): 7 preguntas que estiman el potencial de automatización de un negocio (0 a 100) y recomiendan 3 servicios.
+- [Calculadora de agentes de IA](https://lazycompanies.com/servicios/agentes.html#calcula-tu-plan): estima implementación y mensualidad según conversaciones al mes y el modelo de IA.
+
+## Empresa
+
+- [Inicio](https://lazycompanies.com/): qué hace Lazy Company y preguntas frecuentes.
+- [Servicios](https://lazycompanies.com/servicios.html): los 7 servicios y sus niveles.
+- [Nosotros](https://lazycompanies.com/nosotros.html): quiénes somos y cómo trabajamos.
+- Contacto: WhatsApp +57 301 411 2090 (https://wa.me/573014112090), correo lazycompanies@gmail.com, Instagram https://www.instagram.com/lazycompany
+- Zona: Colombia.

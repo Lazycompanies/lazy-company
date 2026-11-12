@@ -1,20 +1,9 @@
 /* Lazy Company — render de las paginas servicios/*.html
-   Lee precios y funcionalidades de servicios.js (window.LazyCatalog). No contiene precios. */
-(function(){
-  var C = window.LazyCatalog;
-  var key = document.body.getAttribute('data-service');
-  var s = C && C.SERVICES[key];
-
-  function lang(){ return document.documentElement.lang === 'en' ? 'en' : 'es'; }
-  function t(o){ return typeof o === 'string' ? o : o[lang()]; }
-  function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-  // ES: $1.000.000 COP  |  EN: $310 USD (aprox., tasa fija en servicios.js)
-  function cur(){ return lang()==='en' ? 'USD' : 'COP'; }
-  function moneyIn(n, l){
-    if(l==='en') return '$' + String(C.toUSD(n)).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-    return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
-  }
-  function money(n){ return moneyIn(n, lang()); }
+   Lee precios y funcionalidades de servicios.js (window.LazyCatalog). No contiene precios.
+   Parte 1 (makeView) es pura: la usa el navegador y tambien scripts/gen-pages.js en Node, que deja
+   el HTML ya pintado en espanol para buscadores y robots de IA que no ejecutan JavaScript.
+   En el navegador se vuelve a pintar igual (y en ingles si se cambia el idioma). */
+(function(root){
   function b(es,en){ return {es:es,en:en}; }
 
   var UI = {
@@ -37,26 +26,35 @@
     allPrev: b('Todo lo del nivel anterior','Everything in the previous level')
   };
 
-  // precio unico, rango o "desde"
-  function rangeHTML(p){
-    if(p.from) return '<span class="p-from">'+esc(t(UI.from))+'</span><span class="pn">'+money(p.min)+'</span>';
-    if(p.exact) return '<span class="pn">'+money(p.min)+'</span>';
-    return '<span class="pn">'+money(p.min)+'</span><span class="pn pn2">– '+money(p.max)+(p.plus?'+':'')+'</span>';
-  }
-  function rangeTextIn(p, l){
-    if(p.from) return (l==='en' ? 'From ' : 'Desde ')+moneyIn(p.min, l);
-    if(p.exact) return moneyIn(p.min, l);
-    return moneyIn(p.min, l)+' – '+moneyIn(p.max, l)+(p.plus?'+':'');
-  }
-  function rangeText(p){ return rangeTextIn(p, lang()); }
+  /* ================= PARTE 1 · HTML DE CADA BLOQUE (sin DOM) ================= */
+  // C = LazyCatalog, key = servicio, getLang() -> 'es' | 'en'
+  function makeView(C, key, getLang){
+    var s = C && C.SERVICES[key];
+    if(!s) return null;
 
-  if(s){
-    var elChips = document.getElementById('chips');
-    var elGrid = document.getElementById('var-grid');
-    var elNotes = document.getElementById('notes');
-    var elBar = document.getElementById('quote-bar');
-    // arranca en el nivel recomendado
-    var sel = Math.max(0, s.variants.map(function(v){ return !!v.rec; }).indexOf(true));
+    function lang(){ return getLang() === 'en' ? 'en' : 'es'; }
+    function t(o){ return typeof o === 'string' ? o : o[lang()]; }
+    function esc(x){ return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    // ES: $1.000.000 COP  |  EN: $310 USD (aprox., tasa fija en servicios.js)
+    function cur(){ return lang()==='en' ? 'USD' : 'COP'; }
+    function moneyIn(n, l){
+      if(l==='en') return '$' + String(C.toUSD(n)).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+      return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+    }
+    function money(n){ return moneyIn(n, lang()); }
+
+    // precio unico, rango o "desde"
+    function rangeHTML(p){
+      if(p.from) return '<span class="p-from">'+esc(t(UI.from))+'</span><span class="pn">'+money(p.min)+'</span>';
+      if(p.exact) return '<span class="pn">'+money(p.min)+'</span>';
+      return '<span class="pn">'+money(p.min)+'</span><span class="pn pn2">– '+money(p.max)+(p.plus?'+':'')+'</span>';
+    }
+    function rangeTextIn(p, l){
+      if(p.from) return (l==='en' ? 'From ' : 'Desde ')+moneyIn(p.min, l);
+      if(p.exact) return moneyIn(p.min, l);
+      return moneyIn(p.min, l)+' – '+moneyIn(p.max, l)+(p.plus?'+':'');
+    }
+    function rangeText(p){ return rangeTextIn(p, lang()); }
 
     var implLabel = function(v){ return t(v.monthly ? UI.implementation : UI.investment); };
     var monLabel = function(v){ return t(v.monthlyLabel || s.monthlyLabel); };
@@ -78,10 +76,10 @@
       return '<div class="price-dual">'+impl+mon+'</div>';
     };
 
-    // descripcion del precio para el mensaje de WhatsApp, en el idioma l
+    // descripcion del precio (mensaje de WhatsApp, preguntas frecuentes y schema), en el idioma l
     var describe = function(v, l){
       var en = l==='en', c = en ? 'USD' : 'COP';
-      var txt = function(p, suf){ return rangeTextIn(p, l)+' '+c+(suf||''); };
+      var txt = function(p, suf){ return rangeTextIn(p, l).replace(/^(Desde|From) /, function(m){ return m.toLowerCase(); })+' '+c+(suf||''); };
       var out = (v.monthly ? (en ? 'implementation ' : 'implementación ') : (en ? 'price ' : 'inversión ')) + (v.implForShort ? '(' + v.implForShort[l] + ') ' : '') + txt(v.impl);
       if(v.implAlt) out += ' (' + (en ? 'both platforms: ' : 'ambas plataformas: ') + txt(v.implAlt.price) + ')';
       if(v.monthly){
@@ -101,53 +99,93 @@
 
     var li = function(f){ return '<li>'+esc(f === C.PREV ? t(UI.allPrev) : t(f))+'</li>'; };
 
-    var render = function(){
-      var v = s.variants[sel];
+    return {
+      service: s, UI: UI, describe: describe, rangeTextIn: rangeTextIn, esc: esc,
+      // arranca en el nivel recomendado
+      recIndex: Math.max(0, s.variants.map(function(v){ return !!v.rec; }).indexOf(true)),
 
-      elChips.innerHTML = s.variants.map(function(vr,i){
-        return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(t(vr.name) + (vr.sub ? ' · ' + t(vr.sub) : ''))+'</button>';
-      }).join('');
+      chipsHTML: function(sel){
+        return s.variants.map(function(vr,i){
+          return '<button type="button" class="chip'+(i===sel?' on':'')+'" data-i="'+i+'" aria-pressed="'+(i===sel)+'">'+esc(t(vr.name) + (vr.sub ? ' · ' + t(vr.sub) : ''))+'</button>';
+        }).join('');
+      },
+
+      fxText: function(){ return t(UI.fx); },
+
+      gridHTML: function(sel){
+        return s.variants.map(function(vr,i){
+          var on = i===sel;
+          return '<article class="var-card'+(on?' on':'')+(vr.rec?' rec':'')+'" data-i="'+i+'">'+
+            '<div class="var-top"><h3>'+esc(t(vr.name))+'</h3>'+
+              (vr.rec ? '<span class="badge rec">'+esc(t(UI.rec))+'</span>' : '')+
+              (on ? '<span class="sel">✓ '+esc(t(UI.selected))+'</span>' : '')+'</div>'+
+            (vr.sub ? '<p class="var-sub">'+esc(t(vr.sub))+'</p>' : '')+
+            '<div class="price-wrap">'+priceBlock(vr)+'</div>'+
+            '<div class="var-desc"><p class="var-tag">'+esc(t(vr.tag))+'</p>'+
+            (vr.note ? '<p class="var-note">'+esc(t(vr.note))+'</p>' : '')+'</div>'+
+            '<span class="inc-label">'+esc(t(UI.include))+'</span>'+
+            '<ul class="feat'+(vr.excl ? '' : ' grow')+'">'+vr.features.map(li).join('')+'</ul>'+
+            (vr.excl ? '<span class="inc-label exc-label">'+esc(t(UI.exclude))+'</span><ul class="feat excl grow">'+vr.excl.map(li).join('')+'</ul>' : '')+
+            '<a class="btn-card" href="'+waLink(vr)+'" target="_blank" rel="noopener">'+esc(t(UI.ctaCard))+' →</a>'+
+          '</article>';
+        }).join('');
+      },
+
+      // nota al pie de las tarjetas (si el servicio la define; HTML de confianza)
+      tierNoteHTML: function(){ return s.tierNote ? t(s.tierNote) : ''; },
+
+      notesHTML: function(){
+        return (s.extraNote ? '<p>'+esc(t(s.extraNote))+'</p>' : '')+
+          '<p>'+esc(t(C.NOTE_RANGE))+'</p>'+
+          '<p>'+esc(t(C.NOTE_GENERAL))+'</p>';
+      },
+
+      barHTML: function(sel){
+        var v = s.variants[sel];
+        var barPrice = '<div class="bar-prices"><div><span>'+esc(implLabel(v) + (v.implForShort ? ' · ' + t(v.implForShort) : ''))+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div>'+
+          (v.monthly ? '<div><span>'+esc(monLabel(v))+(v.monthlyOptional ? ' ('+esc(t(UI.optional))+')' : '')+'</span><b>'+rangeText(v.monthly)+' '+cur()+' '+esc(t(UI.perMonth))+'</b></div>' : '')+
+          '</div>';
+        return '<div class="quote-inner"><div class="bar-info"><span class="bar-ref">'+esc(t(UI.reference))+' · '+esc(t(v.name) + (v.sub ? ' · ' + t(v.sub) : ''))+'</span>'+barPrice+
+          '<span class="bar-exact">'+esc(t(UI.exact))+'</span></div>'+
+          '<a class="btn-primary bar-cta" href="'+waLink(v)+'" target="_blank" rel="noopener">'+esc(t(UI.cta))+'</a></div>';
+      }
+    };
+  }
+
+  var api = { makeView:makeView, UI:UI };
+  if(typeof module !== 'undefined' && module.exports){ module.exports = api; return; }
+  root.LazyServiceView = api;
+
+  /* ================= PARTE 2 · NAVEGADOR ================= */
+  var key = document.body.getAttribute('data-service');
+  var V = makeView(window.LazyCatalog, key, function(){ return document.documentElement.lang; });
+
+  if(V){
+    var s = V.service;
+    var elChips = document.getElementById('chips');
+    var elGrid = document.getElementById('var-grid');
+    var elNotes = document.getElementById('notes');
+    var elBar = document.getElementById('quote-bar');
+    var sel = V.recIndex;
+
+    var render = function(){
+      elChips.innerHTML = V.chipsHTML(sel);
 
       elGrid.setAttribute('data-n', s.variants.length);
       var fx = document.getElementById('fx-note');
       if(!fx){ fx = document.createElement('p'); fx.id = 'fx-note'; fx.className = 'fx-note'; elGrid.parentNode.insertBefore(fx, elGrid); }
-      fx.textContent = t(UI.fx); fx.hidden = lang() !== 'en';
+      fx.textContent = V.fxText(); fx.hidden = document.documentElement.lang !== 'en';
 
-      elGrid.innerHTML = s.variants.map(function(vr,i){
-        var on = i===sel;
-        return '<article class="var-card'+(on?' on':'')+(vr.rec?' rec':'')+'" data-i="'+i+'">'+
-          '<div class="var-top"><h3>'+esc(t(vr.name))+'</h3>'+
-            (vr.rec ? '<span class="badge rec">'+esc(t(UI.rec))+'</span>' : '')+
-            (on ? '<span class="sel">✓ '+esc(t(UI.selected))+'</span>' : '')+'</div>'+
-          (vr.sub ? '<p class="var-sub">'+esc(t(vr.sub))+'</p>' : '')+
-          '<div class="price-wrap">'+priceBlock(vr)+'</div>'+
-          '<div class="var-desc"><p class="var-tag">'+esc(t(vr.tag))+'</p>'+
-          (vr.note ? '<p class="var-note">'+esc(t(vr.note))+'</p>' : '')+'</div>'+
-          '<span class="inc-label">'+esc(t(UI.include))+'</span>'+
-          '<ul class="feat'+(vr.excl ? '' : ' grow')+'">'+vr.features.map(li).join('')+'</ul>'+
-          (vr.excl ? '<span class="inc-label exc-label">'+esc(t(UI.exclude))+'</span><ul class="feat excl grow">'+vr.excl.map(li).join('')+'</ul>' : '')+
-          '<a class="btn-card" href="'+waLink(vr)+'" target="_blank" rel="noopener">'+esc(t(UI.ctaCard))+' →</a>'+
-        '</article>';
-      }).join('');
+      elGrid.innerHTML = V.gridHTML(sel);
 
-      // nota al pie de las tarjetas (si el servicio la define)
       var tn = document.getElementById('tier-note');
       if(s.tierNote){
         if(!tn){ tn = document.createElement('p'); tn.id = 'tier-note'; tn.className = 'tier-note'; elNotes.parentNode.insertBefore(tn, elNotes); }
-        tn.innerHTML = t(s.tierNote);
+        tn.innerHTML = V.tierNoteHTML();
       }
 
-      elNotes.innerHTML =
-        (s.extraNote ? '<p>'+esc(t(s.extraNote))+'</p>' : '')+
-        '<p>'+esc(t(C.NOTE_RANGE))+'</p>'+
-        '<p>'+esc(t(C.NOTE_GENERAL))+'</p>';
-
-      var barPrice = '<div class="bar-prices"><div><span>'+esc(implLabel(v) + (v.implForShort ? ' · ' + t(v.implForShort) : ''))+'</span><b>'+rangeText(v.impl)+' '+cur()+'</b></div>'+
-        (v.monthly ? '<div><span>'+esc(monLabel(v))+(v.monthlyOptional ? ' ('+esc(t(UI.optional))+')' : '')+'</span><b>'+rangeText(v.monthly)+' '+cur()+' '+esc(t(UI.perMonth))+'</b></div>' : '')+
-        '</div>';
-      elBar.innerHTML = '<div class="quote-inner"><div class="bar-info"><span class="bar-ref">'+esc(t(UI.reference))+' · '+esc(t(v.name) + (v.sub ? ' · ' + t(v.sub) : ''))+'</span>'+barPrice+
-        '<span class="bar-exact">'+esc(t(UI.exact))+'</span></div>'+
-        '<a class="btn-primary bar-cta" href="'+waLink(v)+'" target="_blank" rel="noopener">'+esc(t(UI.cta))+'</a></div>';
+      elNotes.innerHTML = V.notesHTML();
+      elBar.innerHTML = V.barHTML(sel);
 
       syncBarHeight();
       equalize();
@@ -166,19 +204,6 @@
 
     var syncBarHeight = function(){
       document.documentElement.style.setProperty('--bar-h', elBar.offsetHeight + 'px');
-    };
-
-    // Schema Service: los rangos salen de servicios.js (no se duplican en el HTML)
-    var addOffers = function(){
-      var node = document.querySelector('script[type="application/ld+json"]');
-      if(!node) return;
-      try{
-        var data = JSON.parse(node.textContent);
-        var lows = s.variants.map(function(v){ return v.impl.min; });
-        var highs = s.variants.map(function(v){ return v.impl.max || v.impl.min; });
-        data.offers = { '@type':'AggregateOffer', priceCurrency:'COP', lowPrice:String(Math.min.apply(null,lows)), highPrice:String(Math.max.apply(null,highs)), offerCount:s.variants.length };
-        node.textContent = JSON.stringify(data);
-      }catch(e){}
     };
 
     var choose = function(i, scroll){
@@ -203,14 +228,13 @@
     new MutationObserver(render).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
 
     render();
-    addOffers();
   }
 
   /* ---- reveal (menu movil y chat de Sofia: site.js) ---- */
-  document.querySelectorAll('.head > *, .explainer, .others > *').forEach(function(el){ el.classList.add('fade-in'); });
+  document.querySelectorAll('.head > *, .explainer, .svc-faq, .others > *').forEach(function(el){ el.classList.add('fade-in'); });
   var revealObserver = new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
   }, {threshold:0.12, rootMargin:'0px 0px -30px 0px'});
   document.querySelectorAll('.fade-in').forEach(function(el){ revealObserver.observe(el); });
 
-})();
+})(this);

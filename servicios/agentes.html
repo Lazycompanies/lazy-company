@@ -29,18 +29,108 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Agentes Automatizados · Lazy Company",
-  "serviceType": "Agentes Automatizados",
-  "description": "Agentes de inteligencia artificial para WhatsApp y web que atienden, califican leads y agendan, con implementación única y operación mensual.",
-  "url": "https://lazycompanies.com/servicios/agentes.html",
-  "provider": {
-    "@type": "Organization",
-    "name": "Lazy Company",
-    "url": "https://lazycompanies.com",
-    "logo": "https://lazycompanies.com/logo.png"
-  },
-  "areaServed": "CO"
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Agentes Automatizados · Lazy Company",
+      "serviceType": "Agentes Automatizados",
+      "description": "Agentes de inteligencia artificial para WhatsApp y web que atienden, califican leads y agendan, con implementación única y operación mensual.",
+      "url": "https://lazycompanies.com/servicios/agentes.html",
+      "provider": {
+        "@type": "Organization",
+        "name": "Lazy Company",
+        "url": "https://lazycompanies.com",
+        "logo": "https://lazycompanies.com/logo.png"
+      },
+      "areaServed": "CO",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "COP",
+        "lowPrice": "989000",
+        "highPrice": "3200000",
+        "offerCount": 3
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Niveles de Agentes Automatizados",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Agentes Automatizados · Esencial",
+            "priceCurrency": "COP",
+            "price": "989000",
+            "description": "implementación $989.000 COP + operación mensual $200.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/agentes.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "Agentes Automatizados · Automatizado",
+            "priceCurrency": "COP",
+            "price": "1780000",
+            "description": "implementación $1.780.000 COP + operación mensual $500.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/agentes.html#var-grid"
+          },
+          {
+            "@type": "Offer",
+            "name": "Agentes Automatizados · Integrado",
+            "priceCurrency": "COP",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "COP",
+              "minPrice": "3200000"
+            },
+            "description": "implementación desde $3.200.000 COP + operación mensual desde $800.000 COP/mes",
+            "url": "https://lazycompanies.com/servicios/agentes.html#var-grid"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta un agente de IA para WhatsApp con Lazy Company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $989.000 COP + operación mensual $200.000 COP/mes. Automatizado: implementación $1.780.000 COP + operación mensual $500.000 COP/mes. Integrado: implementación desde $3.200.000 COP + operación mensual desde $800.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué incluye el nivel Automatizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Incluye 1.000 conversaciones al mes. Detalle: 1.000 conversaciones/mes; 2 canales (WhatsApp + Instagram); Hasta 30 preguntas/intenciones; Captura y clasificación de prospectos; Hasta 3 flujos automatizados; 1 integración sencilla (CRM u hoja de cálculo); Reporte mensual básico."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué no incluye el nivel Automatizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chat web como canal; Más de 3 flujos o flujos personalizados; Más de 1 integración; Reglas avanzadas de clasificación y derivación; Prioridad de soporte."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hay costos adicionales?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿De qué depende el precio final?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Principalmente de: implementación + conversaciones mensuales. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -48,7 +138,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../brand.css?v=4">
-<link rel="stylesheet" href="../service-page.css?v=7">
+<link rel="stylesheet" href="../service-page.css?v=8">
 </head>
 <body data-service="agentes">
 
@@ -106,11 +196,12 @@
 
 <main class="wrap build">
   <span class="chips-label" data-es="Elige tu nivel" data-en="Choose your level">Elige tu nivel</span>
-  <div class="chips" id="chips" role="group"></div>
+  <div class="chips" id="chips" role="group"><button type="button" class="chip" data-i="0" aria-pressed="false">Esencial</button><button type="button" class="chip on" data-i="1" aria-pressed="true">Automatizado</button><button type="button" class="chip" data-i="2" aria-pressed="false">Integrado</button></div>
   <h2 class="build-h" data-es="¿Qué podemos construir?" data-en="What can we build?">¿Qué podemos construir?</h2>
-  <div class="var-grid" id="var-grid"></div>
-  <noscript><p class="notes" style="border:0;">Activa JavaScript para ver los niveles y rangos, o <a href="https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio" style="text-decoration:underline;">escríbenos por WhatsApp</a>.</p></noscript>
-  <div class="notes" id="notes"></div>
+  <p id="fx-note" class="fx-note" hidden></p>
+  <div class="var-grid" id="var-grid" data-n="3"><article class="var-card" data-i="0"><div class="var-top"><h3>Esencial</h3></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$989.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Operación mensual</span><div class="price"><span class="pn">$200.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Incluye 300 conversaciones al mes.</p></div><span class="inc-label">Puede incluir</span><ul class="feat"><li>300 conversaciones/mes</li><li>1 canal (WhatsApp o Instagram, a elegir)</li><li>Hasta 10 preguntas frecuentes configuradas</li><li>1 idioma</li><li>Pruebas funcionales</li><li>1 sesión de capacitación</li></ul><span class="inc-label exc-label">No incluye</span><ul class="feat excl grow"><li>Integraciones con CRM u otros sistemas</li><li>Captura y clasificación de prospectos</li><li>Flujos automatizados</li><li>Canales adicionales</li><li>Reporte mensual</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agentes%20Automatizados%20%E2%80%93%20nivel%20Esencial.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%24989.000%20COP%20%2B%20operaci%C3%B3n%20mensual%20%24200.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card on rec" data-i="1"><div class="var-top"><h3>Automatizado</h3><span class="badge rec">Recomendado</span><span class="sel">✓ Seleccionado</span></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="pn">$1.780.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Operación mensual</span><div class="price"><span class="pn">$500.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Incluye 1.000 conversaciones al mes.</p></div><span class="inc-label">Puede incluir</span><ul class="feat"><li>1.000 conversaciones/mes</li><li>2 canales (WhatsApp + Instagram)</li><li>Hasta 30 preguntas/intenciones</li><li>Captura y clasificación de prospectos</li><li>Hasta 3 flujos automatizados</li><li>1 integración sencilla (CRM u hoja de cálculo)</li><li>Reporte mensual básico</li></ul><span class="inc-label exc-label">No incluye</span><ul class="feat excl grow"><li>Chat web como canal</li><li>Más de 3 flujos o flujos personalizados</li><li>Más de 1 integración</li><li>Reglas avanzadas de clasificación y derivación</li><li>Prioridad de soporte</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agentes%20Automatizados%20%E2%80%93%20nivel%20Automatizado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%241.780.000%20COP%20%2B%20operaci%C3%B3n%20mensual%20%24500.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article><article class="var-card" data-i="2"><div class="var-top"><h3>Integrado</h3></div><div class="price-wrap"><div class="price-dual"><div class="price-box"><span class="price-label">Implementación <i>pago único</i></span><div class="price"><span class="p-from">Desde</span><span class="pn">$3.200.000</span> <span class="cop">COP</span></div></div><div class="price-box alt"><span class="price-label">Operación mensual</span><div class="price"><span class="p-from">Desde</span><span class="pn">$800.000</span> <span class="cop">COP / mes</span></div></div></div></div><div class="var-desc"><p class="var-tag">Incluye 3.000 conversaciones al mes.</p></div><span class="inc-label">Puede incluir</span><ul class="feat"><li>3.000 conversaciones/mes</li><li>Hasta 3 canales (WhatsApp + Instagram + chat web)</li><li>Flujos personalizados (hasta 6)</li><li>Hasta 3 integraciones compatibles</li><li>Reglas de clasificación y derivación</li><li>Revisión mensual y prioridad de soporte</li></ul><span class="inc-label exc-label">No incluye</span><ul class="feat excl grow"><li>Canales adicionales a los 3 incluidos</li><li>Integraciones por encima de las 3 incluidas</li><li>Conversaciones por encima del cupo (se evalúa una ampliación del plan)</li><li>Costos de plataformas de terceros (Meta/WhatsApp, cuando apliquen)</li></ul><a class="btn-card" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agentes%20Automatizados%20%E2%80%93%20nivel%20Integrado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20desde%20%243.200.000%20COP%20%2B%20operaci%C3%B3n%20mensual%20desde%20%24800.000%20COP%2Fmes" target="_blank" rel="noopener">Quiero esta solución →</a></article></div>
+  <p id="tier-note" class="tier-note">Precios calculados con el modelo Haiku. Sonnet 5 disponible como mejora — <a href="#calcula-tu-plan">usa la calculadora</a> para ver el valor con cada modelo.</p>
+  <div class="notes" id="notes"><p>Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta.</p><p>Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p><p>Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p></div>
 </main>
 
 
@@ -121,6 +212,32 @@
     <p data-es="Elige el volumen de conversaciones y el modelo de IA para estimar tu implementación y tu mensualidad. Complementa los tres planes de arriba." data-en="Choose your conversation volume and AI model to estimate your implementation and monthly fee. It complements the three plans above.">Elige el volumen de conversaciones y el modelo de IA para estimar tu implementación y tu mensualidad. Complementa los tres planes de arriba.</p>
   </div>
   <div id="agent-calc"></div>
+</section>
+
+<section class="wrap svc-faq" id="preguntas-frecuentes">
+  <h2 data-es="Preguntas frecuentes" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+  <div class="svc-faq-list">
+    <details class="svc-faq-item">
+      <summary data-es="¿Cuánto cuesta un agente de IA para WhatsApp con Lazy Company?" data-en="How much does an AI agent for WhatsApp cost with Lazy Company?">¿Cuánto cuesta un agente de IA para WhatsApp con Lazy Company?</summary>
+      <p data-es="Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $989.000 COP + operación mensual $200.000 COP/mes. Automatizado: implementación $1.780.000 COP + operación mensual $500.000 COP/mes. Integrado: implementación desde $3.200.000 COP + operación mensual desde $800.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="There are 3 levels with reference prices (approximate USD; billed in Colombian pesos). Essential: implementation $300 USD + monthly operation $60 USD/month. Automated: implementation $550 USD + monthly operation $150 USD/month. Integrated: implementation from $980 USD + monthly operation from $250 USD/month. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Hay 3 niveles con valores de referencia en pesos colombianos. Esencial: implementación $989.000 COP + operación mensual $200.000 COP/mes. Automatizado: implementación $1.780.000 COP + operación mensual $500.000 COP/mes. Integrado: implementación desde $3.200.000 COP + operación mensual desde $800.000 COP/mes. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Qué incluye el nivel Automatizado?" data-en="What does the Automated level include?">¿Qué incluye el nivel Automatizado?</summary>
+      <p data-es="Incluye 1.000 conversaciones al mes. Detalle: 1.000 conversaciones/mes; 2 canales (WhatsApp + Instagram); Hasta 30 preguntas/intenciones; Captura y clasificación de prospectos; Hasta 3 flujos automatizados; 1 integración sencilla (CRM u hoja de cálculo); Reporte mensual básico." data-en="Includes 1,000 conversations per month. Details: 1,000 conversations/month; 2 channels (WhatsApp + Instagram); Up to 30 questions/intents; Lead capture and classification; Up to 3 automated flows; 1 simple integration (CRM or spreadsheet); Basic monthly report.">Incluye 1.000 conversaciones al mes. Detalle: 1.000 conversaciones/mes; 2 canales (WhatsApp + Instagram); Hasta 30 preguntas/intenciones; Captura y clasificación de prospectos; Hasta 3 flujos automatizados; 1 integración sencilla (CRM u hoja de cálculo); Reporte mensual básico.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Qué no incluye el nivel Automatizado?" data-en="What is not included in the Automated level?">¿Qué no incluye el nivel Automatizado?</summary>
+      <p data-es="Chat web como canal; Más de 3 flujos o flujos personalizados; Más de 1 integración; Reglas avanzadas de clasificación y derivación; Prioridad de soporte." data-en="Web chat as a channel; More than 3 flows or custom flows; More than 1 integration; Advanced classification and routing rules; Priority support.">Chat web como canal; Más de 3 flujos o flujos personalizados; Más de 1 integración; Reglas avanzadas de clasificación y derivación; Prioridad de soporte.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿Hay costos adicionales?" data-en="Are there additional costs?">¿Hay costos adicionales?</summary>
+      <p data-es="Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado." data-en="Meta/WhatsApp costs, when applicable, may be charged separately according to Meta’s current rates. Costs of external platforms, licenses, infrastructure or third-party services may be charged separately.">Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.</p>
+    </details>
+    <details class="svc-faq-item">
+      <summary data-es="¿De qué depende el precio final?" data-en="What does the final price depend on?">¿De qué depende el precio final?</summary>
+      <p data-es="Principalmente de: implementación + conversaciones mensuales. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas." data-en="Mainly on: implementation + monthly conversations. Values are an initial reference. The final price depends on scope, integrations, volume, complexity and required features.">Principalmente de: implementación + conversaciones mensuales. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.</p>
+    </details>
+  </div>
 </section>
 
 <section class="wrap others">
@@ -154,7 +271,7 @@
   </div>
 </footer>
 
-<div class="quote-bar" id="quote-bar" aria-live="polite"></div>
+<div class="quote-bar" id="quote-bar" aria-live="polite"><div class="quote-inner"><div class="bar-info"><span class="bar-ref">Tu referencia · Automatizado</span><div class="bar-prices"><div><span>Implementación</span><b>$1.780.000 COP</b></div><div><span>Operación mensual</span><b>$500.000 COP / mes</b></div></div><span class="bar-exact">El valor exacto se define según integraciones y complejidad.</span></div><a class="btn-primary bar-cta" href="https://wa.me/573014112090?text=Hola%2C%20quiero%20cotizar%3A%20Agentes%20Automatizados%20%E2%80%93%20nivel%20Automatizado.%20Referencia%20vista%3A%20implementaci%C3%B3n%20%241.780.000%20COP%20%2B%20operaci%C3%B3n%20mensual%20%24500.000%20COP%2Fmes" target="_blank" rel="noopener">Solicitar cotización</a></div></div>
 
 <div id="chat-widget">
   <div id="chat-box">
@@ -180,7 +297,7 @@
 <script src="../lang.js?v=2"></script>
 <script src="../site.js?v=1"></script>
 <script src="../servicios.js?v=8"></script>
-<script src="../service-page.js?v=6"></script>
+<script src="../service-page.js?v=7"></script>
 <script src="../agent-calculator.js?v=3"></script>
 </body>
 </html>
