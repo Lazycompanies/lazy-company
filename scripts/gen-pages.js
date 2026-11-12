@@ -1,5 +1,6 @@
 /*
- * gen-pages.js — genera las 7 paginas de servicio (servicios/*.html) y servicios/index.html (redirect).
+ * gen-pages.js — genera las 7 paginas de servicio (servicios/*.html) y servicios/index.html (redirect),
+ * las paginas por tipo de negocio (sectores/*.html, contenido en scripts/sectores.js) y llms.txt.
  *
  * ADVERTENCIA: SOBRESCRIBE servicios/*.html por completo. Cualquier cambio hecho a mano en esos
  * archivos se pierde al correrlo. Los cambios a las paginas de servicio se hacen AQUI (plantilla,
@@ -25,6 +26,7 @@ global.window = global.window || {};
 require(path.join(__dirname, '..', 'servicios.js'));
 const C = global.window.LazyCatalog;
 const { makeView } = require(path.join(__dirname, '..', 'service-page.js'));
+const SECTORES = require('./sectores.js');
 
 const ICONS = {
   web: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
@@ -221,6 +223,112 @@ ${list.map(f => `    <details class="svc-faq-item">
 `;
 }
 
+// ---- piezas comunes de las paginas generadas (servicios/ y sectores/) ----
+const WA_GENERAL = 'https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio';
+// o = {title, desc, ogdesc, url, ld}
+const headHTML = o => `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>${o.title}</title>
+<meta name="description" content="${attr(o.desc)}">
+<meta name="robots" content="index, follow">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<link rel="canonical" href="${o.url}">
+<link rel="icon" href="../favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=3">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon-180.png?v=3">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="${o.url}">
+<meta property="og:title" content="${attr(o.title)}">
+<meta property="og:description" content="${attr(o.ogdesc)}">
+<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Lazy Company">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${attr(o.title)}">
+<meta name="twitter:description" content="${attr(o.ogdesc)}">
+<meta name="twitter:image" content="${SITE}/og-image.png">
+
+<script type="application/ld+json">
+${JSON.stringify(o.ld, null, 2)}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../brand.css?v=4">
+<link rel="stylesheet" href="../service-page.css?v=9">
+</head>
+`;
+const navHTML = active => { const wa = WA_GENERAL; return `<nav>
+  <a class="logo" href="../index.html" aria-label="Lazy Company"><!-- PENDIENTE LOGO: images/brand/logo-lazy.svg es un vector AUTOTRAZADO desde la referencia aprobada del brand book (provisional). El archivo maestro debe revisarlo/redibujarlo A MANO un diseñador (curvas, ligadura "la", espaciado). Ver brand.css, bloque .logo --><span class="logo-mark" aria-hidden="true"></span></a>
+  <ul class="nav-links">
+    <li><a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
+    <li><a${active==='servicios' ? ' class="active"' : ''} href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a></li>
+    <li><a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a></li>
+    <li><a class="nav-cta" href="${wa}" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a></li>
+    <li><button id="lang-toggle" aria-label="Change language">EN</button></li>
+  </ul>
+  <button class="lang-toggle-m" aria-label="Change language">EN</button>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a>
+  <a href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+  <a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+  <a class="m-cta" href="${wa}" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a>
+</div>
+
+`; };
+const FOOTER = `<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a class="logo" href="../index.html" aria-label="Lazy Company"><!-- PENDIENTE LOGO: images/brand/logo-lazy.svg es un vector AUTOTRAZADO desde la referencia aprobada del brand book (provisional). El archivo maestro debe revisarlo/redibujarlo A MANO un diseñador (curvas, ligadura "la", espaciado). Ver brand.css, bloque .logo --><span class="logo-mark" aria-hidden="true"></span></a>
+      <p class="footer-tag" data-es="Trabaja menos. Vende más. Vive mejor." data-en="Work less. Sell more. Live better.">Trabaja menos. Vende más. Vive mejor.</p>
+    </div>
+    <div class="footer-links">
+      <a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a>
+      <a href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
+      <a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
+      <a href="https://wa.me/573014112090" target="_blank" rel="noopener" data-es="Contacto" data-en="Contact">Contacto</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Lazy Company</span>
+      <a href="../privacidad.html" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a>
+    </div>
+  </div>
+</footer>
+
+`;
+const CHAT = `<div id="chat-widget">
+  <div id="chat-box">
+    <div id="chat-header">
+      <div class="chat-avatar">S</div>
+      <div class="chat-header-info">
+        <span class="chat-name">Sofía</span>
+        <span class="chat-status"><span class="status-dot"></span><span data-es="En línea · Lazy Company" data-en="Online · Lazy Company">En línea · Lazy Company</span></span>
+      </div>
+      <button id="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">×</button>
+    </div>
+    <div id="chat-messages">
+      <div class="msg sofia" data-es="¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?" data-en="Hi! I'm Sofía, Lazy Company's advisor. How can I help you today?">¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?</div>
+    </div>
+    <div id="chat-input-area">
+      <textarea id="chat-input" placeholder="Escribe tu pregunta..." rows="1"></textarea>
+      <button id="chat-send" onclick="sendMessage()" aria-label="Enviar"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+    </div>
+  </div>
+  <button id="chat-toggle" onclick="toggleChat()" aria-label="Chat"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
+</div>
+
+`;
+
 function page(s){
   const url = `${SITE}/servicios/${s.key}.html`;
   const name = s.name.es;
@@ -256,67 +364,9 @@ function page(s){
   const others = S.filter(o=>o.key!==s.key).map(o=>`<a href="${o.key}.html" ${bi(o.name)}>${o.name.es}</a>`).join('\n      ');
   const chipsLabel = s.key==='apps' ? {es:'Elige tu tipo de app',en:'Choose your app type'} : {es:'Elige tu nivel',en:'Choose your level'};
   const wa = 'https://wa.me/573014112090?text=Hola%2C%20quiero%20automatizar%20mi%20negocio';
-  return `<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  return `${headHTML({title:s.title, desc:s.desc, ogdesc:s.ogdesc, url, ld})}<body data-service="${s.key}">
 
-<title>${s.title}</title>
-<meta name="description" content="${attr(s.desc)}">
-<meta name="robots" content="index, follow">
-<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<link rel="canonical" href="${url}">
-<link rel="icon" href="../favicon.ico?v=3" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=3">
-<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16.png?v=3">
-<link rel="apple-touch-icon" sizes="180x180" href="../favicon-180.png?v=3">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="${url}">
-<meta property="og:title" content="${attr(s.title)}">
-<meta property="og:description" content="${attr(s.ogdesc)}">
-<meta property="og:image" content="${SITE}/og-image.png">
-<meta property="og:locale" content="es_CO">
-<meta property="og:site_name" content="Lazy Company">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${attr(s.title)}">
-<meta name="twitter:description" content="${attr(s.ogdesc)}">
-<meta name="twitter:image" content="${SITE}/og-image.png">
-
-<script type="application/ld+json">
-${JSON.stringify(ld, null, 2)}
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../brand.css?v=4">
-<link rel="stylesheet" href="../service-page.css?v=8">
-</head>
-<body data-service="${s.key}">
-
-<nav>
-  <a class="logo" href="../index.html" aria-label="Lazy Company"><!-- PENDIENTE LOGO: images/brand/logo-lazy.svg es un vector AUTOTRAZADO desde la referencia aprobada del brand book (provisional). El archivo maestro debe revisarlo/redibujarlo A MANO un diseñador (curvas, ligadura "la", espaciado). Ver brand.css, bloque .logo --><span class="logo-mark" aria-hidden="true"></span></a>
-  <ul class="nav-links">
-    <li><a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a></li>
-    <li><a class="active" href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a></li>
-    <li><a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a></li>
-    <li><a class="nav-cta" href="${wa}" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a></li>
-    <li><button id="lang-toggle" aria-label="Change language">EN</button></li>
-  </ul>
-  <button class="lang-toggle-m" aria-label="Change language">EN</button>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
-</nav>
-
-<div class="mobile-menu" id="mobile-menu">
-  <a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a>
-  <a href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
-  <a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
-  <a class="m-cta" href="${wa}" target="_blank" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a>
-</div>
-
-<div class="wrap crumb">
+${navHTML('servicios')}<div class="wrap crumb">
   <a class="back" href="../servicios.html" data-es="← Volver a servicios" data-en="← Back to services">← Volver a servicios</a>
 </div>
 
@@ -343,51 +393,15 @@ ${s.key==='agentes' ? CALC : ''}${faqSection(list)}
   <div class="others-list">
       ${others}
   </div>
+  <h2 class="others-h2" data-es="Por tipo de negocio" data-en="By type of business">Por tipo de negocio</h2>
+  <div class="others-list">
+      ${SECTORES.map(x => `<a href="../sectores/${x.key}.html" ${bi(x.name)}>${x.name.es}</a>`).join('\n      ')}
+  </div>
 </section>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <a class="logo" href="../index.html" aria-label="Lazy Company"><!-- PENDIENTE LOGO: images/brand/logo-lazy.svg es un vector AUTOTRAZADO desde la referencia aprobada del brand book (provisional). El archivo maestro debe revisarlo/redibujarlo A MANO un diseñador (curvas, ligadura "la", espaciado). Ver brand.css, bloque .logo --><span class="logo-mark" aria-hidden="true"></span></a>
-      <p class="footer-tag" data-es="Trabaja menos. Vende más. Vive mejor." data-en="Work less. Sell more. Live better.">Trabaja menos. Vende más. Vive mejor.</p>
-    </div>
-    <div class="footer-links">
-      <a href="../index.html" data-es="Inicio" data-en="Home">Inicio</a>
-      <a href="../servicios.html" data-es="Servicios" data-en="Services">Servicios</a>
-      <a href="../nosotros.html" data-es="Nosotros" data-en="About">Nosotros</a>
-      <a href="https://wa.me/573014112090" target="_blank" rel="noopener" data-es="Contacto" data-en="Contact">Contacto</a>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Lazy Company</span>
-      <a href="../privacidad.html" data-es="Política de privacidad" data-en="Privacy policy">Política de privacidad</a>
-    </div>
-  </div>
-</footer>
+${FOOTER}<div class="quote-bar" id="quote-bar" aria-live="polite">${V.barHTML(sel)}</div>
 
-<div class="quote-bar" id="quote-bar" aria-live="polite">${V.barHTML(sel)}</div>
-
-<div id="chat-widget">
-  <div id="chat-box">
-    <div id="chat-header">
-      <div class="chat-avatar">S</div>
-      <div class="chat-header-info">
-        <span class="chat-name">Sofía</span>
-        <span class="chat-status"><span class="status-dot"></span><span data-es="En línea · Lazy Company" data-en="Online · Lazy Company">En línea · Lazy Company</span></span>
-      </div>
-      <button id="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">×</button>
-    </div>
-    <div id="chat-messages">
-      <div class="msg sofia" data-es="¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?" data-en="Hi! I'm Sofía, Lazy Company's advisor. How can I help you today?">¡Hola! Soy Sofía, asesora de Lazy Company. ¿En qué te puedo ayudar hoy?</div>
-    </div>
-    <div id="chat-input-area">
-      <textarea id="chat-input" placeholder="Escribe tu pregunta..." rows="1"></textarea>
-      <button id="chat-send" onclick="sendMessage()" aria-label="Enviar"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
-    </div>
-  </div>
-  <button id="chat-toggle" onclick="toggleChat()" aria-label="Chat"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
-</div>
-
-<script src="../lang.js?v=2"></script>
+${CHAT}<script src="../lang.js?v=2"></script>
 <script src="../site.js?v=1"></script>
 <script src="../servicios.js?v=8"></script>
 <script src="../service-page.js?v=7"></script>
@@ -408,6 +422,150 @@ fs.writeFileSync(path.join(ROOT,'servicios','index.html'),
 <meta http-equiv="refresh" content="0; url=../servicios.html"></head>
 <body><a href="../servicios.html">Servicios</a><script>location.replace('../servicios.html');</script></body></html>
 `);
+
+// ==== PAGINAS POR SECTOR (sectores/*.html) ====
+// Precios "desde" = implementacion del primer nivel de cada servicio en servicios.js.
+const svcName = k => S.find(o => o.key === k).name;
+const fromPrice = (k, l) => {
+  const v0 = C.SERVICES[k].variants[0], V = view(k, l);
+  return V.rangeTextIn({min:v0.impl.min, from:true}, l) + ' ' + (l === 'en' ? 'USD' : 'COP');
+};
+
+function sectorFaqs(x){
+  const out = [];
+  out.push({q:x.costQ, a:{
+    es:'Depende de qué automatices primero. Como referencia, el nivel de entrada de cada servicio es: ' +
+       x.services.map(sv => `${svcName(sv.key).es}: ${view(sv.key,'es').describe(C.SERVICES[sv.key].variants[0],'es')}`).join('. ') + '. ' + C.NOTE_RANGE.es,
+    en:'It depends on what you automate first. As a reference, the entry level of each service is (approximate USD; billed in Colombian pesos): ' +
+       x.services.map(sv => `${svcName(sv.key).en}: ${view(sv.key,'en').describe(C.SERVICES[sv.key].variants[0],'en')}`).join('. ') + '. ' + C.NOTE_RANGE.en
+  }});
+  x.faq.forEach(f => out.push(f));
+  // canales: salen de las features de cada nivel de Agentes
+  const ag = C.SERVICES.agentes.variants, ch = (v, l) => lower1(v.features.find(f => f !== C.PREV && /canal|channel/i.test(f[l]))[l]);
+  out.push({q:{es:'¿Funciona por WhatsApp e Instagram?', en:'Does it work on WhatsApp and Instagram?'}, a:{
+    es:'Sí. En Agentes Automatizados, ' + ag.map(v => `el nivel ${v.name.es} incluye ${ch(v,'es')}`).join('; ') + '.',
+    en:'Yes. In Automated Agents, ' + ag.map(v => `the ${v.name.en} level includes ${ch(v,'en')}`).join('; ') + '.'
+  }});
+  out.push({q:{es:'¿Por dónde empiezo?', en:'Where do I start?'}, a:{
+    es:'Haz el diagnóstico gratuito: son 7 preguntas, toma un minuto y te dice qué conviene automatizar primero. Si prefieres, escríbenos por WhatsApp.',
+    en:'Take the free diagnosis: 7 questions, one minute, and it tells you what to automate first. If you prefer, message us on WhatsApp.'
+  }});
+  return out;
+}
+
+function sectorPage(x){
+  const url = `${SITE}/sectores/${x.key}.html`;
+  const list = sectorFaqs(x);
+  const wa = 'https://wa.me/573014112090?text=' + encodeURIComponent(x.waText);
+  const ld = {
+    '@context':'https://schema.org',
+    '@graph':[
+      {
+        '@type':'Service',
+        name: x.title.replace(' | Lazy Company', ''), serviceType: x.title.replace(' | Lazy Company', ''), description: x.desc, url,
+        provider:{'@type':'Organization', name:'Lazy Company', url:SITE, logo:`${SITE}/logo.png`},
+        areaServed:'CO',
+        audience:{'@type':'BusinessAudience', audienceType:x.audience},
+        hasOfferCatalog:{
+          '@type':'OfferCatalog', name:`Servicios para ${x.name.es.toLowerCase()}`,
+          itemListElement: x.services.map(sv => ({'@type':'Offer', itemOffered:{'@type':'Service', name:svcName(sv.key).es, url:`${SITE}/servicios/${sv.key}.html`},
+            priceSpecification:{'@type':'PriceSpecification', priceCurrency:'COP', minPrice:String(C.SERVICES[sv.key].variants[0].impl.min)}}))
+        }
+      },
+      {'@type':'FAQPage', mainEntity: list.map(f => ({'@type':'Question', name:f.q.es, acceptedAnswer:{'@type':'Answer', text:f.a.es}}))},
+      {'@type':'BreadcrumbList', itemListElement:[
+        {'@type':'ListItem', position:1, name:'Inicio', item:`${SITE}/`},
+        {'@type':'ListItem', position:2, name:x.name.es, item:url}
+      ]}
+    ]
+  };
+  const btns = `<div class="sx-actions">
+    <a class="sx-btn" href="../diagnostico.html" data-es="Diagnóstico gratis" data-en="Free diagnosis">Diagnóstico gratis</a>
+    <a class="sx-btn ghost" href="${wa}" target="_blank" rel="noopener" data-es="Hablar por WhatsApp" data-en="Talk on WhatsApp">Hablar por WhatsApp</a>
+  </div>`;
+  return `${headHTML({title:x.title, desc:x.desc, ogdesc:x.ogdesc, url, ld})}<body class="sector-page">
+
+${navHTML('')}<div class="wrap crumb">
+  <a class="back" href="../index.html" data-es="← Inicio" data-en="← Home">← Inicio</a>
+</div>
+
+<header class="head sx-head">
+  <span class="label" ${bi(x.label)}>${x.label.es}</span>
+  <h1 ${bi(x.h1)}>${x.h1.es}</h1>
+  <p class="lead" ${bi(x.lead)}>${x.lead.es}</p>
+  ${btns}
+</header>
+
+<main>
+<section class="wrap sx-pains">
+  <h2 ${bi(x.painsTitle)}>${x.painsTitle.es}</h2>
+  <div class="sx-pain-grid">
+${x.pains.map((pn, i) => `    <article class="sx-pain">
+      <span class="sx-n">0${i + 1}</span>
+      <h3 ${bi(pn.t)}>${pn.t.es}</h3>
+      <p ${bi(pn.d)}>${pn.d.es}</p>
+    </article>`).join('\n')}
+  </div>
+</section>
+
+<section class="sx-day">
+  <div class="wrap">
+    <h2 ${bi(x.dayTitle)}>${x.dayTitle.es}</h2>
+    <ol class="sx-timeline">
+${x.day.map(d => `      <li><span class="sx-when" ${bi(d.when)}>${d.when.es}</span><p ${bi(d.what)}>${d.what.es}</p></li>`).join('\n')}
+    </ol>
+    <p class="sx-note" ${bi(x.dayNote)}>${x.dayNote.es}</p>
+  </div>
+</section>
+
+<section class="wrap sx-svcs">
+  <h2 data-es="Qué <em>implementamos</em>" data-en="What we <em>implement</em>">Qué <em>implementamos</em></h2>
+  <div class="sx-svc-list">
+${x.services.map((sv, i) => `    <a class="sx-svc" href="../servicios/${sv.key}.html">
+      <span class="sx-n">0${i + 1}</span>
+      <span class="sx-svc-name" ${bi(svcName(sv.key))}>${svcName(sv.key).es}</span>
+      <p ${bi(sv.d)}>${sv.d.es}</p>
+      <span class="sx-price" ${bi({es:`<b>${fromPrice(sv.key,'es')}</b>implementación`, en:`<b>${fromPrice(sv.key,'en')}</b>implementation`})}><b>${fromPrice(sv.key,'es')}</b>implementación</span>
+      <span class="sx-more" data-es="Ver niveles y precios →" data-en="See levels and prices →">Ver niveles y precios →</span>
+    </a>`).join('\n')}
+  </div>
+</section>
+${faqSection(list)}
+<section class="wrap sx-cta">
+  <h2 ${bi(x.ctaTitle)}>${x.ctaTitle.es}</h2>
+  <p data-es="El diagnóstico tarda un minuto y te dice qué automatizar primero." data-en="The diagnosis takes one minute and tells you what to automate first.">El diagnóstico tarda un minuto y te dice qué automatizar primero.</p>
+  ${btns}
+</section>
+</main>
+
+<section class="wrap others">
+  <h2 data-es="Otros sectores" data-en="Other sectors">Otros sectores</h2>
+  <div class="others-list">
+      ${SECTORES.filter(o => o.key !== x.key).map(o => `<a href="${o.key}.html" ${bi(o.name)}>${o.name.es}</a>`).join('\n      ')}
+      <a href="../servicios.html" data-es="Todos los servicios" data-en="All services">Todos los servicios</a>
+  </div>
+</section>
+
+${FOOTER}
+${CHAT}<script src="../lang.js?v=2"></script>
+<script src="../site.js?v=1"></script>
+<script src="../service-page.js?v=7"></script>
+</body>
+</html>
+`;
+}
+
+fs.mkdirSync(path.join(ROOT,'sectores'),{recursive:true});
+for(const x of SECTORES){ fs.writeFileSync(path.join(ROOT,'sectores',x.key+'.html'), sectorPage(x)); }
+// /sectores/ -> inicio
+fs.writeFileSync(path.join(ROOT,'sectores','index.html'),
+`<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Lazy Company</title>
+<meta name="robots" content="noindex"><link rel="canonical" href="${SITE}/">
+<meta http-equiv="refresh" content="0; url=../index.html"></head>
+<body><a href="../index.html">Lazy Company</a><script>location.replace('../index.html');</script></body></html>
+`);
+
 // llms.txt: resumen del sitio para asistentes de IA (formato llmstxt.org). Precios desde servicios.js.
 const LLMS = `# Lazy Company
 
@@ -421,6 +579,10 @@ ${S.map(s => {
   const vs = C.SERVICES[s.key].variants, V = view(s.key, 'es');
   return `- [${s.name.es}](${SITE}/servicios/${s.key}.html): ${s.sdesc} Precios de referencia: ` + vs.map(v => `${tierName(v,'es')}: ${V.describe(v,'es')}`).join('; ') + '.';
 }).join('\n')}
+
+## Por tipo de negocio
+
+${SECTORES.map(x => `- [${x.name.es}](${SITE}/sectores/${x.key}.html): ${x.desc}`).join('\n')}
 
 ## Herramientas
 

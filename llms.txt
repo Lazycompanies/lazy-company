@@ -14,6 +14,13 @@ Cada servicio tiene tres niveles: Esencial, Automatizado (el recomendado) e Inte
 - [Procesos Internos](https://lazycompanies.com/servicios/procesos.html): Automatización de procesos internos con integraciones entre herramientas, APIs, bases de datos, documentos e inteligencia artificial. Precios de referencia: Esencial: inversión $900.000 – $1.800.000 COP; Automatizado: inversión $2.000.000 – $4.000.000 COP; Integrado: inversión desde $4.500.000 COP.
 - [Apps](https://lazycompanies.com/servicios/apps.html): Desarrollo de web apps, PWA y aplicaciones nativas para iOS y Android, con implementación y mantenimiento mensual. Precios de referencia: Esencial (Web App Simple): implementación $1.800.000 – $3.000.000 COP + mantenimiento mensual $0 – $200.000 COP/mes (opcional); Automatizado (PWA): implementación $4.000.000 – $7.000.000 COP + mensualidad $200.000 – $400.000 COP/mes; Integrado (App Nativa iOS/Android): implementación (1 plataforma) desde $9.000.000 COP (ambas plataformas: desde $14.000.000 COP) + mensualidad desde $500.000 COP/mes.
 
+## Por tipo de negocio
+
+- [Clínicas](https://lazycompanies.com/sectores/clinicas.html): Agentes de IA para WhatsApp, agendamiento automático y CRM para clínicas, consultorios y centros de estética en Colombia: citas que se agendan, confirman y recuerdan solas. Precios de referencia en COP.
+- [Inmobiliarias](https://lazycompanies.com/sectores/inmobiliarias.html): Agentes de IA para WhatsApp, CRM y seguimiento automático para inmobiliarias en Colombia: respuesta inmediata a cada interesado, filtro por presupuesto y visitas agendadas. Precios de referencia en COP.
+- [Restaurantes](https://lazycompanies.com/sectores/restaurantes.html): Reservas automáticas, agentes de IA para WhatsApp e Instagram y webs para restaurantes, cafés y bares en Colombia: reservas confirmadas y mensajes respondidos sin soltar el servicio. Precios de referencia en COP.
+- [Tiendas de ropa](https://lazycompanies.com/sectores/tiendas-de-ropa.html): Agentes de IA para Instagram y WhatsApp, CRM y seguimiento automático para tiendas de ropa y marcas de moda en Colombia: precios, tallas y envíos respondidos al instante. Precios de referencia en COP.
+
 ## Herramientas
 
 - [Diagnóstico gratuito](https://lazycompanies.com/diagnostico.html): 7 preguntas que estiman el potencial de automatización de un negocio (0 a 100) y recomiendan 3 servicios.
