@@ -595,7 +595,8 @@ ${SECTORES.map(x => `- [${x.name.es}](${SITE}/sectores/${x.key}.html): ${x.desc}
 - [Servicios](${SITE}/servicios.html): los 7 servicios y sus niveles.
 - [Nosotros](${SITE}/nosotros.html): quiénes somos y cómo trabajamos.
 - Contacto: WhatsApp +57 301 411 2090 (https://wa.me/573014112090), correo lazycompanies@gmail.com, Instagram https://www.instagram.com/lazycompany
-- Zona: Colombia.
+- Ubicación: Colombia. Trabaja 100 % remoto y atiende negocios de cualquier país, en español e inglés.
+- Horario: lunes a viernes, 8:00 a. m. a 6:00 p. m. (hora de Colombia, GMT-5).
 `;
 fs.writeFileSync(path.join(ROOT, 'llms.txt'), LLMS);
 
