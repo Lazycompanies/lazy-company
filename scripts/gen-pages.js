@@ -261,7 +261,7 @@ ${JSON.stringify(o.ld, null, 2)}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../brand.css?v=4">
+<link rel="stylesheet" href="../brand.css?v=5">
 <link rel="stylesheet" href="../service-page.css?v=9">
 </head>
 `;
@@ -402,7 +402,7 @@ ${s.key==='agentes' ? CALC : ''}${faqSection(list)}
 ${FOOTER}<div class="quote-bar" id="quote-bar" aria-live="polite">${V.barHTML(sel)}</div>
 
 ${CHAT}<script src="../lang.js?v=2"></script>
-<script src="../site.js?v=1"></script>
+<script src="../site.js?v=2"></script>
 <script src="../servicios.js?v=8"></script>
 <script src="../service-page.js?v=7"></script>
 ${s.key==='agentes' ? '<script src="../agent-calculator.js?v=3"></script>' : ''}
@@ -548,7 +548,7 @@ ${faqSection(list)}
 
 ${FOOTER}
 ${CHAT}<script src="../lang.js?v=2"></script>
-<script src="../site.js?v=1"></script>
+<script src="../site.js?v=2"></script>
 <script src="../service-page.js?v=7"></script>
 </body>
 </html>
@@ -597,7 +597,93 @@ ${SECTORES.map(x => `- [${x.name.es}](${SITE}/sectores/${x.key}.html): ${x.desc}
 - Contacto: WhatsApp +57 301 411 2090 (https://wa.me/573014112090), correo lazycompanies@gmail.com, Instagram https://www.instagram.com/lazycompany
 - Ubicación: Colombia. Trabaja 100 % remoto y atiende negocios de cualquier país, en español e inglés.
 - Horario: lunes a viernes, 8:00 a. m. a 6:00 p. m. (hora de Colombia, GMT-5).
+
+## Opcional
+
+- [Información completa](${SITE}/llms-full.txt): cada nivel con lo que incluye y no incluye, notas de costos, sectores y políticas.
 `;
 fs.writeFileSync(path.join(ROOT, 'llms.txt'), LLMS);
+
+// llms-full.txt: version completa (cada nivel con lo que incluye/excluye, notas, sectores, politicas).
+// Es ademas la BASE DE CONOCIMIENTO de Sofia: el Worker de Cloudflare (scripts/sofia-worker.js) la descarga
+// de lazycompanies.com/llms-full.txt, asi que basta regenerar y publicar para que el chat quede al dia.
+// Solo datos publicados en el sitio. Nada de metricas sin verificar (tiempos de entrega, % de resolucion, clientes).
+const strip = x => String(x).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const featList = (vs, i, l) => vs[i].features.map(f => f === C.PREV
+  ? (l === 'en' ? `everything in ${vs[i-1].name.en}` : `todo lo del nivel ${vs[i-1].name.es}`) : f[l]).join('; ');
+const tierLine = (k, v, i, vs) => {
+  const es = view(k,'es').describe(v,'es'), en = view(k,'en').describe(v,'en');
+  let t = `- ${tierName(v,'es')} (EN: ${tierName(v,'en')})${v.rec ? ' — RECOMENDADO' : ''}\n` +
+          `  Precio: ${es}\n  Aprox. en USD (solo referencia, se factura en COP): ${en}\n` +
+          `  ${/^Incluye/.test(v.tag.es) ? 'Resumen' : 'Para quién'}: ${v.tag.es}\n  Incluye: ${featList(vs, i, 'es')}.`;
+  if(v.excl) t += `\n  No incluye: ${v.excl.map(x => x.es).join('; ')}.`;
+  if(v.implFor) t += `\n  El precio de implementación es para: ${v.implFor.es}.`;
+  if(v.note) t += `\n  Nota: ${v.note.es}`;
+  return t;
+};
+const svcBlock = s => {
+  const cat = C.SERVICES[s.key], vs = cat.variants;
+  let t = `### ${s.name.es} (EN: ${s.name.en})\n${SITE}/servicios/${s.key}.html\n\n` +
+          `${s.sdesc} ${strip(s.lead.es)}\nLo que define el precio: ${s.drives.es}.\n\nNiveles:\n` +
+          vs.map((v, i) => tierLine(s.key, v, i, vs)).join('\n') + '\n';
+  const notes = [cat.extraNote && cat.extraNote.es, cat.tierNote && strip(cat.tierNote.es), C.NOTE_GENERAL.es, C.NOTE_RANGE.es].filter(Boolean);
+  t += `\nNotas: ${notes.join(' ')}\n`;
+  if(cat.calc){
+    t += `\nQué es una conversación: una interacción iniciada por un usuario con el agente dentro de una ventana de 24 horas por canal; los mensajes consecutivos del mismo usuario en esa ventana cuentan como una sola conversación (definición comercial, puede diferir de la medición de WhatsApp/Meta). Si se supera el cupo, se evalúa con el cliente una ampliación del plan antes de generar cargos adicionales.\n` +
+         `Calculadora (${SITE}/servicios/agentes.html#calcula-tu-plan): estima implementación y mensualidad entre ${cat.calc.min} y ${cat.calc.max.toLocaleString('es-CO')} conversaciones al mes. Modelos de IA: ` +
+         cat.calc.models.map(m => `${m.name.es} (${m.label.es}): ${m.desc.es}`).join(' ') +
+         ` Los precios de los niveles están calculados con Haiku; con Sonnet 5 el valor sube y se ve en la calculadora. Por encima de ${cat.calc.highVolume.toLocaleString('es-CO')} conversaciones al mes el valor se confirma con el equipo.\n`;
+  }
+  return t;
+};
+const sectorBlock = x => {
+  const f = sectorFaqs(x).slice(1, 1 + x.faq.length);   // las preguntas propias del sector (sin la de costo ni las genericas)
+  return `### ${x.name.es} (EN: ${x.name.en})\n${SITE}/sectores/${x.key}.html\n\n${strip(x.lead.es)}\n\n` +
+    `Problemas que resolvemos:\n${x.pains.map(p => `- ${strip(p.t.es)}: ${strip(p.d.es)}`).join('\n')}\n\n` +
+    `Un día con el sistema:\n${x.day.map(d => `- ${strip(d.when.es)}: ${strip(d.what.es)}`).join('\n')}\n${strip(x.dayNote.es)}\n\n` +
+    `Servicios que recomendamos:\n${x.services.map(sv => `- ${svcName(sv.key).es}: ${strip(sv.d.es)} ${fromPrice(sv.key,'es')} de implementación.`).join('\n')}\n` +
+    (f.length ? `\nPreguntas frecuentes:\n${f.map(q => `- ${strip(q.q.es)} ${strip(q.a.es)}`).join('\n')}\n` : '');
+};
+const LLMS_FULL = `# Lazy Company — información completa
+
+> Lazy Company construye sistemas digitales que atraen, atienden, venden, agendan y hacen seguimiento por un negocio: agentes de IA para WhatsApp e Instagram, CRM, agendamiento automático, conversión de ventas, automatización de procesos internos, páginas web y apps. Empresa colombiana, 100 % remota, atiende negocios de cualquier país en español e inglés.
+
+## Empresa
+
+- Nombre: Lazy Company. Sitio: ${SITE}
+- WhatsApp: +57 301 411 2090 (https://wa.me/573014112090). Correo: lazycompanies@gmail.com. Instagram: https://www.instagram.com/lazycompany
+- Ubicación: Colombia. 100 % remoto: atiende negocios de cualquier país, en español e inglés.
+- Horario de atención del equipo: lunes a viernes, 8:00 a. m. a 6:00 p. m. (hora de Colombia, GMT-5).
+- Qué somos: una firma de ingeniería de automatización, no una agencia de marketing. No vendemos herramientas sueltas ni plantillas: diseñamos, conectamos y dejamos funcionando el sistema completo, a la medida del negocio (su tono, sus procesos, sus clientes).
+- Cómo trabajamos: 1) Diagnóstico: entender cómo opera el negocio hoy, qué se repite, qué se pierde y dónde está la mayor fricción. 2) Diseño a medida: nada se copia de una plantilla. 3) Implementación técnica: integramos, probamos y afinamos cada flujo. 4) Evolución continua: monitoreamos, ajustamos y escalamos el sistema con el tiempo.
+- Sectores con los que trabajamos: clínicas y centros de estética, inmobiliarias, restaurantes, tiendas de ropa y negocios de servicios en general.
+- No hace falta saber de tecnología: nosotros configuramos todo; el cliente nos cuenta cómo funciona su negocio.
+- Contratos: no hay contratos de permanencia. Los servicios mensuales se cancelan con 15 días de aviso. Los proyectos únicos son pagos puntuales, sin recurrencia obligatoria.
+- Soporte: las incidencias se atienden por WhatsApp; si el error fue nuestro, lo arreglamos sin costo adicional.
+- Datos: se manejan con los estándares de seguridad de cada plataforma que integramos. Nunca vendemos ni compartimos información con terceros. Política: ${SITE}/privacidad.html
+- Tiempos de implementación: dependen del alcance y de las integraciones; el equipo entrega un cronograma claro al iniciar.
+
+## Cómo leer los precios
+
+Cada servicio tiene tres niveles: Esencial, Automatizado (el recomendado) e Integrado. En Apps cada nivel es un tipo de app distinto (web app simple, PWA, app nativa). Los precios están en pesos colombianos (COP) y son valores de referencia; el precio final depende del alcance. "Implementación" o "inversión" es un pago único; "mensualidad", "operación mensual" o "mantenimiento" es mensual. Los valores en USD son aproximados (tasa de referencia ${C.USD_COP_RATE.toLocaleString('es-CO')} COP por USD) y la facturación es en COP. ${C.NOTE_GENERAL.es}
+
+## Servicios
+
+${S.map(svcBlock).join('\n')}
+## Por tipo de negocio
+
+${SECTORES.map(sectorBlock).join('\n')}
+## Herramientas
+
+- Diagnóstico gratuito (${SITE}/diagnostico.html): 7 preguntas, toma un minuto; estima el potencial de automatización del negocio (0 a 100) y recomienda 3 servicios para empezar.
+- Calculadora de agentes de IA (${SITE}/servicios/agentes.html#calcula-tu-plan).
+
+## Páginas
+
+- Inicio: ${SITE}/
+- Servicios: ${SITE}/servicios.html
+- Nosotros: ${SITE}/nosotros.html
+`;
+fs.writeFileSync(path.join(ROOT, 'llms-full.txt'), LLMS_FULL);
 
 console.log('ok', S.length);

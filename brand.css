@@ -139,6 +139,8 @@ body.menu-open nav{background:transparent; border-bottom-color:transparent;}
 #chat-messages{flex-grow:1; overflow-y:auto; padding:16px 18px; display:flex; flex-direction:column; gap:12px;}
 .msg{max-width:82%; padding:10px 14px; border-radius:10px; font-size:13.5px; line-height:1.5;}
 .msg.sofia{background:var(--crema); color:var(--carbon); align-self:flex-start; border-bottom-left-radius:2px;}
+.msg.sofia a{color:var(--oliva-aa); text-decoration:underline; text-underline-offset:2px; overflow-wrap:anywhere;}
+.msg.sofia strong{font-weight:600;}
 .msg.user{background:var(--oliva); color:var(--claro); align-self:flex-end; border-bottom-right-radius:2px;}
 .msg.typing{background:var(--crema); color:var(--carbon-mid); align-self:flex-start; font-style:italic;}
 #chat-input-area{display:flex; gap:8px; padding:12px; border-top:1px solid rgba(var(--carbon-rgb),0.144);}

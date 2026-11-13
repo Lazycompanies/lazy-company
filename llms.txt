@@ -34,3 +34,7 @@ Cada servicio tiene tres niveles: Esencial, Automatizado (el recomendado) e Inte
 - Contacto: WhatsApp +57 301 411 2090 (https://wa.me/573014112090), correo lazycompanies@gmail.com, Instagram https://www.instagram.com/lazycompany
 - Ubicación: Colombia. Trabaja 100 % remoto y atiende negocios de cualquier país, en español e inglés.
 - Horario: lunes a viernes, 8:00 a. m. a 6:00 p. m. (hora de Colombia, GMT-5).
+
+## Opcional
+
+- [Información completa](https://lazycompanies.com/llms-full.txt): cada nivel con lo que incluye y no incluye, notas de costos, sectores y políticas.

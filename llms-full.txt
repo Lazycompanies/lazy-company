@@ -1,0 +1,329 @@
+# Lazy Company — información completa
+
+> Lazy Company construye sistemas digitales que atraen, atienden, venden, agendan y hacen seguimiento por un negocio: agentes de IA para WhatsApp e Instagram, CRM, agendamiento automático, conversión de ventas, automatización de procesos internos, páginas web y apps. Empresa colombiana, 100 % remota, atiende negocios de cualquier país en español e inglés.
+
+## Empresa
+
+- Nombre: Lazy Company. Sitio: https://lazycompanies.com
+- WhatsApp: +57 301 411 2090 (https://wa.me/573014112090). Correo: lazycompanies@gmail.com. Instagram: https://www.instagram.com/lazycompany
+- Ubicación: Colombia. 100 % remoto: atiende negocios de cualquier país, en español e inglés.
+- Horario de atención del equipo: lunes a viernes, 8:00 a. m. a 6:00 p. m. (hora de Colombia, GMT-5).
+- Qué somos: una firma de ingeniería de automatización, no una agencia de marketing. No vendemos herramientas sueltas ni plantillas: diseñamos, conectamos y dejamos funcionando el sistema completo, a la medida del negocio (su tono, sus procesos, sus clientes).
+- Cómo trabajamos: 1) Diagnóstico: entender cómo opera el negocio hoy, qué se repite, qué se pierde y dónde está la mayor fricción. 2) Diseño a medida: nada se copia de una plantilla. 3) Implementación técnica: integramos, probamos y afinamos cada flujo. 4) Evolución continua: monitoreamos, ajustamos y escalamos el sistema con el tiempo.
+- Sectores con los que trabajamos: clínicas y centros de estética, inmobiliarias, restaurantes, tiendas de ropa y negocios de servicios en general.
+- No hace falta saber de tecnología: nosotros configuramos todo; el cliente nos cuenta cómo funciona su negocio.
+- Contratos: no hay contratos de permanencia. Los servicios mensuales se cancelan con 15 días de aviso. Los proyectos únicos son pagos puntuales, sin recurrencia obligatoria.
+- Soporte: las incidencias se atienden por WhatsApp; si el error fue nuestro, lo arreglamos sin costo adicional.
+- Datos: se manejan con los estándares de seguridad de cada plataforma que integramos. Nunca vendemos ni compartimos información con terceros. Política: https://lazycompanies.com/privacidad.html
+- Tiempos de implementación: dependen del alcance y de las integraciones; el equipo entrega un cronograma claro al iniciar.
+
+## Cómo leer los precios
+
+Cada servicio tiene tres niveles: Esencial, Automatizado (el recomendado) e Integrado. En Apps cada nivel es un tipo de app distinto (web app simple, PWA, app nativa). Los precios están en pesos colombianos (COP) y son valores de referencia; el precio final depende del alcance. "Implementación" o "inversión" es un pago único; "mensualidad", "operación mensual" o "mantenimiento" es mensual. Los valores en USD son aproximados (tasa de referencia 3.250 COP por USD) y la facturación es en COP. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado.
+
+## Servicios
+
+### Web (EN: Web)
+https://lazycompanies.com/servicios/web.html
+
+Sitios y sistemas web a la medida, con diseño personalizado, CRM, automatizaciones, agendamiento e inteligencia artificial. Sitios y sistemas web construidos a la medida. No vendemos plantillas: diseñamos y conectamos tu web con lo que tu negocio necesita para vender.
+Lo que define el precio: Tipo y complejidad del proyecto.
+
+Niveles:
+- Esencial (EN: Essential)
+  Precio: inversión $1.500.000 – $2.500.000 COP + mantenimiento opcional $100.000 – $200.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): price $460 – $770 USD + optional maintenance $30 – $60 USD/month
+  Para quién: Para negocios que necesitan una presencia digital profesional y sencilla.
+  Incluye: Landing page o sitio pequeño; Diseño responsive; Diseño personalizado, no plantilla; WhatsApp; Formularios; Analytics; SEO técnico básico; Publicación.
+- Automatizado (EN: Automated) — RECOMENDADO
+  Precio: inversión $3.000.000 – $5.500.000 COP + mantenimiento opcional $250.000 – $450.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): price $920 – $1,690 USD + optional maintenance $80 – $140 USD/month
+  Para quién: Para empresas que necesitan una web completa que capture y organice sus leads.
+  Incluye: todo lo del nivel Esencial; Diseño UX/UI; Varias secciones/páginas; Animaciones; CMS; Formularios avanzados y conectados; Automatizaciones; Captura y clasificación de leads; Integraciones básicas; Optimización de conversión.
+- Integrado (EN: Integrated)
+  Precio: inversión desde $6.000.000 COP + mantenimiento opcional desde $500.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): price from $1,850 USD + optional maintenance from $150 USD/month
+  Para quién: Para empresas que quieren que su web sea un sistema inteligente y conectado.
+  Incluye: todo lo del nivel Automatizado; CRM; APIs e integraciones externas; Agendamiento; Dashboards o sistemas internos; Agente de IA con base de conocimiento; Pagos; Sistemas personalizados; Integraciones complejas.
+
+Notas: El mantenimiento mensual es opcional y no forma parte del nivel. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.
+
+### CRM (EN: CRM)
+https://lazycompanies.com/servicios/crm.html
+
+Implementación, personalización, automatización y conexión de CRM con WhatsApp, email, APIs e inteligencia artificial. No somos un software CRM: implementamos, personalizamos, automatizamos y conectamos el CRM de tu operación comercial con el resto de tus herramientas.
+Lo que define el precio: Nivel de implementación, automatización e IA.
+
+Niveles:
+- Esencial (EN: Essential)
+  Precio: implementación $1.200.000 COP + mensualidad $0 – $200.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation $370 USD + monthly fee $0 – $60 USD/month
+  Para quién: Para empresas que necesitan organizar clientes y oportunidades.
+  Incluye: Configuración; Pipeline; Campos personalizados; Usuarios; Contactos; Etapas comerciales; Formularios; Automatizaciones básicas.
+- Automatizado (EN: Automated) — RECOMENDADO
+  Precio: implementación $2.500.000 COP + mensualidad $250.000 – $500.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation $770 USD + monthly fee $80 – $150 USD/month
+  Para quién: Para empresas que quieren automatizar el seguimiento comercial.
+  Incluye: todo lo del nivel Esencial; Lead routing; Seguimiento automático; Notificaciones; WhatsApp; Email; Lead scoring; Dashboards; Integraciones.
+- Integrado (EN: Integrated)
+  Precio: implementación desde $4.500.000 COP + mensualidad desde $500.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation from $1,380 USD + monthly fee from $150 USD/month
+  Para quién: Para empresas con procesos comerciales complejos que quieren incorporar IA.
+  Incluye: todo lo del nivel Automatizado; IA para clasificación de leads; IA para análisis de conversaciones y resúmenes; IA para seguimiento y generación de respuestas; Agentes conectados al CRM; Múltiples pipelines y equipos; APIs, ERP y facturación; Arquitectura personalizada.
+
+Notas: El software/licencia del CRM puede cobrarse aparte. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.
+
+### Agentes Automatizados (EN: Automated Agents)
+https://lazycompanies.com/servicios/agentes.html
+
+Agentes de inteligencia artificial para WhatsApp y web que atienden, califican leads y agendan, con implementación única y operación mensual. Agentes de IA entrenados con tu información que atienden, califican y agendan por WhatsApp o web, las 24 horas. Separamos siempre lo que pagas una vez (implementación) de lo que pagas cada mes (operación).
+Lo que define el precio: Implementación + conversaciones mensuales.
+
+Niveles:
+- Esencial (EN: Essential)
+  Precio: implementación $989.000 COP + operación mensual $200.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation $300 USD + monthly operation $60 USD/month
+  Resumen: Incluye 300 conversaciones al mes.
+  Incluye: 300 conversaciones/mes; 1 canal (WhatsApp o Instagram, a elegir); Hasta 10 preguntas frecuentes configuradas; 1 idioma; Pruebas funcionales; 1 sesión de capacitación.
+  No incluye: Integraciones con CRM u otros sistemas; Captura y clasificación de prospectos; Flujos automatizados; Canales adicionales; Reporte mensual.
+- Automatizado (EN: Automated) — RECOMENDADO
+  Precio: implementación $1.780.000 COP + operación mensual $500.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation $550 USD + monthly operation $150 USD/month
+  Resumen: Incluye 1.000 conversaciones al mes.
+  Incluye: 1.000 conversaciones/mes; 2 canales (WhatsApp + Instagram); Hasta 30 preguntas/intenciones; Captura y clasificación de prospectos; Hasta 3 flujos automatizados; 1 integración sencilla (CRM u hoja de cálculo); Reporte mensual básico.
+  No incluye: Chat web como canal; Más de 3 flujos o flujos personalizados; Más de 1 integración; Reglas avanzadas de clasificación y derivación; Prioridad de soporte.
+- Integrado (EN: Integrated)
+  Precio: implementación desde $3.200.000 COP + operación mensual desde $800.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation from $980 USD + monthly operation from $250 USD/month
+  Resumen: Incluye 3.000 conversaciones al mes.
+  Incluye: 3.000 conversaciones/mes; Hasta 3 canales (WhatsApp + Instagram + chat web); Flujos personalizados (hasta 6); Hasta 3 integraciones compatibles; Reglas de clasificación y derivación; Revisión mensual y prioridad de soporte.
+  No incluye: Canales adicionales a los 3 incluidos; Integraciones por encima de las 3 incluidas; Conversaciones por encima del cupo (se evalúa una ampliación del plan); Costos de plataformas de terceros (Meta/WhatsApp, cuando apliquen).
+
+Notas: Los costos de Meta/WhatsApp, cuando apliquen, pueden cobrarse por separado según las tarifas vigentes de Meta. Precios calculados con el modelo Haiku. Sonnet 5 disponible como mejora — usa la calculadora para ver el valor con cada modelo. Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.
+
+Qué es una conversación: una interacción iniciada por un usuario con el agente dentro de una ventana de 24 horas por canal; los mensajes consecutivos del mismo usuario en esa ventana cuentan como una sola conversación (definición comercial, puede diferir de la medición de WhatsApp/Meta). Si se supera el cupo, se evalúa con el cliente una ampliación del plan antes de generar cargos adicionales.
+Calculadora (https://lazycompanies.com/servicios/agentes.html#calcula-tu-plan): estima implementación y mensualidad entre 100 y 20.000 conversaciones al mes. Modelos de IA: Haiku (estándar): Rápido y eficiente. Ideal para preguntas frecuentes, flujos simples y atención de alto volumen. Sonnet 5 (avanzado): Respuestas más naturales y mejor manejo de conversaciones complejas o que requieren más contexto. Los precios de los niveles están calculados con Haiku; con Sonnet 5 el valor sube y se ve en la calculadora. Por encima de 5.000 conversaciones al mes el valor se confirma con el equipo.
+
+### Conversión de Ventas (EN: Sales Conversion)
+https://lazycompanies.com/servicios/conversion.html
+
+Sistemas de captura, calificación, seguimiento y conversión automática de leads con CRM, WhatsApp, email e inteligencia artificial. Construimos sistemas que capturan, califican, siguen y convierten leads automáticamente.
+Lo que define el precio: Complejidad del funnel y de las automatizaciones.
+
+Niveles:
+- Esencial (EN: Essential)
+  Precio: inversión $1.200.000 – $2.000.000 COP
+  Aprox. en USD (solo referencia, se factura en COP): price $370 – $620 USD
+  Para quién: Lo esencial para capturar y dar seguimiento a cada lead.
+  Incluye: Captura de leads; CRM; Pipeline; Seguimiento; WhatsApp; Email; Notificaciones; Automatizaciones básicas.
+- Automatizado (EN: Automated) — RECOMENDADO
+  Precio: inversión $2.500.000 – $4.500.000 COP
+  Aprox. en USD (solo referencia, se factura en COP): price $770 – $1,380 USD
+  Para quién: Un funnel que trabaja solo, de la captura al agendamiento.
+  Incluye: todo lo del nivel Esencial; Lead scoring; Seguimiento automático; Recuperación de leads; Automatización del funnel; Agendamiento; Automatizaciones multietapa.
+- Integrado (EN: Integrated)
+  Precio: inversión desde $5.000.000 COP
+  Aprox. en USD (solo referencia, se factura en COP): price from $1,540 USD
+  Para quién: Un sistema comercial con IA para procesos complejos.
+  Incluye: todo lo del nivel Automatizado; Agente de ventas con IA; IA para calificación y conversaciones; Recuperación de oportunidades; Pagos; Personalización de conversaciones; Analítica y dashboards; APIs e integraciones empresariales; Múltiples agentes.
+
+Notas: Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.
+
+### Agendamiento (EN: Scheduling)
+https://lazycompanies.com/servicios/agendamiento.html
+
+Sistemas de agendamiento automático con confirmaciones, recordatorios y reprogramaciones, conectados a CRM, WhatsApp e inteligencia artificial. Sistemas de citas que se agendan, confirman, recuerdan y reprograman solos, conectados a tu CRM y a tus canales.
+Lo que define el precio: Complejidad del sistema y cantidad de integraciones.
+
+Niveles:
+- Esencial (EN: Essential)
+  Precio: implementación $700.000 – $1.300.000 COP + mensualidad $0 – $150.000 COP/mes (opcional)
+  Aprox. en USD (solo referencia, se factura en COP): implementation $220 – $400 USD + monthly fee $0 – $50 USD/month (optional)
+  Para quién: Para empezar a recibir citas sin cruces ni llamadas.
+  Incluye: Calendario; Formularios; Confirmación; Recordatorios; Email; WhatsApp.
+- Automatizado (EN: Automated) — RECOMENDADO
+  Precio: implementación $1.500.000 – $2.800.000 COP + mensualidad $150.000 – $350.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation $460 – $860 USD + monthly fee $50 – $110 USD/month
+  Para quién: Gestión completa de la cita, sin intervención humana.
+  Incluye: todo lo del nivel Esencial; Cancelaciones; Reprogramaciones; CRM; Seguimiento; Automatizaciones.
+- Integrado (EN: Integrated)
+  Precio: implementación desde $3.000.000 COP + mensualidad desde $350.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation from $920 USD + monthly fee from $110 USD/month
+  Para quién: Un agente que agenda y soporta varios profesionales, calendarios o sedes.
+  Incluye: todo lo del nivel Automatizado; Agente de IA con conversación natural; Identificación de necesidades y consulta de disponibilidad; Múltiples profesionales, calendarios y sedes; Reglas complejas; Pagos; APIs e integraciones personalizadas.
+
+Notas: Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.
+
+### Procesos Internos (EN: Internal Processes)
+https://lazycompanies.com/servicios/procesos.html
+
+Automatización de procesos internos con integraciones entre herramientas, APIs, bases de datos, documentos e inteligencia artificial. Automatizamos las tareas y procesos que hoy consumen horas de tu equipo.
+Lo que define el precio: Complejidad del proceso y cantidad de sistemas conectados.
+
+Niveles:
+- Esencial (EN: Essential)
+  Precio: inversión $900.000 – $1.800.000 COP
+  Aprox. en USD (solo referencia, se factura en COP): price $280 – $550 USD
+  Para quién: Para procesos pequeños.
+  Incluye: Formularios; Emails; Notificaciones; Documentos; Organización de información; Reportes simples.
+- Automatizado (EN: Automated) — RECOMENDADO
+  Precio: inversión $2.000.000 – $4.000.000 COP
+  Aprox. en USD (solo referencia, se factura en COP): price $620 – $1,230 USD
+  Para quién: Para conectar varias herramientas.
+  Incluye: CRM; Bases de datos; APIs; WhatsApp; Email; Documentos; Reportes; Automatizaciones multietapa.
+- Integrado (EN: Integrated)
+  Precio: inversión desde $4.500.000 COP
+  Aprox. en USD (solo referencia, se factura en COP): price from $1,380 USD
+  Para quién: Para que la IA y tus sistemas trabajen juntos en procesos complejos.
+  Incluye: Agentes internos; Procesamiento de documentos; Clasificación y extracción de información; Análisis de datos y generación de reportes; IA conectada a sistemas; ERP y múltiples sistemas; Dashboards; Arquitectura personalizada.
+
+Notas: Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.
+
+### Apps (EN: Apps)
+https://lazycompanies.com/servicios/apps.html
+
+Desarrollo de web apps, PWA y aplicaciones nativas para iOS y Android, con implementación y mantenimiento mensual. Desde una web app simple hasta una app nativa en las tiendas: construimos el tipo de aplicación que tu negocio necesita para estar en el celular de tus clientes.
+Lo que define el precio: Tipo de aplicación y plataformas.
+
+Niveles:
+- Esencial (Web App Simple) (EN: Essential (Simple Web App))
+  Precio: implementación $1.800.000 – $3.000.000 COP + mantenimiento mensual $0 – $200.000 COP/mes (opcional)
+  Aprox. en USD (solo referencia, se factura en COP): implementation $550 – $920 USD + monthly maintenance $0 – $60 USD/month (optional)
+  Para quién: Un sitio optimizado para verse y sentirse como app en el celular: responsive, sin instalación ni funciones offline.
+  Incluye: Optimizada para verse y sentirse como app en el celular; Diseño responsive; Sin instalación: se abre desde el navegador; Publicación.
+- Automatizado (PWA) (EN: Automated (PWA)) — RECOMENDADO
+  Precio: implementación $4.000.000 – $7.000.000 COP + mensualidad $200.000 – $400.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation $1,230 – $2,150 USD + monthly fee $60 – $120 USD/month
+  Para quién: Una Progressive Web App: instalable desde el navegador, funciona offline y envía notificaciones push, sin pasar por las tiendas de apps.
+  Incluye: todo lo del nivel Esencial; Instalable desde el navegador; Funciona offline; Notificaciones push; Sin pasar por tiendas de apps.
+- Integrado (App Nativa iOS/Android) (EN: Integrated (Native iOS/Android App))
+  Precio: implementación (1 plataforma) desde $9.000.000 COP (ambas plataformas: desde $14.000.000 COP) + mensualidad desde $500.000 COP/mes
+  Aprox. en USD (solo referencia, se factura en COP): implementation (1 platform) from $2,770 USD (both platforms: from $4,310 USD) + monthly fee from $150 USD/month
+  Para quién: Una app real publicada en App Store y/o Google Play, con acceso a funciones nativas del dispositivo.
+  Incluye: App real publicada en App Store y/o Google Play; Acceso a funciones nativas del dispositivo; Máximo rendimiento y presencia en las tiendas; iOS, Android o ambas, según la plataforma elegida.
+  El precio de implementación es para: Una plataforma (iOS o Android).
+  Nota: Las cuentas de desarrollador de Apple ($99 USD/año) y Google Play ($25 USD pago único) son costos externos a cargo del cliente, no incluidos en el precio.
+
+Notas: Los costos de plataformas externas, licencias, infraestructura o servicios de terceros pueden cobrarse por separado. Los valores son una referencia inicial. El precio final depende del alcance, integraciones, volumen, complejidad y funcionalidades requeridas.
+
+## Por tipo de negocio
+
+### Clínicas (EN: Clinics)
+https://lazycompanies.com/sectores/clinicas.html
+
+Implementamos agentes de IA, agendamiento automático y CRM para clínicas en Colombia: tus pacientes reservan por WhatsApp a cualquier hora, reciben recordatorios y nadie se queda sin respuesta.
+
+Problemas que resolvemos:
+- Mensajes que llegan en plena consulta: Mientras atiendes a un paciente, otros escriben preguntando precios y horarios. Cuando por fin respondes, algunos ya reservaron en otro lugar.
+- Citas que no llegan: Cada ausencia deja un hueco en la agenda que nadie alcanza a llenar. Confirmar una por una, por mensaje o llamada, se come horas de recepción.
+- La agenda vive en varios lugares: Un cuaderno, el WhatsApp del celular y una hoja de cálculo. Mover una cita implica revisar los tres y esperar no equivocarse.
+- Pacientes que no vuelven: Quien se hizo un tratamiento hace meses necesita un control o una sesión de mantenimiento, pero nadie le escribe a tiempo.
+
+Un día con el sistema:
+- Lunes · 9:47 p. m.: Una paciente escribe por WhatsApp: quiere saber el precio de una valoración.
+- 9:47 p. m.: El agente le responde con la información que tú aprobaste y le muestra los horarios libres.
+- 9:49 p. m.: Ella elige el jueves a las 10:00. La cita queda en tu agenda y su ficha en el CRM.
+- Miércoles · 10:00 a. m.: Le llega un recordatorio y confirma con un toque.
+- Jueves · 9:30 a. m.: Tu equipo ve en el tablero quién viene hoy y qué preguntó cada paciente.
+Ejemplo ilustrativo. Si un paciente pregunta algo clínico, el agente no lo responde: se lo pasa a tu equipo.
+
+Servicios que recomendamos:
+- Agendamiento: Reservas en línea las 24 horas, confirmaciones y recordatorios automáticos, y reprogramación sin llamadas. Desde $700.000 COP de implementación.
+- Agentes Automatizados: Un agente de IA entrenado con tus servicios, precios y horarios responde por WhatsApp e Instagram y agenda la valoración. Desde $989.000 COP de implementación.
+- CRM: La ficha de cada paciente con sus conversaciones, citas y tratamientos, y avisos para controles y seguimientos. Desde $1.200.000 COP de implementación.
+
+Preguntas frecuentes:
+- ¿El agente puede responder preguntas médicas? No. El agente responde lo que tú definas, como servicios, precios, horarios y preparación para una cita, y agenda. Si un paciente pregunta algo clínico o que requiere criterio profesional, se lo pasa a tu equipo.
+- ¿Qué pasa con los datos de mis pacientes? Los tratamos conforme a la Ley 1581 de 2012 de protección de datos personales y a nuestra Política de privacidad. Definimos contigo qué información puede usar el agente.
+
+### Inmobiliarias (EN: Real estate)
+https://lazycompanies.com/sectores/inmobiliarias.html
+
+Implementamos agentes de IA, CRM y seguimiento automático para inmobiliarias en Colombia: el sistema responde a los interesados que llegan por WhatsApp, Instagram y tu web, filtra quién está listo para comprar o arrendar y agenda la visita.
+
+Problemas que resolvemos:
+- Muchos mensajes, pocos clientes reales: Llegan consultas por WhatsApp, Instagram y la web, y muchas son pura curiosidad. Filtrar a mano quién tiene presupuesto y urgencia toma el día entero.
+- Las mismas preguntas una y otra vez: ¿Sigue disponible? ¿Cuánto es la administración? ¿Aceptan mascotas? Responder lo mismo cien veces aleja al asesor de cerrar negocios.
+- Seguimientos que se olvidan: Un interesado que dijo «lo voy a pensar» necesita volver a saber de ti. Sin un sistema, se enfría y termina con otra inmobiliaria.
+- Clientes regados entre asesores: Cada asesor lleva sus clientes en su propio celular. Si alguien sale del equipo, se van con él los contactos y el historial.
+
+Un día con el sistema:
+- Domingo · 8:12 p. m.: Llega una consulta por Instagram sobre un apartamento en arriendo.
+- 8:12 p. m.: El agente responde disponibilidad, valor y requisitos, y pregunta presupuesto, fecha de mudanza y cuántas personas vivirían.
+- 8:15 p. m.: El interesado cumple los requisitos: el agente le ofrece horarios y agenda la visita del martes.
+- 8:15 p. m.: El CRM crea su ficha con todo lo que respondió y la asigna a un asesor.
+- Lunes · 9:00 a. m.: El asesor abre su tablero y encuentra la visita confirmada, con todo el contexto.
+Ejemplo ilustrativo. Si el interesado no responde, el sistema le vuelve a escribir días después para retomar.
+
+Servicios que recomendamos:
+- Agentes Automatizados: Responde al instante por WhatsApp, Instagram y web, filtra por presupuesto y requisitos, y agenda visitas. Desde $989.000 COP de implementación.
+- CRM: Cada interesado y cada propiedad en un solo tablero, con el historial de conversaciones y el asesor asignado. Desde $1.200.000 COP de implementación.
+- Conversión de Ventas: Seguimiento automático a quien preguntó y no avanzó, en el momento justo, hasta cerrar o descartar. Desde $1.200.000 COP de implementación.
+
+Preguntas frecuentes:
+- ¿Sirve para venta y para arriendo? Sí. Configuramos preguntas de filtro distintas para cada caso, como presupuesto, fecha y requisitos, y el agente agenda la visita según el tipo de inmueble.
+
+### Restaurantes (EN: Restaurants)
+https://lazycompanies.com/sectores/restaurantes.html
+
+Implementamos reservas automáticas, agentes de IA para WhatsApp e Instagram y webs para restaurantes en Colombia: tus clientes reservan, preguntan por la carta y confirman sin que nadie tenga que soltar la cocina o el salón.
+
+Problemas que resolvemos:
+- El teléfono suena en la hora pico: Justo cuando el salón está lleno llegan las llamadas y los mensajes para reservar. Nadie puede contestar sin descuidar a quien ya está en la mesa.
+- Mesas reservadas que quedan vacías: Sin una confirmación, una reserva que no llega es una mesa perdida en el mejor horario de la noche.
+- Las mismas preguntas en Instagram: ¿Tienen opciones vegetarianas? ¿Hasta qué hora abren? ¿Hay parqueadero? Los mensajes directos se acumulan y algunos nunca se responden.
+- Una carta difícil de encontrar: Si tu carta solo está en una foto dentro de una historia destacada, quien te busca en Google no la ve y no sabe si vale la pena ir.
+
+Un día con el sistema:
+- Viernes · 4:30 p. m.: Alguien pregunta por Instagram si hay mesa para seis esta noche.
+- 4:30 p. m.: El agente revisa la disponibilidad, ofrece las 8:00 o las 8:30 y toma el nombre de la reserva.
+- 4:31 p. m.: La reserva queda en el sistema y le llega la confirmación por WhatsApp.
+- 6:30 p. m.: Recordatorio automático: el cliente confirma con un toque.
+- 8:00 p. m.: El anfitrión ve en la lista del día quién llega, cuántos son y si es una celebración.
+Ejemplo ilustrativo. Si el cliente cancela, la mesa vuelve a quedar disponible para otra reserva.
+
+Servicios que recomendamos:
+- Agendamiento: Reservas en línea y por chat, confirmaciones y recordatorios, y la lista del día para el salón. Desde $700.000 COP de implementación.
+- Agentes Automatizados: Responde por Instagram y WhatsApp sobre la carta, horarios, ubicación y eventos, y toma la reserva. Desde $989.000 COP de implementación.
+- Web: Una web con tu carta, fotos y reservas que Google sí puede leer y mostrar. Desde $1.500.000 COP de implementación.
+
+Preguntas frecuentes:
+- ¿El agente sabe qué hay en la carta? Sí. Lo entrenamos con tu carta, precios, horarios y políticas, por ejemplo para grupos grandes o eventos, y responde solo con esa información.
+
+### Tiendas de ropa (EN: Clothing stores)
+https://lazycompanies.com/sectores/tiendas-de-ropa.html
+
+Implementamos agentes de IA, CRM y seguimiento automático para tiendas de ropa en Colombia: el sistema responde precios, tallas y envíos por Instagram y WhatsApp, y vuelve a escribirle a quien preguntó y no compró.
+
+Problemas que resolvemos:
+- Los mismos mensajes todo el día: Precio, tallas, colores, envíos y medios de pago. Responder uno por uno ocupa a alguien de tiempo completo, y en un lanzamiento no da abasto.
+- Ventas que se pierden por tardar: Quien pregunta por una prenda quiere saber ya. Si la respuesta llega horas después, ya compró en otra tienda.
+- Interesados que nadie retoma: Muchos preguntan, dicen «lo pienso» y desaparecen. Nadie lleva la cuenta de a quién escribirle de nuevo.
+- Clientas que no se enteran de lo nuevo: Llega una colección y solo la ven quienes justo miran tus historias. Tus compradoras frecuentes no reciben un aviso propio.
+
+Un día con el sistema:
+- 10:00 a. m.: Publicas la nueva colección en Instagram.
+- 10:03 a. m.: Empiezan los mensajes: precio, tallas, envíos. El agente responde cada uno al momento, con la información que tú cargaste.
+- 10:05 a. m.: Una clienta pide un vestido en talla M: el agente le da el total con envío y los medios de pago que tú definiste.
+- 10:05 a. m.: Su pedido y sus datos quedan en el CRM.
+- Al día siguiente: A quien preguntó y no compró le llega un mensaje para retomar la conversación.
+Ejemplo ilustrativo. El agente responde con la información de tallas y disponibilidad que tú le cargues.
+
+Servicios que recomendamos:
+- Agentes Automatizados: Responde mensajes directos y WhatsApp sobre precios, tallas, envíos y medios de pago, al momento y también de noche. Desde $989.000 COP de implementación.
+- Conversión de Ventas: Vuelve a escribirle a quien preguntó y no compró, y avisa a tus clientas cuando hay novedades. Desde $1.200.000 COP de implementación.
+- CRM: Tus compradoras en una sola lista, con lo que preguntaron y compraron, para venderles de nuevo. Desde $1.200.000 COP de implementación.
+
+Preguntas frecuentes:
+- ¿Puede decir si tengo una talla disponible? Responde con la información de tallas y disponibilidad que tú le cargues. Para que consulte tu inventario en tiempo real hace falta una integración, que se evalúa en el nivel Integrado.
+
+## Herramientas
+
+- Diagnóstico gratuito (https://lazycompanies.com/diagnostico.html): 7 preguntas, toma un minuto; estima el potencial de automatización del negocio (0 a 100) y recomienda 3 servicios para empezar.
+- Calculadora de agentes de IA (https://lazycompanies.com/servicios/agentes.html#calcula-tu-plan).
+
+## Páginas
+
+- Inicio: https://lazycompanies.com/
+- Servicios: https://lazycompanies.com/servicios.html
+- Nosotros: https://lazycompanies.com/nosotros.html
