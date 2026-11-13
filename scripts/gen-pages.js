@@ -662,6 +662,7 @@ const LLMS_FULL = `# Lazy Company — información completa
 - Soporte: las incidencias se atienden por WhatsApp; si el error fue nuestro, lo arreglamos sin costo adicional.
 - Datos: se manejan con los estándares de seguridad de cada plataforma que integramos. Nunca vendemos ni compartimos información con terceros. Política: ${SITE}/privacidad.html
 - Tiempos de implementación: dependen del alcance y de las integraciones; el equipo entrega un cronograma claro al iniciar.
+- Formas de pago, medios de pago, descuentos y promociones: no están publicados; el equipo los confirma por WhatsApp (https://wa.me/573014112090). No afirmar ni negar ninguno (por ejemplo, si se acepta tarjeta).
 
 ## Cómo leer los precios
 
