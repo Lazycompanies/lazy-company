@@ -246,13 +246,13 @@ const headHTML = o => `<!DOCTYPE html>
 <meta property="og:url" content="${o.url}">
 <meta property="og:title" content="${attr(o.title)}">
 <meta property="og:description" content="${attr(o.ogdesc)}">
-<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image" content="${SITE}/og-lazy.png">
 <meta property="og:locale" content="es_CO">
 <meta property="og:site_name" content="Lazy Company">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${attr(o.title)}">
 <meta name="twitter:description" content="${attr(o.ogdesc)}">
-<meta name="twitter:image" content="${SITE}/og-image.png">
+<meta name="twitter:image" content="${SITE}/og-lazy.png">
 
 <script type="application/ld+json">
 ${JSON.stringify(o.ld, null, 2)}
